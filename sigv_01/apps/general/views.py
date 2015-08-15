@@ -22,6 +22,18 @@ def ciudades(request):
 	return render(request, template, {"listaMenu": menu(request), 'lstCiudad': lstCiudad})
 #-------------------------------------
 
+#------------ Notificaciones ---------------
+def notificaciones(request):
+	lstNotificacion = Notificacion.objects.all()
+	template = 'formVerNotificaciones.html'
+	return render(request, template, {"listaMenu": menu(request), 'lstNotificacion': lstNotificacion})
+
+def nuevo_notificacion(request):
+	lstAviso = Aviso.objects.all()
+	template = 'formGenerarNotificaciones.html'
+	return render(request, template, {"listaMenu": menu(request), 'lstAviso': lstAviso})
+#-------------------------------------
+
 #------------ Empleado ---------------
 def empleados(request):
 	lstEmpleado = Empleado.objects.filter(estadoEmpleado="Activo")
@@ -89,7 +101,7 @@ def guardar_empleado(request, empleado_id):
 	returnnse(template,context_instance=RequestContext(request, locals()))
 #-------------------------------------
 
-#------------ Proveedor ---------------by Jordi
+#------------ Proveedor --------------- by Jordi
 def proveedores(request): 
 	lstProveedor = Proveedor.objects.all()
 	template = 'formVerProveedores.html'
@@ -154,3 +166,6 @@ def guardar_proveedor(request, proveedor_id):
         return redirect('clientes')
 	returnnse(template,context_instance=RequestContext(request, locals()))
 #-------------------------------------
+
+
+#------------ Notificaciones ---------------

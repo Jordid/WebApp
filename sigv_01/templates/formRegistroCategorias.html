@@ -32,7 +32,7 @@
                     <label class="control-label col-md-4" for="name">Descripción:</label>
                     <div class="col-md-4">
                         {%if categoriaSelec.id != 0 %}
-                            <input class="form-control" type="text" name="descripcion" placeholder="" value={{categoriaSelec.descripcionCategoria}} />
+                            <input class="form-control" type="text" name="descripcion" placeholder="" value="{{categoriaSelec.descripcionCategoria}}" />
                         {%else%}
                             <input class="form-control" type="text" name="descripcion" placeholder=""/>
                         {%endif%}

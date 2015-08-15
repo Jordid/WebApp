@@ -14,7 +14,7 @@ def categorias(request):
 	template = 'formVerCategorias.html'
 	return render(request, template, {"listaMenu": menu(request), "lstCategoria": lstCategoria})
 
-@login_requerido
+#@login_requerido
 def nuevo_categoria(request):
 	categoriaSelec = Categoria(id=0)
 	template = 'formRegistroCategorias.html'

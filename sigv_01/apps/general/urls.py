@@ -6,6 +6,9 @@ urlpatterns = patterns('',
 
     url(r'^ciudad/lista$', 'apps.general.views.ciudades', name='ciudades'),
 
+    url(r'^notificacion/lista$', 'apps.general.views.notificaciones', name='notificaciones'),
+    url(r'^notificacion/nuevo$', 'apps.general.views.nuevo_notificacion', name='nuevo_notificacion'),
+
     url(r'^empleado/lista$', 'apps.general.views.empleados', name='empleados'),
     url(r'^empleado/nuevo$', 'apps.general.views.nuevo_empleado', name='nuevo_empleado'),
     url(r'^empleado/editar/(\d+)$', 'apps.general.views.editar_empleado', name='editar_empleado'),
