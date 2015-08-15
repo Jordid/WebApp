@@ -1,0 +1,357 @@
+{% extends 'index.html' %}
+{% block content %}
+    <header id="header">
+        <nav id="mibaner_2" class="navbar navbar-inverse" role="banner">
+            <div  id="micontainer" class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#minavb_2">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                
+            <div id="minavb_2" class="collapse navbar-collapse navbar-left">
+                <ul id="miulnav" class="nav navbar-nav">
+                    <li id="ilnav"><a href="formVerCuentasPorCobrar.html">Ver</a></li>
+                    <li id="ilnav" class="active"><a href="formRegistroCuentasPorCobrar.html">Nuevo</a></li>
+                </ul>
+            </div>    
+        </nav>		
+    </header>
+
+<div class="container">
+        <form id="miform" action="" class="form-horizontal">
+        <!--<form class="contact_form" action="" method="post" name="contact_form">-->         		  
+                <div class="form-group">
+                    <h2><label class="control-label col-md-4" for="name">Datos de la cuenta por cobrar</label></h2> 
+                    <!--<div class="col-md-4">
+                        <span class="required_notification">* Datos Obligatorios</span>
+                    </div>-->
+                </div>
+                <hr>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="name">C.C./Ruc:</label>
+                    <div class="col-md-2">
+                        <input class="form-control" type="text" name="cedula_ruc" placeholder="0705463124" />
+                    </div>
+                    <label class="control-label col-md-4" for="name">Cont. No.:</label>
+                    <div class="col-md-2">
+                        <input class="form-control" type="text" name="num_cuenta" placeholder="001" />
+                    </div>
+                    
+                </div>              
+
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="name">Cliente:</label>
+                    <div class="col-md-3">
+                        <input class="form-control" type="text" name="cliente" placeholder="Jordi Marcelo Duran Pesantez" />
+                    </div>
+                    <label class="control-label col-md-2" for="name">Fecha:</label>
+                    <div class="form-inline">
+                        <div class="col-md-1">
+                            <select class="form-control" id="selectbasic" name="selectbasic">
+                                <option>Día</option>
+                                <option>01</option>
+                                <option>02</option>
+                                <option>03</option>
+                                <option>04</option>
+                                <option>05</option>
+                                <option>06</option>
+                                <option>07</option>
+                                <option>08</option>
+                                <option>09</option>
+                                <option>10</option>
+                                <option>11</option>
+                                <option>12</option>
+                                <option>13</option>
+                                <option>14</option>
+                                <option>15</option>
+                                <option>16</option>
+                                <option>17</option>
+                                <option>18</option>
+                                <option>19</option>
+                                <option>20</option>
+                                <option>21</option>
+                                <option>22</option>
+                                <option>23</option>
+                                <option>24</option>
+                                <option>25</option>
+                                <option>26</option>
+                                <option>27</option>
+                                <option>28</option>
+                                <option>29</option>
+                                <option>30</option>
+                                <option>31</option>
+
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-inline">
+                        <div class="col-md-1">
+                            <select class="form-control" id="selectbasic" name="selectbasic">
+                                <option>Mes</option>
+                                <option>Ene</option>
+                                <option>Feb</option>
+                                <option>Mar</option>
+                                <option>Abr</option>
+                                <option>May</option>
+                                <option>Jun</option>
+                                <option>Jul</option>
+                                <option>Ago</option>
+                                <option>Sep</option>
+                                <option>Oct</option>
+                                <option>Nov</option>
+                                <option>Dic</option>
+                                <option>Año</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-inline">
+                        <div class="col-md-1">
+                            <select class="form-control" id="selectbasic" name="selectbasic">
+                                <option>Año</option>
+                                <option>15</option>
+                                <option>16</option>
+                                <option>17</option>
+                                <option>18</option>
+                                <option>19</option>
+                                <option>20</option>
+                                <option>21</option>
+                                <option>22</option>
+                                <option>23</option>
+                                <option>24</option>
+                                <option>25</option>
+                                <option>26</option>
+
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="name">Teléfono:</label>
+                    <div class="col-md-2">
+                        <input class="form-control" type="text" name="telefono" placeholder="0989108982" />
+                    </div>
+                </div>
+
+                <div class="form-group"> 
+                    <div class="form-inline">
+                        <label class="control-label col-md-2" for="name">Provincia:</label>
+                        <div class="col-md-1">
+                            <select class="form-control" id="selectbasic" name="selectbasic">
+                                <option>Azuay</option>
+                                <option>El Oro</option>
+                                <option>Guayas</option>  
+                                <option>Riobamba</option>  
+                                <option>Esmeraldas</option>  
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-inline">
+                        <label class="control-label col-md-2" for="name">Ciudad:</label>
+                        <div class="col-md-2">
+                            <select class="form-control" id="selectbasic" name="selectbasic">
+                                <option>El Cambio</option>
+                                <option>Guabo</option>
+                                <option>La Iberia</option>
+                                <option>Machala</option>
+                                <option>Pasaje</option>
+                                <option>Santa Rosa</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="name">Dirección:</label>
+                    <div class="col-md-8">
+                        <input class="form-control" type="text" name="direccion" placeholder="Av. Alejandro Castro y Av. Ferroviaria"  />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="name">Cuota Inicial:</label>
+                    <div class="col-md-2">
+                        <input class="form-control" type="text" name="cuota_inicial" placeholder="20.00" />
+                    </div>
+                    <label class="control-label col-md-1" for="name">Cuotas:</label>
+                    <div class="col-md-2">
+                        <input class="form-control" type="text" name="cuotas_de" placeholder="10.00" />
+                    </div>
+
+                    <div class="form-inline">
+                        <label class="control-label col-md-2" for="name">Forma de Pago:</label>
+                        <div class="col-md-2">
+                            <select class="form-control" id="selectbasic" name="selectbasic">
+                                <option>Diario</option>
+                                <option>Semanal</option>
+                                <option>Mensual</option>
+                                <option>Trimestral</option>
+                                <option>Anual</option>
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="name">Saldo empenzará:</label>
+                     <div class="form-inline">
+                        <div class="col-md-1">
+                            <select class="form-control" id="selectbasic" name="selectbasic">
+                                <option>Día</option>
+                                <option>01</option>
+                                <option>02</option>
+                                <option>03</option>
+                                <option>04</option>
+                                <option>05</option>
+                                <option>06</option>
+                                <option>07</option>
+                                <option>08</option>
+                                <option>09</option>
+                                <option>10</option>
+                                <option>11</option>
+                                <option>12</option>
+                                <option>13</option>
+                                <option>14</option>
+                                <option>15</option>
+                                <option>16</option>
+                                <option>17</option>
+                                <option>18</option>
+                                <option>19</option>
+                                <option>20</option>
+                                <option>21</option>
+                                <option>22</option>
+                                <option>23</option>
+                                <option>24</option>
+                                <option>25</option>
+                                <option>26</option>
+                                <option>27</option>
+                                <option>28</option>
+                                <option>29</option>
+                                <option>30</option>
+                                <option>31</option>
+
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-inline">
+                        <div class="col-md-1">
+                            <select class="form-control" id="selectbasic" name="selectbasic">
+                                <option>Mes</option>
+                                <option>Ene</option>
+                                <option>Feb</option>
+                                <option>Mar</option>
+                                <option>Abr</option>
+                                <option>May</option>
+                                <option>Jun</option>
+                                <option>Jul</option>
+                                <option>Ago</option>
+                                <option>Sep</option>
+                                <option>Oct</option>
+                                <option>Nov</option>
+                                <option>Dic</option>
+                                <option>Año</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-inline">
+                        <div class="col-md-1">
+                            <select class="form-control" id="selectbasic" name="selectbasic">
+                                <option>Año</option>
+                                <option>15</option>
+                                <option>16</option>
+                                <option>17</option>
+                                <option>18</option>
+                                <option>19</option>
+                                <option>20</option>
+                                <option>21</option>
+                                <option>22</option>
+                                <option>23</option>
+                                <option>24</option>
+                                <option>25</option>
+                                <option>26</option>
+
+                            </select>
+                        </div>
+                    </div>
+
+                    <label class="control-label col-md-4" for="name"></label>
+                    <div class="col-md-1">
+                        <button class="submit" type="submit">Quitar</button>  
+                    </div>
+                    <div class="col-md-1">
+                        <button class="submit" type="submit">Add</button>  
+                    </div>
+                </div>
+            
+                <div class="container  col-md-11">
+                    <div class="table-responsive">
+                    <table id="mitabla" class="table table-bordered table-condensed">
+                        <tr><!-- warning danger active ó success ó info-->
+                            <th id="misth1" class="col-md-1">Cantidad</th>
+                            <th id="misth2" class="col-md-6">Artículo</th>
+                            <th id="misth3" class="col-md-1">Valor unitario</th>
+                            <th id="misth4" class="col-md-1">Valor total</th>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>TV lg 82</td>
+                            <td>500.00</td>
+                            <td>50.00</td>
+                        <tr>
+                            <td>3</td>
+                            <td>Plancha a vapor</td>
+                            <td>15.00</td>
+                            <td>45.00</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Cama</td>
+                            <td>210.00</td>
+                            <td>420.00</td>
+                        </tr>
+                    </table>     
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2">Observaciones:</label>
+                    <div class="col-md-6">
+                        <textarea rows="1" class="form-control" name="observaciones" placeholder=""></textarea>
+                    </div>
+
+                    <label class="control-label col-md-1" for="name">Total:</label>
+                    <div class="col-md-2">
+                        <input class="form-control" type="text" name="total" placeholder="1200.00" />
+                    </div>
+                    
+                </div>
+                    <div class="form-group">
+                    <label class="control-label col-md-9" for="name">Saldo:</label>
+                    <div class="col-md-2">
+                        <input class="form-control" type="text" name="saldo" placeholder="100.00" />
+                    </div>
+                </div>
+                <hr>
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="name"></label>
+                    <div class="col-md-3">
+                        <button class="submit" type="submit">Guardar</button>        
+                    </div>
+
+                    <div class="col-md-2">
+                        <button class="submit" type="submit">Cancelar</button>        
+                    </div>
+                </div>  
+                <br>         
+        </form>
+    </div>  
+
+{% endblock %}

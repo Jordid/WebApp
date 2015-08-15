@@ -1,0 +1,155 @@
+{% extends 'index.html' %}
+{% block content %}
+    <header id="header">
+        <nav id="menu-fixed2" class="navbar navbar-inverse" role="banner">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                
+                <div class="collapse navbar-collapse navbar-right">
+                    <ul class="nav navbar-nav">
+                        <li><a href="index.html">Inicio</a></li>
+                        <li  class="active"><a href="formRegistroProductos.html">Nuevo</a></li>
+                        <li><a href="formActualizarProductos.html">Actualizar</a></li>
+                        <li><a href="formVerProductos.html">Ver</a></li>
+                        <li><a href="formEliminarProductos.html">Eliminar</a></li>
+                      
+                        
+                    </ul>
+                </div>
+            </div><!--/.container-->
+        </nav><!--/nav-->
+        
+    </header><!--/header-->
+    <br><br><br><br>
+    <div class="container">
+        <form id="miform" action="" class="form-horizontal">
+        <!--<form class="contact_form" action="" method="post" name="contact_form">-->   
+   
+                
+                           		  
+                <div class="form-group">
+                    <h2><label class="control-label col-md-5" for="name">Datos del Producto</label></h2> 
+                    <div class="col-md-4">
+                        <span class="required_notification">* Datos Obligatorios</span>
+                    </div>
+                </div>
+                <hr>
+
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="name">Código:</label>
+                    <div class="col-md-5">
+                        <input class="form-control" type="text" name="codigo" placeholder="" />
+                    </div>
+                    
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="name">Descripción:</label>
+                    <div class="col-md-5">
+                        <input class="form-control" type="text" name="descripcion" placeholder="" />
+                    </div>
+                </div>
+
+                <!--<div class="form-group">
+                    <label class="control-label col-md-4" for="name">Cantidad:</label>
+                    <div class="col-md-5">
+                        <input class="form-control" type="text" name="cantidad" placeholder="" />
+                    </div>
+
+                </div>-->
+
+                <div class="form-group"> 
+                    <div class="form-inline">
+                        <label class="control-label col-md-4" for="name">Cantidad:</label>
+                        <div class="col-md-2">
+                            <input class="form-control" type="text" name="cantidad" placeholder="" />
+                        </div>
+                    </div>
+
+                    <div class="form-inline">
+                        <label class="control-label col-md-1" for="name">Categoría</label>
+                        <div class="col-md-2">
+                            <select class="form-control" id="selectbasic" name="selectbasic">
+                                <option>Refrigeradoras</option>
+                                <option>Televisores</option>
+                                <option>Planchas</option>
+                                <option>Camas</option>
+                                <option>Cocinas</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="name">Stock mínimo:</label>
+                    <div class="col-md-5">
+                        <input class="form-control" type="text" name="stock minimo" placeholder="" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="name">Costo:</label>
+                    <div class="col-md-5">
+                        <input class="form-control" type="text" name="costo" placeholder="" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="name">Valor agregado:</label>
+                    <div class="col-md-5">
+                        <input class="form-control" type="text" name="valor agregado" placeholder="" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="name">Iva:</label>
+                    <div class="col-md-5">
+                        <input class="form-control" type="text" name="iva" placeholder="" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="name">Precio contado:</label>
+                    <div class="col-md-5">
+                        <input class="form-control" type="text" name="precio contado" placeholder="" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="name">Precio crédito:</label>
+                    <div class="col-md-5">
+                        <input class="form-control" type="text" name="precio credito" placeholder="" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="name">Marca:</label>
+                    <div class="col-md-5">
+                        <input class="form-control" type="text" name="marca" placeholder="" />
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="prependedcheckbox">Estado: Activo/Inactivo:</label>
+                    <div class="control-label col-md-1"><input type="checkbox"></div>
+                </div>
+
+                <!--<label class="control-label" for="textinput">Correo:</label>
+                <input id="textinput" name="textinput" type="email" placeholder="correo" class="input-xlarge">-->
+                <hr>
+                <div class="form-group">
+                    <div class="col-md-2 col-md-offset-6">
+                        <button class="submit" type="submit">Guardar</button>        
+                    </div>
+                </div>
+                <br>            
+        </form>
+    </div>  
+{% endblock %}

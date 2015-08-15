@@ -1,0 +1,58 @@
+{% extends 'index.html' %}
+{% block content %}
+    <header id="header">
+
+        <nav id="mibaner_2" class="navbar navbar-inverse" role="banner">
+            <div  id="micontainer" class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#minavb_2">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                
+            <div id="minavb_2" class="collapse navbar-collapse navbar-left">
+                <ul id="miulnav" class="nav navbar-nav">
+                    <li id="ilnav" class="active"><a href="formVerCiudades.html">Ver</a></li>
+                    <li id="ilnav"><a href="formRegistroCiudades.html">Nuevo</a></li>
+                    <li id="ilnav"><input class="form-control" type="text" name="buscar" placeholder="Buscar"/></li>
+                    
+                </ul>
+            </div>    
+        </nav>
+        
+    </header>
+
+
+<div class="container">
+
+    <div class="container">
+        <h2><label class="control-label col-md-7" for="name">Lista de ciudades</label></h2>
+    </div>
+
+    <div class="container col-md-5">
+        <div class="table-responsive">
+        <table id="mitabla" class="table table-bordered table-condensed">
+            <tr>
+                <th id="misth1">Código</th>
+                <th id="misth2">Ciudad</th>
+                <th id="misth3">Provincia</th>
+                <th id="misth4" colspan="2">Acciones</th>
+            </tr>
+            
+            {%for ciu in lstCiudad%}
+            <tr>
+                <td>{{ciu.id}}</td>
+                <td>{{ciu.nombreCiudad}}</td>
+                <td>{{ciu.provinciaCiudad.nombreProvincia}}</td>
+                <td id="td_editar"><span id"icon_editar" class="glyphicon glyphicon-edit"></span>Editar</td>
+                <td id="td_eliminar"><span class="glyphicon glyphicon-remove"></span>Eliminar</td>
+            </tr>
+            {%endfor%}
+           
+        </table>     
+        </div>
+    </div>
+        </div>
+        
+{% endblock %}

@@ -1,0 +1,117 @@
+{% extends 'index.html' %}
+{% block content %}
+    <header id="header">
+        <nav id="mibaner_2" class="navbar navbar-inverse" role="banner">
+            <div  id="micontainer" class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#minavb_2">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                
+            <div id="minavb_2" class="collapse navbar-collapse navbar-left">
+                <ul id="miulnav" class="nav navbar-nav">
+                    <li id="ilnav"><a href="formVerProvincias.html">Ver</a></li>
+                    <li id="ilnav" class="active"><a href="formRegistroProvincias.html">Nuevo</a></li>
+                </ul>
+            </div>    
+        </nav>
+    </header>
+
+<div id="loguin" class="container">
+            <p><br/></p>
+        <div class="row">
+            <div class="col-md-8"></div>
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <form action="" class="form-horizontal">
+                            <div class="form-group">
+                                <h2><label class="control-label col-md-8" for="name">Acceso al Sistema</label></h2> 
+                            </div>
+                            <hr>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-4" for="name">Usuario:</label>
+                                <div class="col-md-8">
+                                    <input class="form-control" type="text" name="usuario" placeholder="jordid" />
+                                </div>
+                            </div>
+
+                            <br>    
+                            <div class="form-group" >
+                                <label class="control-label col-md-4" for="password">Password:</label>
+                                <div class="col-md-8">
+                                    <input class="form-control" type="password" name="password" placeholder="............" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-4" for="prependedcheckbox">Recordarme:</label>
+                                <div class="control-label col-md-1"><input type="checkbox"></div>
+                            </div>
+                            
+                            <hr>
+
+                            <div class="row" >
+                                <div class="col-md-5">
+                                    <button id="btnCerrar" type="button" class="btn"><span class="glyphicon glyphicon-off"></span> Salir</button>
+                                </div>
+
+                                <div class="col-md-4">
+                                      <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-lock"></span> Entrar</button>
+                                </div>
+                            </div>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+        <form id="miform" action="" class="form-horizontal">
+        <!--<form class="contact_form" action="" method="post" name="contact_form">-->   
+   
+                
+                                  
+                <div class="form-group">
+                    <h2><label class="control-label col-md-5" for="name">Dato de la provincia</label></h2> 
+                    <!--<div class="col-md-4">
+                        <span class="required_notification">Todos los campos son obligatorios</span>
+                    </div>-->
+                </div>
+                <hr>
+
+                <!--<div class="form-group">
+                    <label class="control-label col-md-4" for="name">Código:</label>
+                    <div class="col-md-5">
+                        <input class="form-control" type="text" name="codigo" placeholder="" />
+                    </div>
+                    
+                </div>-->
+
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="name">Descripción:</label>
+                    <div class="col-md-5">
+                        <input class="form-control" type="text" name="descripcion" placeholder=""/>
+                    </div>
+                </div>
+
+                <!--<label class="control-label" for="textinput">Correo:</label>
+                <input id="textinput" name="textinput" type="email" placeholder="correo" class="input-xlarge">-->
+                <hr>
+                <div class="form-group">
+                    <div class="col-md-2 col-md-offset-6">
+                        <button class="submit" type="submit">Guardar</button>        
+                    </div>
+                </div>
+                <br>            
+        </form>
+    </div> 
+
+{% endblock %}

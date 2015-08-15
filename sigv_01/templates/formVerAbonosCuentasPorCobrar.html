@@ -1,0 +1,57 @@
+{% extends 'index.html' %}
+{% block content %}
+
+    <header id="header">
+        <nav id="mibaner_2" class="navbar navbar-inverse" role="banner">
+            <div  id="micontainer" class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#minavb_2">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                
+            <div id="minavb_2" class="collapse navbar-collapse navbar-left">
+                <ul id="miulnav" class="nav navbar-nav">
+                    <li id="ilnav" class="active"><a href="formVerAbonosCuentasPorCobrar.html">Ver</a></li>
+                    <li id="ilnav"><a href="formRegistroAbonosCuentasPorCobrar.html">Nuevo</a></li>
+                    <li id="ilnav"><input class="form-control" type="text" name="buscar" placeholder="Buscar"/></li>
+
+                </ul>
+            </div>    
+        </nav>
+    </header>
+
+	<div class="container">
+        <h2><label class="control-label col-md-7" for="name">Lista de abonos de cuentas por cobrar</label></h2>
+    </div>
+
+    <div class="container col-md-9">
+        <div class="table-responsive">
+        <table id="mitabla" class="table table-bordered table-condensed">
+            <tr><!-- warning danger active ó success ó info-->
+                <th id="misth1">Id</th>
+                <th id="misth2">Num. recibo</th>
+                <th id="misth3">Fecha</th>
+                <th id="misth4">Total</th>
+                <th id="misth5">Abono</th>
+                <th id="misth6">Saldo</th>
+                <th id="misth7">Editar</th>
+                <th id="misth8">Eliminar</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>000111</td>
+                <td>06-Ago-2015</td>
+                <td>1200.00</td>
+                <td>50.00</td>
+                <td>1150.00</td>
+                <td id="td_editar"><span id"icon_editar" class="glyphicon glyphicon-edit"></span>Editar</td>
+                <td id="td_eliminar"><span class="glyphicon glyphicon-remove"></span>Eliminar</td>
+            </tr>
+        </table>     
+    </div>
+    </div>
+
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+{% endblock %}

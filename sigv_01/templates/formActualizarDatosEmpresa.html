@@ -1,0 +1,92 @@
+{% extends 'index.html' %}
+{% block content %}
+
+<div class="container">
+        <form id="miform" action="" class="form-horizontal">
+        <!--<form class="contact_form" action="" method="post" name="contact_form">-->             
+                <div class="form-group">
+                    <h2><label class="control-label col-md-5" for="name">Datos de la empresa</label></h2> 
+                    <div class="col-md-4">
+                        <span class="required_notification">Todos los campos son obligatorio</span>
+                    </div>
+                </div>
+                <hr>
+
+                <div class="form-group">
+					<label class="control-label col-md-4" for="name">Logotipo:</label>
+	                <div  id="subirLogotipo" class="col-md-2">
+	                    <img src="../static/images/logo.jpg" alt="logo" class="img-responsive img-rounded">             
+	                </div>
+                </div>
+
+				<div class="form-group">
+                    <label class="control-label col-md-4" for="name">Nombre:</label>
+                    <div class="col-md-5">
+                        <input class="form-control" type="text" name="nombre" placeholder="" />
+                    </div>
+                </div>                
+
+
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="name">Teléfono:</label>
+                    <div class="col-md-5">
+                        <input class="form-control" type="text" name="telefono" placeholder="" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="email">Email:</label>
+                    <div class="col-md-5">
+                        <input class="form-control" type="email" name="email" placeholder="" />
+                    </div>
+                    <span class="form_hint">Formato "name@something.com"</span>
+                </div>
+
+                <div class="form-group">
+			        <label class="control-label col-xs-4">Dirección:</label>
+			        <div class="col-xs-5">
+			            <textarea rows="2" class="form-control" placeholder=""></textarea>
+			        </div>
+			    </div>
+
+
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="name">Logo:</label>
+                    <div class="col-md-5">
+                        <input class="form-control" type="text" name="logo" placeholder="" />
+                    </div>
+                </div>
+
+   				<div class="form-group">
+			        <label class="control-label col-xs-4">Misión:</label>
+			        <div class="col-xs-5">
+			            <textarea rows="2" class="form-control" name="mision" placeholder=""></textarea>
+			        </div>
+			    </div>
+
+                <div class="form-group">
+			        <label class="control-label col-xs-4">Visión:</label>
+			        <div class="col-xs-5">
+			            <textarea rows="2" class="form-control" name="vision" placeholder=""></textarea>
+			        </div>
+			    </div>
+
+                <div class="form-group">
+			        <label class="control-label col-xs-4">Quienes somos:</label>
+			        <div class="col-xs-5">
+			            <textarea rows="2" class="form-control" name="quienessomos" placeholder=""></textarea>
+			        </div>
+			    </div>
+
+
+                <hr>
+                <div class="form-group">
+                    <div class="col-md-2 col-md-offset-6">
+                        <button class="submit" type="submit">Guardar</button>        
+                    </div>
+                </div>
+                <br>            
+        </form>
+    </div>  
+
+{% endblock %}

@@ -1,0 +1,157 @@
+{% extends 'index.html' %}
+{% block content %}
+    <header id="header">
+        <nav id="mibaner_2" class="navbar navbar-inverse" role="banner">
+            <div  id="micontainer" class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#minavb_2">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+				
+                <div id="minavb_2" class="collapse navbar-collapse navbar-left">
+                <ul id="miulnav" class="nav navbar-nav">
+                    <li id="ilnav"><a href='{% url 'empleados' %}'>Ver</a></li>
+                    <li id="ilnav"><a href='{% url 'nuevo_empleado' %}'>Nuevo</a></li>
+                </ul>
+            </div>    
+        </nav>
+    </header>
+    
+    <div class="container">
+        <form id="miform" action="{% url "guardar_empleado" empleadoSelec.id %}" class="form-horizontal" method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}         
+                <div class="form-group">
+                    <h2><label class="control-label col-md-5" for="name">Datos del empleado</label></h2> 
+                    <div class="col-md-4">
+                        <span class="required_notification">Todos los campos son obligatorios</span>
+                    </div>
+                </div>
+                <hr>
+
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="name">Cédula:</label>
+                    <div class="col-md-5">
+                        <input class="form-control" type="text" name="cedula" placeholder="0705463124" value= "{{empleadoSelec.personaEmpleado.cedulaPersona}}"/>
+                    </div>
+                    
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="name">Apellidos:</label>
+                    <div class="col-md-5">
+                        <input class="form-control" type="text" name="apellidos" placeholder="Mars Klinton" value= "{{empleadoSelec.personaEmpleado.apellidosPersona}}"/>
+                    </div>
+
+                </div>
+                
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="name">Nombres:</label>
+                    <div class="col-md-5">
+                        <input class="form-control" type="text" name="nombres" placeholder="John Doe" value= "{{empleadoSelec.personaEmpleado.nombresPersona}}" />
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="name">Teléfono:</label>
+                    <div class="col-md-5">
+                        <input class="form-control" type="text" name="telefono" placeholder="0989108983" value= "{{empleadoSelec.personaEmpleado.telefonoPersona}}"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="email">Email:</label>
+                    <div class="col-md-5">
+                        <input class="form-control" type="email" name="email" placeholder="john_doe@example.com" value= "{{empleadoSelec.personaEmpleado.emailPersona}}">
+                    </div>
+                    <span class="form_hint">Formato "name@something.com"</span>
+                </div>
+                
+                <div class="form-group"> 
+                    <div class="form-inline">
+                        <label class="control-label col-md-4" for="name">Provincia:</label>
+                        <div class="col-md-2">
+                            <select class="form-control" onChange="ListaCiudad(this);" id="selectbasicP" name="selectbasicP">
+                                {% for item in lstProvincia %}
+                                    {%if item.id == empleadoSelec.personaEmpleado.ciudadPersona.provinciaCiudad.id%}
+                                        <option value = {{ item.id }} selected>
+                                        {{ item.nombreProvincia }}
+                                        </option>
+                                    {% else %}
+                                        <option value = {{ item.id }}>
+                                        {{ item.nombreProvincia }}
+                                        </option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-inline">
+                        <label class="control-label col-md-1" for="name">Ciudad:</label>
+                        <div class="col-md-2">
+                            <select class="form-control" id="selectbasicC" name="selectbasicC">
+                                {% for item in lstCiudad2 %}
+                                    {% if item.id == empleadoSelec.personaEmpleado.ciudadPersona.id%}
+                                        <option value = {{ item.id }} selected>
+                                        {{ item.nombreCiudad }}
+                                        </option>
+                                    {% else %}
+                                        <option value={{ item.id }}>{{ item.nombreCiudad }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="name">Dirección:</label>
+                    <div class="col-md-5">
+                        <input class="form-control" type="text" name="direccion" placeholder="Av. Alejandro Castro y Av. Ferroviaría"  value= "{{empleadoSelec.personaEmpleado.direccionPersona}}"/>
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="name">Cargo:</label>
+                    <div class="col-md-5">
+                        <input class="form-control" type="text" name="cargo" placeholder=""  value= "{{empleadoSelec.cargoEmpleado}}"/>
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="name">Observaciones:</label>
+                    <div class="col-md-5">
+                        <input class="form-control" type="text" name="observaciones" placeholder="..." value= "{{empleadoSelec.observacionesEmpledo}}" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="prependedcheckbox">Estado:</label>
+                    <div class="col-md-5">
+                    {%if empleadoSelec.estadoEmpleado == 'Activo' %}
+                        <input  id="estadoBox" name="estado" onclick="estadoCambia()" type="checkbox" value="Activo" checked="checked"/>
+                    {%else%}
+                        <input  id="estadoBox" name="estado" onclick="estadoCambia()" type="checkbox" value="Inactivo"/>
+                    {%endif%}
+                    </div>
+                </div>
+
+                <!--<label class="control-label" for="textinput">Correo:</label>
+                <input id="textinput" name="textinput" type="email" placeholder="correo" class="input-xlarge">-->
+                <hr>
+                <div class="form-group">
+                    <div class="col-md-2 col-md-offset-6">
+                        <button class="submit" type="submit">Guardar</button>        
+                    </div>
+                </div>
+                <br>            
+        </form>
+    </div>  
+{% endblock %}

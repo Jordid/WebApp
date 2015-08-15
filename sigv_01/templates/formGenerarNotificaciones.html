@@ -1,0 +1,114 @@
+{% extends 'index.html' %}
+{% block content %}
+    <header id="header">
+        <nav id="mibaner_2" class="navbar navbar-inverse" role="banner">
+            <div  id="micontainer" class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#minavb_2">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                
+            <div id="minavb_2" class="collapse navbar-collapse navbar-left">
+                <ul id="miulnav" class="nav navbar-nav">
+                    <li id="ilnav"><a href="formVerNotificaciones.html">Ver</a></li>
+                    <li id="ilnav" class="active"><a href="formGenerarNotificaciones.html">Nuevo</a></li>
+                    <li id="ilnav"><input class="form-control" type="text" name="buscar" placeholder="Buscar"/></li>
+                </ul>
+            </div>    
+        </nav>
+    </header>
+
+<div class="container">
+        <form id="miform" action="" class="form-horizontal">
+                <div class="form-group">
+                    <h2><label class="control-label col-md-7" for="name">Datos de la notificación</label></h2> 
+                </div>
+                <hr>
+
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="name"><p id="hora"> 06-Ago-2015 </p></label>
+
+                     <div class="form-inline">
+                        <div class="col-md-1">
+                            <select class="form-control" id="selectbasic" name="selectbasic">
+                                <option>Medio</option>
+                                <option>Celular</option>
+                                <option>Correo electrónico</option>                            
+                            </select>
+                        </div>
+                    </div>
+
+                    <label class="control-label col-md-1" for="name"></label>
+
+                    <div class="form-inline">
+                        <div class="col-md-1">
+                            <select class="form-control" id="selectbasic" name="selectbasic">
+                                <option>Aviso</option>
+                                <option>Recordatorio</option>
+                                <option>Advertencia</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                </div>
+            
+                <div class="container">
+                    <label class="control-label col-md-1" for="name"></label>
+
+                    <div class="container  col-md-7">
+                        <div class="table-responsive">
+                            <table id="mitabla" class="table table-bordered table-condensed">
+                                <tr><!-- warning danger active ó success ó info-->
+                                    <th id="misth1" class="col-md-1">No. cuenta</th>
+                                    <th id="misth2" class="col-md-4">Cliente</th>
+                                    <th id="misth3" class="col-md-1">Aviso</th>
+                                    <th id="misth4" class="col-md-1">Seleccionar</th>
+                                </tr>
+                                <tr>
+                                    <td>000111</td>
+                                    <td>Jordi Durán Pesántez</td>
+                                    <td>Recordatorio</td>
+                                    <td><input  id="estadoBox" name="estado" onclick="estadoCambia()" type="checkbox" value="Inactivo"/></td>
+                                </tr>
+                                <tr>
+                                    <td>000111</td>
+                                    <td>Jordi Durán Pesántez</td>
+                                    <td>Recordatorio</td>
+                                    <td><input  id="estadoBox" name="estado" onclick="estadoCambia()" type="checkbox" value="Inactivo"/></td>
+                                </tr>
+                                <tr>
+                                    <td>000111</td>
+                                    <td>Jordi Durán Pesántez</td>
+                                    <td>Recordatorio</td>
+                                    <td><input  id="estadoBox" name="estado" onclick="estadoCambia()" type="checkbox" value="Inactivo"/></td>
+                                </tr>
+                            </table>     
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label class="control-label col-md-3">Mensaje:</label>
+                    <div class="col-md-6">
+                        <textarea rows="3" class="form-control" name="mensaje" placeholder="Sr. usuario/a tengo le recordamos que usted tiene un saldo pendiente, por favor acérquese a nuestras oficinas a cancelar la cuota, att Créditos Vacacela"></textarea>
+                    </div>
+                </div>
+                <hr>
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="name"></label>
+                    <div class="col-md-2">
+                        <button class="submit" type="submit">Cancelar</button>        
+                    </div>
+
+                    <div class="col-md-1">
+                        <button class="submit" type="submit">Enviar</button>        
+                    </div>
+                </div>  
+                <br>         
+        </form>
+    </div>  
+
+{% endblock %}

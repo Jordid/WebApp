@@ -1,0 +1,168 @@
+{% extends 'index.html' %}
+{% block content %}
+
+    <header id="header">
+        <nav id="mibaner_2" class="navbar navbar-inverse" role="banner">
+            <div  id="micontainer" class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#minavb_2">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                
+            <div id="minavb_2" class="collapse navbar-collapse navbar-left">
+                <ul id="miulnav" class="nav navbar-nav">
+                    <li id="ilnav"><a href='{% url 'productos'%}'>Ver</a></li>
+                    <li id="ilnav" class="active"><a href='{% url 'nuevo_producto'%}'>Nuevo</a></li>
+                </ul>
+            </div>    
+        </nav>
+    </header>
+
+
+<div class="container">
+        <form id="miform" action="{% url "guardar_producto" productoSelec.id %}" class="form-horizontal" method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}                  
+                <div class="form-group">
+                    <h2><label class="control-label col-md-5" for="name">Datos del producto</label></h2> 
+                    <div class="col-md-4">
+                        <span class="required_notification">Todos los campos son obligatorios</span>
+                    </div>
+                </div>
+                <hr>
+
+                <!--<div class="form-group">
+                    <label class="control-label col-md-4" for="name">Código:</label>
+                    <div class="col-md-5">
+                        <input class="form-control" type="text" name="codigo" placeholder="" />
+                    </div>
+                    
+                </div>-->
+
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="name">Código:</label>
+                    <div class="col-md-2">
+                        <input class="form-control" type="text" name="codigo" placeholder="TEL_0001" value= "{{productoSelec.codigoProducto}}" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="name">Descripción:</label>
+                    <div class="col-md-5">
+                        <input class="form-control" type="text" name="descripcion" placeholder="..." value= "{{productoSelec.descripcionProducto}}" />
+                    </div>
+                </div>
+
+                <div class="form-group"> 
+                    <label class="control-label col-md-4" for="name">Marca:</label>
+                    <div class="col-md-2">
+                        <input class="form-control" type="text" name="marca" placeholder="LG" value= "{{productoSelec.marcaProducto}}"/>
+                    </div>
+
+                    <div class="form-inline">
+                        <label class="control-label col-md-1" for="name">Categoría: </label>
+                        <div class="col-md-2">
+                            <select class="form-control" id="selectbasic" name="selectbasic">
+                                {% for item in lstCategoria %}
+                                    {%if item.id == productoSelec.categoriaProducto.id%}
+                                        <option value = {{ item.id }} selected>
+                                        {{ item.descripcionCategoria }}
+                                        </option>
+                                    {% else %}
+                                        <option value = {{ item.id }}>
+                                        {{ item.descripcionCategoria }}
+                                        </option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group"> 
+                    <div class="form-inline">
+                        <label class="control-label col-md-4" for="name">Stock_Min:</label>
+                        <div class="col-md-2">
+                            <input class="form-control" type="text" name="stockMinimo" placeholder="20" value= "{{productoSelec.stockMinimoProducto}}"/>
+                        </div>
+                    </div>
+
+                     <div class="form-inline">
+                        <label class="control-label col-md-1" for="name">Costo:</label>
+                        <div class="col-md-2">
+                        <input class="form-control" type="text" name="costo" placeholder="40,00" value= "{{productoSelec.costoProducto}}"/>
+                    </div>
+                    </div>
+                </div>
+
+                <div class="form-group"> 
+                    <div class="form-inline">
+                        <label class="control-label col-md-4" for="name">Valor Agregado (%):</label>
+                        <div class="col-md-2">
+                            <input class="form-control" type="text" name="valorAgregado" placeholder="0,05" value= "{{productoSelec.valorAgregadoProducto}}" />
+                        </div>
+                    </div>
+
+                     <div class="form-inline">
+                        <label class="control-label col-md-1" for="name">Iva (%):</label>
+                        <div class="col-md-2">
+                        <input class="form-control" type="text" name="iva" placeholder="12" value= "{{productoSelec.ivaProducto}}" />
+                    </div>
+                    </div>
+                </div>
+
+                <div class="form-group"> 
+                    <div class="form-inline">
+                        <label class="control-label col-md-4" for="name">Precio contado:</label>
+                        <div class="col-md-2">
+                            <input class="form-control" type="text" name="precioContado" placeholder="200,00" value= "{{productoSelec.precioContadoProducto}}" />
+                        </div>
+                    </div>
+
+                     <div class="form-inline">
+                        <label class="control-label col-md-1" for="name">Precio crédito:</label>
+                        <div class="col-md-2">
+                        <input class="form-control" type="text" name="precioCredito" placeholder="300,00" value= "{{productoSelec.precioCreditoProducto}}" />
+                    </div>
+                    </div>
+                </div>
+
+                
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="prependedcheckbox">Estado (Activo/Inactivo):</label>
+                    <div class="col-md-2">
+                        {%if productoSelec.estadoProducto == 'Activo' %}
+                            <input  id="estadoBox" name="estado" onclick="estadoCambia()" type="checkbox" value="Activo" checked="checked"/>
+                        {%else%}
+                            <input  id="estadoBox" name="estado" onclick="estadoCambia()" type="checkbox" value="Inactivo"/>
+                        {%endif%}
+                    </div>
+                </div>
+        
+                <hr>
+                <div class="form-group">
+                    <div class="col-md-2 col-md-offset-6">
+                        <button class="submit" type="submit">Guardar</button>        
+                    </div>
+                </div>
+                <br>            
+        </form>
+    </div>  
+
+<script type="text/javascript">
+
+    function estadoCambia(){
+        var est = document.getElementById('estadoBox');
+        if(est.value == 'Inactivo')
+        {
+            document.getElementById('estadoBox').value = 'Activo';
+        }         
+        else
+        {   
+            document.getElementById('estadoBox').value = 'Inactivo';
+        }
+    }
+
+</script>
+{% endblock %}

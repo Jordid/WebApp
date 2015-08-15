@@ -1,0 +1,52 @@
+{% extends 'index.html' %}
+{% block content %}
+    <header id="header">
+        <nav id="mibaner_2" class="navbar navbar-inverse" role="banner">
+            <div  id="micontainer" class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#minavb_2">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                
+            <div id="minavb_2" class="collapse navbar-collapse navbar-left">
+                <ul id="miulnav" class="nav navbar-nav">
+                    <li id="ilnav" class="active"><a href='{% url 'categorias'%}'>Ver</a></li>
+                    <li id="ilnav"><a href='{% url 'nuevo_categoria'%}'>Nuevo</a></li>
+                    <li id="ilnav"><input class="form-control" type="text" name="buscar" placeholder="Buscar"/></li>
+
+                </ul>
+            </div>    
+        </nav>
+    </header>
+
+    <div class="container">
+        <h2><label class="control-label col-md-7" for="name">Lista de categorías</label></h2>
+    </div>
+
+    <div class="container">
+        <div class="table-responsive col-md-6">
+        <table id="mitabla" class="table table-bordered table-condensed">
+                <tr>
+                    <th id="misth1" class="col-md-1">Código</th>
+                    <th id="misth2" class="col-md-3">Descripcion</th>
+                    <th id="misth12" class="col-md-1" colspan="2">Acciones</th>
+                  
+                </tr>
+
+                {%for cat in lstCategoria%}
+                <tr>
+                    <td>{{cat.id}}</td>
+                    <td>{{cat.descripcionCategoria}}</td>
+                    <td id="td_editar"><span class="glyphicon glyphicon-edit"></span><a href='{% url 'editar_categoria' cat.id %}'>Editar</a></td>
+                    <td id="td_eliminar"><span class="glyphicon glyphicon-remove"></span>Eliminar</td>
+                </tr>
+                {%endfor%}
+
+        </table>     
+        </div>
+    </div>
+
+
+{% endblock %}

@@ -1,0 +1,125 @@
+{% extends 'index.html' %}
+{% block content %}
+    <header id="header">
+        <nav id="mibaner_2" class="navbar navbar-inverse" role="banner">
+            <div  id="micontainer" class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#minavb_2">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                
+            <div id="minavb_2" class="collapse navbar-collapse navbar-left">
+                <ul id="miulnav" class="nav navbar-nav">
+                    <li id="ilnav"><a href='{% url 'proveedores'%}'>Ver</a></li>
+                    <li id="ilnav" class="active"><a href='{% url 'nuevo_proveedor'%}'>Nuevo</a></li>
+                </ul>
+            </div>    
+        </nav>
+		
+    </header>
+
+<div class="container">
+        <form id="miform" action="" class="form-horizontal">
+        <!--<form class="contact_form" action="" method="post" name="contact_form">-->             
+                <div class="form-group">
+                    <h2><label class="control-label col-md-5" for="name">Datos del proveedor</label></h2> 
+                    <div class="col-md-4">
+                        <span class="required_notification">Todos los campos son obligatorios</span>
+                    </div>
+                </div>
+                <hr>
+
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="name">Cédula:</label>
+                    <div class="col-md-5">
+                        <input class="form-control" type="text" name="cedula" placeholder="0705463124" />
+                    </div>
+                    
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="name">Apellidos:</label>
+                    <div class="col-md-5">
+                        <input class="form-control" type="text" name="apellidos" placeholder="Mars Klinton" />
+                    </div>
+
+                </div>
+                
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="name">Nombres:</label>
+                    <div class="col-md-5">
+                        <input class="form-control" type="text" name="nombres" placeholder="John Doe" />
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="name">Teléfono:</label>
+                    <div class="col-md-5">
+                        <input class="form-control" type="text" name="telefono" placeholder="0989108983" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="email">Email:</label>
+                    <div class="col-md-5">
+                        <input class="form-control" type="email" name="email" placeholder="john_doe@example.com" />
+                    </div>
+                    <span class="form_hint">Formato "name@something.com"</span>
+                </div>
+                
+                <div class="form-group"> 
+                    <div class="form-inline">
+                        <label class="control-label col-md-4" for="name">Provincia:</label>
+                        <div class="col-md-2">
+                            <select class="form-control" id="selectbasic" name="selectbasic">
+                                <option>Azuay</option>
+                                <option>El Oro</option>
+                                <option>Guayas</option>  
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-inline">
+                        <label class="control-label col-md-1" for="name">Ciudad:</label>
+                        <div class="col-md-2">
+                            <select class="form-control" id="selectbasic" name="selectbasic">
+                                <option>El Cambio</option>
+                                <option>Guabo</option>
+                                <option>La Iberia</option>
+                                <option>Machala</option>
+                                <option>Pasaje</option>
+                                <option>Santa Rosa</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="name">Dirección:</label>
+                    <div class="col-md-5">
+                        <input class="form-control" type="text" name="direccion" placeholder="Av. Alejandro Castro y Av. Ferroviaría"  />
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="prependedcheckbox">Estado: Activo/Inactivo:</label>
+                    <div class="control-label col-md-1"><input type="checkbox"></div>
+                </div>
+
+                <!--<label class="control-label" for="textinput">Correo:</label>
+                <input id="textinput" name="textinput" type="email" placeholder="correo" class="input-xlarge">-->
+                <hr>
+                <div class="form-group">
+                    <div class="col-md-2 col-md-offset-6">
+                        <button class="submit" type="submit">Guardar</button>        
+                    </div>
+                </div>
+                <br>            
+        </form>
+    </div>  
+
+{% endblock %}

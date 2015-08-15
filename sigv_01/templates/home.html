@@ -1,0 +1,402 @@
+{% extends 'index.html' %}
+{% block content %}
+
+    <section id="main-slider" class="no-margin">
+        <div class="carousel slide">
+            <ol class="carousel-indicators">
+                <li data-target="#main-slider" data-slide-to="0" class="active"></li>
+                <li data-target="#main-slider" data-slide-to="1"></li>
+                <li data-target="#main-slider" data-slide-to="2"></li>
+            </ol>
+            <div  class="carousel-inner">
+
+                <!--<div class="item active"  style="background-image: url(images/productos/plasma.jpg)">-->
+                <div class="item active" style="background-image: url(../static/images/slider/bg2.jpg)">
+                    <div id="div_producto" class="container">
+                        <div class="row slide-margin">
+                            <div class="col-sm-6">
+                                <div class="carousel-content">
+                                    <h1 class="animation animated-item-1"> <span class="miespan">TV 50'' Plasma LG 50PB560D HD</span></h1>
+                                    <h2 class="animation animated-item-2"> <span class="miespan2">Pulgadas: 50, Medida en diagonal: 126 Cms, Sintonizador Digital DVB-T2
+                                    Resolucion: 1024x768 HD, Contraste: 3.000.000:1, Entradas: USB, HMDI...</span></h2>
+                                    <!--<a class="btn-slide animation animated-item-3" href="#">Read More</a>-->
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6 hidden-xs animation animated-item-4">
+                                <div class="slider-img">
+                                    <img src="../static/images/productos/plasma.jpg" class="img-responsive">
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div><!--/.item-->
+
+                <div class="item" style="background-image: url(../static/images/slider/bg2.jpg)">
+                    <div id="div_producto" class="container">
+                        <div class="row slide-margin">
+                            <div class="col-sm-6">
+                                <div class="carousel-content">
+                                    <h1 class="animation animated-item-1"><span class="miespan">Cama de dos plazas</span></h1>
+                                    <h2 class="animation animated-item-2"><span class="miespan2">Duerme bien, vive bien...cama de madera de alta calidad</span></h2>
+                                    <!--<a class="btn-slide animation animated-item-3" href="#">Read More</a>-->
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6 hidden-xs animation animated-item-4">
+                                <div class="slider-img">
+                                    <img src="../static/images/productos/cama.jpg" class="img-responsive">
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div><!--/.item-->
+
+                <div class="item" style="background-image: url(../static/images/slider/bg2.jpg)">
+                    <div id="div_producto"class="container">
+                        <div class="row slide-margin">
+                            <div class="col-sm-6">
+                                <div class="carousel-content">
+                                    <h1 class="animation animated-item-1"><span class="miespan">Cocina eléctrica de inducción</span></h1>
+                                    <h2 class="animation animated-item-2"><span class="miespan2">Cocina rico, seguro e inteligentemente...</span></h2>
+                                    <!--<a class="btn-slide animation animated-item-3" href="#">Read More</a>-->
+                                </div>
+                            </div>
+                            <div class="col-sm-6 hidden-xs animation animated-item-4">
+                                <div class="slider-img">
+                                    <img src="../static/images/productos/cocina.jpg" class="img-responsive">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><!--/.item-->
+            </div><!--/.carousel-inner-->
+        </div><!--/.carousel-->
+        <a class="prev hidden-xs" href="#main-slider" data-slide="prev">
+            <i class="fa fa-chevron-left"></i>
+        </a>
+        <a class="next hidden-xs" href="#main-slider" data-slide="next">
+            <i class="fa fa-chevron-right"></i>
+        </a>
+    </section>
+
+   <section id="recent-works">
+        <div class="container">
+            <div class="center wow fadeInDown">
+                <h2>Nuestros productos</h2>
+                <p class="lead">Créditos Vacacela ofrece una amplia gama de productos de primera calidad para el hogar...</p>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12 col-sm-4 col-md-3">
+                    <div class="recent-work-wrap">
+                        <img class="img-responsive" src="../static/images/productosMetro/batidora.jpg" alt="">
+                        <div class="overlay">
+                            <div class="recent-work-inner">
+                                <h3><a href="#">Batidora Oster</a> </h3>
+                                <!--<p>There are many variations of passages of Lorem Ipsum available, but the majority</p>-->
+                                <a class="preview" href="../static/images/productosMetro/batidora.jpg" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a>
+                            </div> 
+                        </div>
+                    </div>
+                </div>   
+
+                <div class="col-xs-12 col-sm-4 col-md-3">
+                    <div class="recent-work-wrap">
+                        <img class="img-responsive" src="../static/images/productosMetro/cama.jpg" alt="">
+                        <div class="overlay">
+                            <div class="recent-work-inner">
+                                <h3><a href="#">Cama de dos plazas</a></h3>
+                                <!--<p>There are many variations of passages of Lorem Ipsum available, but the majority</p>-->
+                                <a class="preview" href="../static/images/productosMetro/cama.jpg" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a>
+                            </div> 
+                        </div>
+                    </div>
+                </div> 
+
+                <div class="col-xs-12 col-sm-4 col-md-3">
+                    <div class="recent-work-wrap">
+                        <img class="img-responsive" src="../static/images/productosMetro/cocina.jpg" alt="">
+                        <div class="overlay">
+                            <div class="recent-work-inner">
+                                <h3><a href="#">Cocina de inducción </a></h3>
+                                <!--<p>There are many variations of passages of Lorem Ipsum available, but the majority</p>-->
+                                <a class="preview" href="../static/images/productosMetro/cocina.jpg" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a>
+                            </div> 
+                        </div>
+                    </div>
+                </div>   
+
+                <div class="col-xs-12 col-sm-4 col-md-3">
+                    <div class="recent-work-wrap">
+                        <img class="img-responsive" src="../static/images/productosMetro/lavadora.jpg" alt="">
+                        <div class="overlay">
+                            <div class="recent-work-inner">
+                                <h3><a href="#">Lavadora</a></h3>
+                                <!--<p>There are many variations of passages of Lorem Ipsum available, but the majority</p>-->
+                                <a class="preview" href="../static/images/productosMetro/lavadora.jpg" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a>
+                            </div> 
+                        </div>
+                    </div>
+                </div>   
+                
+                <div class="col-xs-12 col-sm-4 col-md-3">
+                    <div class="recent-work-wrap">
+                        <img class="img-responsive" src="../static/images/productosMetro/licuadora.jpg" alt="">
+                        <div class="overlay">
+                            <div class="recent-work-inner">
+                                <h3><a href="#">Licuadora Oster</a></h3>
+                                <!--<p>There are many variations of passages of Lorem Ipsum available, but the majority</p>-->
+                                <a class="preview" href="../static/images/productosMetro/licuadora.jpg" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a>
+                            </div> 
+                        </div>
+                    </div>
+                </div>   
+
+                <div class="col-xs-12 col-sm-4 col-md-3">
+                    <div class="recent-work-wrap">
+                        <img class="img-responsive" src="../static/images/productosMetro/macbook.jpg" alt="">
+                        <div class="overlay">
+                            <div class="recent-work-inner">
+                                <h3><a href="#">Macbook</a></h3>
+                                <!--<p>There are many variations of passages of Lorem Ipsum available, but the majority</p>-->
+                                <a class="preview" href="../static/images/productosMetro/macbook.jpg" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a>
+                            </div> 
+                        </div>
+                    </div>
+                </div> 
+
+                <div class="col-xs-12 col-sm-4 col-md-3">
+                    <div class="recent-work-wrap">
+                        <img class="img-responsive" src="../static/images/productosMetro/plancha.jpg" alt="">
+                        <div class="overlay">
+                            <div class="recent-work-inner">
+                                <h3><a href="#">Plachaa vapor</a></h3>
+                                <!--<p>There are many variations of passages of Lorem Ipsum available, but the majority</p>-->
+                                <a class="preview" href="../static/images/productosMetro/plancha.jpg" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a>
+                            </div> 
+                        </div>
+                    </div>
+                </div>   
+
+                <div class="col-xs-12 col-sm-4 col-md-3">
+                    <div class="recent-work-wrap">
+                        <img class="img-responsive" src="../static/images/productosMetro/plasma.jpg" alt="">
+                        <div class="overlay">
+                            <div class="recent-work-inner">
+                                <h3><a href="#">Plasma LG 50PB560D HD</a></h3>
+                                <!--<p>There are many variations of passages of Lorem Ipsum available, but the majority</p>-->
+                                <a class="preview" href="../static/images/productosMetro/plasma.jpg" rel="prettyPhoto"><i class="fa fa-eye"></i> View</a>
+                            </div> 
+                        </div>
+                    </div>
+                </div>   
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="service-item">
+       <div class="container">
+            <div class="center wow fadeInDown">
+                <h1>{{usuario}}</h1>
+                <h2>Nuestros Aliados</h2>
+                <p class="lead">Contamos con el apoyo de los almacenes más conocidos del país <br> lo que nos permite conseguir cualquier producto que haya en cualquiera de estas entidades...</p>
+            </div>
+
+            <div class="row">
+
+                <div class="col-sm-6 col-md-4">
+                    <div class="media services-wrap wow fadeInDown">
+                        <div class="pull-left">
+                            <img class="img-responsive" src="../static/images/partners/ganga.jpg">
+                        </div>
+                        <div class="media-body">
+                            <!--<h3 class="media-heading">Almacenes la Ganga</h3>-->
+                            <p>Precios de bahía con garantía</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-md-4">
+                    <div class="media services-wrap wow fadeInDown">
+                        <div class="pull-left">
+                            <img class="img-responsive" src="../static/images/partners/comandato.png">
+                        </div>
+                        <div class="media-body">
+                            <!--<h3 class="media-heading">SEO Marketing</h3>
+                            <p>Lorem ipsum dolor sit ame consectetur adipisicing elit</p>-->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-md-4">
+                    <div class="media services-wrap wow fadeInDown">
+                        <div class="pull-left">
+                            <img class="img-responsive" src="../static/images/partners/jaher.jpg">
+                        </div>
+                        <div class="media-body">
+                            <!--<h3 class="media-heading">SEO Marketing</h3>
+                            <p>Lorem ipsum dolor sit ame consectetur adipisicing elit</p>-->
+                        </div>
+                    </div>
+                </div>  
+                <div class="col-sm-6 col-md-4">
+                    <div class="media services-wrap wow fadeInDown">
+                        <div class="pull-left">
+                            <img class="img-responsive" src="../static/images/partners/japon.jpg">
+                        </div>
+                        <div class="media-body">
+                            <!--<h3 class="media-heading">SEO Marketing</h3>
+                            <p>Lorem ipsum dolor sit ame consectetur adipisicing elit</p>-->
+                        </div>
+                    </div>
+                </div>  
+
+                <div class="col-sm-6 col-md-4">
+                    <div class="media services-wrap wow fadeInDown">
+                        <div class="pull-left">
+                            <img class="img-responsive" src="../static/images/partners/jaher.jpg">
+                        </div>
+                        <div class="media-body">
+                            <!--<h3 class="media-heading">SEO Marketing</h3>
+                            <p>Lorem ipsum dolor sit ame consectetur adipisicing elit</p>-->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-md-4">
+                    <div class="media services-wrap wow fadeInDown">
+                        <div class="pull-left">
+                            <img class="img-responsive" src="../static/images/partners/japon.jpg">
+                        </div>
+                        <div class="media-body">
+                            <!--<h3 class="media-heading">SEO Marketing</h3>
+                            <p>Lorem ipsum dolor sit ame consectetur adipisicing elit</p>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="partner">
+        <br>
+        <br>
+        <div class="container">
+            <div class="center wow fadeInDown">
+                <h2>Nuestras Marcas</h2>
+                <p class="lead">Las marcas de los productos que ofrecemos a nuestro público son las más prestigiosas y reconocidas a nivel nacional e internacional...</p>
+            </div>    
+
+            <div class="partners">
+                <ul>
+                    <li> <a href="#"><img class="img-responsive wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms" src="../static/images/marcas/oster.png"></a></li>
+                    <li> <a href="#"><img class="img-responsive wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="1200ms" src="../static/images/marcas/electrolux.jpg"></a></li>
+                    <li> <a href="#"><img class="img-responsive wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="1500ms" src="../static/images/marcas/hp.jpg"></a></li>
+                    <li> <a href="#"><img class="img-responsive wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms" src="../static/images/marcas/lg.jpg"></a></li>
+                    <li> <a href="#"><img class="img-responsive wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="900ms" src="../static/images/marcas/indurama.jpg"></a></li>
+                    
+                </ul>
+            </div>
+            
+        </div>
+        <br>
+        <div class="container">
+            <div class="partners">
+                <ul>
+                    <li> <a href="#"><img class="img-responsive wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms" src="../static/images/marcas/panasonic.png"></a></li>
+                    <li> <a href="#"><img class="img-responsive wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="1200ms" src="../static/images/marcas/sony.png"></a></li>
+                    <li> <a href="#"><img class="img-responsive wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms" src="../static/images/marcas/whirpool.jpg"></a></li>
+                    <li> <a href="#"><img class="img-responsive wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="1500ms" src="../static/images/marcas/mabe.jpg"></a></li>
+                    <li> <a href="#"><img class="img-responsive wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="900ms" src="../static/images/marcas/durex.png"></a></li>
+                    
+                </ul>
+            </div>
+        </div>
+        <br>
+        <br>
+
+    </section>
+
+
+<section id="conatcat-info">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8">
+                    <div class="media contact-info wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
+                        <div class="pull-left">
+                            <i class="fa fa-phone"></i>
+                        </div>
+                        <div class="media-body">
+                            <h2>¿Tiene alguna pregunta o necesita un presupuesto personalizado?</h2>
+                            <p>Puede comunicarse con nosotros marcando al +0986471589 y gustosamente le atenderemos...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+   
+
+    <section id="bottom">
+        <div class="container wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
+            <div class="row">
+                <div class="col-md-3 col-sm-6">
+                    <div class="widget">
+                        <h2>Información</h2>
+                        <ul>
+                            <li><a href="#">Quienes somos</a></li>
+                            <li><a href="#">Contáctanos</a></li>
+                        </ul>
+                    </div>    
+                </div>
+
+                <div class="col-md-3 col-sm-6">
+                    <div class="widget">
+                        <h2>Encuéntranos en</h2>
+                        <ul>
+                            <li><a href="#">Facebook</a></li>
+                            <li><a href="#">Twiter</a></li>
+                        </ul>
+                    </div>    
+                </div>
+
+                <!--<div class="col-md-3 col-sm-6">
+                    <div class="widget">
+                        <h3>Developers</h3>
+                        <ul>
+                            <li><a href="#">Web Development</a></li>
+                            <li><a href="#">SEO Marketing</a></li>
+                            <li><a href="#">Theme</a></li>
+                            <li><a href="#">Development</a></li>
+                            <li><a href="#">Email Marketing</a></li>
+                            <li><a href="#">Plugin Development</a></li>
+                            <li><a href="#">Article Writing</a></li>
+                        </ul>
+                    </div>    
+                </div>
+
+                <div class="col-md-3 col-sm-6">
+                    <div class="widget">
+                        <h3>Our Partners</h3>
+                        <ul>
+                            <li><a href="#">Adipisicing Elit</a></li>
+                            <li><a href="#">Eiusmod</a></li>
+                            <li><a href="#">Tempor</a></li>
+                            <li><a href="#">Veniam</a></li>
+                            <li><a href="#">Exercitation</a></li>
+                            <li><a href="#">Ullamco</a></li>
+                            <li><a href="#">Laboris</a></li>
+                        </ul>
+                    </div>    
+                </div>-->
+            </div>
+                <br>
+        </div>
+    </section>
+    </section>
+
+{% endblock %}

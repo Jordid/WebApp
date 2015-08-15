@@ -1,0 +1,116 @@
+{% extends 'index.html' %}
+{% block content %}
+    <header id="header">
+        <nav id="mibaner_2" class="navbar navbar-inverse" role="banner">
+            <div  id="micontainer" class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#minavb_2">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                
+            <div id="minavb_2" class="collapse navbar-collapse navbar-left">
+                <ul id="miulnav" class="nav navbar-nav">
+                    <li id="ilnav" class="active"><a href="{% url "empleados" %}">Ver</a></li>
+                    <li id="ilnav"><a href="{% url "nuevo_empleado" %}">Nuevo</a></li>
+                    <li id="ilnav"><input class="form-control" type="text" name="buscar" placeholder="Buscar"/></li>
+
+                </ul>
+            </div>    
+        </nav>
+    </header>
+
+    <div id="loguin" class="container">
+        <p><br/></p>
+        <div class="row">
+            <div class="col-md-8"></div>
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <form action="" class="form-horizontal">
+                            <div class="form-group">
+                                <h2><label class="control-label col-md-8" for="name">Acceso al Sistema</label></h2> 
+                            </div>
+                            <hr>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-4" for="name">Usuario:</label>
+                                <div class="col-md-8">
+                                    <input class="form-control" type="text" name="usuario" placeholder="jordid" />
+                                </div>
+                            </div>
+
+                            <br>    
+                            <div class="form-group" >
+                                <label class="control-label col-md-4" for="password">Password:</label>
+                                <div class="col-md-8">
+                                    <input class="form-control" type="password" name="password" placeholder="............" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-4" for="prependedcheckbox">Recordarme:</label>
+                                <div class="control-label col-md-1"><input type="checkbox"></div>
+                            </div>
+                            
+                            <hr>
+
+                            <div class="row" >
+                                <div class="col-md-5">
+                                    <button id="btnCerrar" type="button" class="btn"><span class="glyphicon glyphicon-off"></span> Salir</button>
+                                </div>
+
+                                <div class="col-md-4">
+                                      <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-lock"></span> Entrar</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2><label class="control-label col-md-7" for="name">Lista de empleados</label></h2>
+    </div>
+    <div class="container">
+        <div class="table-responsive">
+            <table id="mitabla" class="table table-bordered table-condensed">
+                <tr><!-- warning danger active ó success ó info-->
+                    <th id="misth1">Id</th>
+                    <th id="misth2">Cédula</th>
+                    <th id="misth3">Apellidos</th>
+                    <th id="misth4">Nombres</th>
+                    <th id="misth5">Teléfono</th>
+                    <th id="misth6">Email</th>
+                    <th id="misth7">Cargo</th>
+                    <!--<th id="misth8">Estado</th>-->
+                    <th id="misth9">Provincia</th>
+                    <th id="misth10">Ciudad</th>
+                    <th id="misth11">Dirección</th>
+                    <th id="misth12" colspan="2">Acciones</th>
+                </tr>
+                {%for emp in lstEmpleado%}
+                    <tr>
+                        <td>{{emp.id}}</td>
+                        <td>{{emp.personaEmpleado.cedulaPersona}}</td>
+                        <td>{{emp.personaEmpleado.apellidosPersona}}</td>
+                        <td>{{emp.personaEmpleado.nombresPersona}}</td>
+                        <td>{{emp.personaEmpleado.telefonoPersona}}</td>
+                        <td>{{emp.personaEmpleado.emailPersona}}</td>
+                        <td>{{emp.cargoEmpleado}}</td>
+                        <!--<td>{{emp.estadoEmpleado}}</td>-->
+                        <td>{{emp.personaEmpleado.ciudadPersona.provinciaCiudad.nombreProvincia}}</td>
+                        <td>{{emp.personaEmpleado.ciudadPersona}}</td>
+                        <td>{{emp.personaEmpleado.direccionPersona}}</td>
+                        <td id="td_editar"><span id"icon_editar" class="glyphicon glyphicon-edit"></span><a href='{% url 'editar_empleado' emp.id%}'>Editar</a></td>
+                        <td id="td_eliminar"><span class="glyphicon glyphicon-remove"></span><a href='{% url 'eliminar_empleado' emp.id%}'>Eliminar</a></td>
+                    </tr>
+                {%endfor%}
+            </table>     
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,226 @@
+{% extends 'index.html' %}
+    {% block content %}
+    <nav id="mibaner_2" class="navbar navbar-inverse" role="banner">
+            <div  id="micontainer" class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#minavb_2">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                
+            <div id="minavb_2" class="collapse navbar-collapse navbar-left">
+                <ul id="miulnav" class="nav navbar-nav">
+                    <li id="ilnav"><a href='{% url 'facturas'%}'>Ver</a></li>
+                    <li id="ilnav" class="active"><a href='{% url 'nuevo_factura'%}'>Nuevo</a></li>
+                </ul>
+            </div>    
+        </nav>
+    </header>
+
+    <div class="container">
+        <form id="miform" action="" class="form-horizontal">
+        <!--<form class="contact_form" action="" method="post" name="contact_form">-->                
+                <div class="form-group">
+                    <h2><label class="control-label col-md-3" for="name">Datos de la factura</label></h2> 
+                    <!--<div class="col-md-4">
+                        <span class="required_notification">* Datos Obligatorios</span>
+                    </div>-->
+                </div>
+                <hr>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="name">C.C./Ruc:</label>
+                    <div class="col-md-2">
+                        <input class="form-control" type="text" name="cc_ruc" placeholder="0705463123" />
+                    </div>                
+                    <label class="control-label col-md-5" for="name">Factura #:</label>
+                    <div class="col-md-2">
+                        <input class="form-control" type="text" name="numerofactura" placeholder="0001234" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="name">Cliente:</label>
+                    <div class="col-md-5">
+                        <input class="form-control" type="text" name="cliente" placeholder="Jordi Marcelo Duran Pesantez" />
+                    </div>
+                    <label class="control-label col-md-2" for="name">Fecha:</label>
+                    <div class="col-md-2">
+                        <input class="form-control" type="text" name="fecha" placeholder="18-Julio-2015" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="name">Dirección:</label>
+                    <div class="col-md-5">
+                        <input class="form-control" type="text" name="direccion" placeholder="Shumiral Barrio C. del Consuelo" />
+                    </div>
+                    <!--
+                    <a href="lista_ciudad" id="lookup_id_ciudadPersona" onclick="return showRelatedObjectLookupPopup(this);"> <img src="/static/admin/img/selector-search.gif" alt="Buscar" height="16" width="16"></a>
+                    -->
+                    <label class="control-label col-md-2" for="name">Ciudad:</label>
+                    <div class="col-md-2">
+                        <input class="form-control" type="text" name="ciudad" placeholder="Pasaje" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="name">Buscar:</label>
+                    <div class="col-md-3">
+                       <select class="form-control" name="country" id="basic" tabindex="-1" title="" class="select2-offscreen">
+                            {%for producto in lstProducto%}
+                                <option value="{{producto.id}}">{{producto.descripcionProducto}}</option>
+                            {%endfor%}
+                        </select>
+                    </div>
+                    <div class="col-md-1">
+                        <input id="cantidad" class="form-control" type="text" name="cantidad" placeholder="cant." />            
+                    </div>
+                    <div class="col-md-1">
+                        <button class="button" type="button" onclick="AgregarFila();">Agregar</button>  
+                    </div>
+                </div>
+
+                <div class="container col-md-11">
+                    <div class="table-responsive">
+                    <table id="mitabla" class="table table-bordered table-condensed">
+                        <tr><!-- warning danger active ó success ó info-->
+                            <th id="misth1" class="col-md-1">Cantidad</th>
+                            <th id="misth2" class="col-md-5">Artículo</th>
+                            <th id="misth3" class="col-md-1">Valor unitario</th>
+                            <th id="misth4" class="col-md-1">Valor total</th>
+                            <th id="misth4" class="col-md-1">Eliminar</th>
+                        </tr>
+                    </table>     
+                    </div>
+                    
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="busca">Observaciones:</label>
+                    <div class="col-md-5">
+                        <input class="form-control" type="text" name="observaciones" placeholder="..." />            
+                    </div>
+                    
+                    <label class="control-label col-md-2" for="name"  >Subtotal:</label>
+                    <div class="col-md-2">
+                        <input class="form-control" type="text" name="subtotal" placeholder="120.00" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-9" for="name">Descuento:</label>
+                    <div class="col-md-1">
+                        <input class="form-control" type="text" name="porcentaje" placeholder="5%" />
+                    </div>
+                    <div class="col-md-1">
+                        <input class="form-control" type="text" name="descuento" placeholder="5.10" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-9" for="name">Iva 0%:</label>
+                    <div class="col-md-2">
+                        <input class="form-control" type="text" name="ivacero" placeholder="0%" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-9" for="name">Iva 12%:</label>
+                    <div class="col-md-2">
+                        <input class="form-control" type="text" name="ivadoce" placeholder="12%" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-9" for="name">Total:</label>
+                    <div class="col-md-2">
+                        <input class="form-control" type="text" name="total" placeholder="120" />
+                    </div>
+                </div>
+
+
+                <hr>
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="name"></label>
+                    <div class="col-md-3">
+                        <button class="submit" type="submit">Guardar</button>        
+                    </div>
+
+                    <div class="col-md-2">
+                        <button class="submit" type="submit">Cancelar</button>        
+                    </div>
+                </div>  
+                <br>          
+        </form>
+    </div>              
+
+<script>
+$(document).ready(function(){
+    $("#basic").select2();
+    
+    $("#multi").select2({
+        placeholder: "Seleccione un producto"
+    });
+    
+    $("#minimum").select2({
+        minimumInputLength: 2
+    });
+    
+});
+</script>
+
+<script type="text/javascript">
+    function AgregarFila( ){
+        var combo = document.getElementById("basic")
+        var index = combo.selectedIndex;
+        var id = combo.options[index].value;
+        var descripcion = combo.options[index].text;
+        var table = document.getElementById("mitabla");
+        index = table.rows.length;
+        
+        var row = table.insertRow(index);
+        row.value = id;
+        var cell1 = row.insertCell(0);        var cell2 = row.insertCell(1);
+        var cell3 = row.insertCell(2);        var cell4 = row.insertCell(3);
+        var cell5 = row.insertCell(4);
+
+        var cantidadAux = (document.getElementById("cantidad").value +"").replace(",", ".");
+        var valorUnAux = (BuscarPrecioProducto(id)+"").replace(",",".");
+        var valorToAux = parseFloat(cantidadAux) * parseFloat(valorUnAux);
+        var idPp = id + "";
+        cell1.innerHTML = cantidadAux;
+        cell2.innerHTML = descripcion;
+        cell3.innerHTML = valorUnAux+"";
+        cell4.innerHTML = valorToAux+"";
+        cell5.innerHTML = "<a onclick='EliminarProducto("+idPp+")'>Quitar</a>";
+    }
+
+    function BuscarPrecioProducto(idProducto)
+    {
+        {% for pro in lstProducto %}
+            var idPro = "{{pro.id}}";
+            if (idProducto == idPro)
+            {
+                return "{{pro.precioContadoProducto}}";
+            }
+        {% endfor %}
+    }
+
+    function EliminarProducto(idPro)
+    {
+
+    }
+
+    function ActualizarValores()
+    {
+        var table = document.getElementById("mitabla");
+        index = table.rows.length;
+        for (var a=0; a<index; a++)
+        {
+            fila = table.rows[a].getCell(0).value;
+        }
+    }
+
+</script>
+{% endblock %}

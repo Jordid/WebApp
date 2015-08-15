@@ -1,0 +1,69 @@
+{% extends 'home.html' %}
+{% block content %}
+    <header id="header">
+        <nav id="mibaner_2" class="navbar navbar-inverse" role="banner">
+            <div  id="micontainer" class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#minavb_2">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                
+            <div id="minavb_2" class="collapse navbar-collapse navbar-left">
+                <ul id="miulnav" class="nav navbar-nav">
+                    <li id="ilnav" class="active"><a href='{% url 'usuarios'%}'>Ver</a></li>
+                    <li id="ilnav"><a href='{% url 'nuevo_usuario'%}'>Nuevo</a></li>
+                    <li id="ilnav"><input class="form-control" type="text" name="buscar" placeholder="Buscar"/></li>
+
+                </ul>
+            </div>    
+        </nav>
+        
+    </header>
+    
+
+	<div class="container">
+        <h2><label class="control-label col-md-7" for="name">Lista de usuarios</label></h2>
+    </div>
+
+    <div class="container">
+        <div class="table-responsive">
+        <table id="mitabla" class="table table-bordered table-condensed">
+            <tr><!-- warning danger active Ã³ success Ã³ info-->
+                <th id="misth1">#Id</th>
+                <th id="misth2">Cédula</th>
+                <th id="misth3">Apellidos</th>
+                <th id="misth4">Nombres</th>
+                <th id="misth5">Teléfono</th>
+                <th id="misth6">Nick</th>
+                <th id="misth7">Email</th>
+                <!--<th id="misth8">Estado</th>-->
+                <th id="misth9">Provincia</th>
+                <th id="misth10">Ciudad</th>
+                <th id="misth11">Dirección</th>
+                <th id="misth12" colspan="2">Acciones</th>
+            </tr>
+
+            {%for usuario in lstUsuarios%}
+            <tr>
+                <td>{{usuario.id}}</td>
+                <td>{{usuario.personaUsuario.cedulaPersona}}</td>
+                <td>{{usuario.personaUsuario.apellidosPersona}}</td>
+                <td>{{usuario.personaUsuario.nombresPersona}}</td>
+                <td>{{usuario.personaUsuario.telefonoPersona}}</td>
+                <td>{{usuario.nickUsuario}}</td>
+                <td>{{usuario.personaUsuario.emailPersona}}</td>
+                <!--<td>{{usuario.estadoUsuario}}</td>-->
+                <td>{{usuario.personaUsuario.ciudadPersona.provinciaCiudad.nombreProvincia}}</td>
+                <td>{{usuario.personaUsuario.ciudadPersona}}</td>
+                <td>{{usuario.personaUsuario.direccionPersona}}</td>
+                <td id="td_editar"><span id"icon_editar" class="glyphicon glyphicon-edit"></span><a href='{% url 'editar_usuario' usuario.id%}'>Editar</a></td>
+                <td id="td_eliminar"><span class="glyphicon glyphicon-remove"></span><a href='{% url 'eliminar_usuario' usuario.id%}'>Eliminar</a></td>
+            </tr>
+            {%endfor%}
+        </table>     
+    </div>
+    </div>
+
+{% endblock %}

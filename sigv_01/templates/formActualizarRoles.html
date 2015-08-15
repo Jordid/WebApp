@@ -1,0 +1,64 @@
+{% extends 'index.html' %}
+{% block content %}
+    <header id="header">
+
+        <nav id="mibaner_2" class="navbar navbar-inverse" role="banner">
+            <div  id="micontainer" class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#minavb_2">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                
+            <div id="minavb_2" class="collapse navbar-collapse navbar-left">
+                <ul id="miulnav" class="nav navbar-nav">
+                    <li id="ilnav"><a href="formVerRoles.html">Ver</a></li>
+                    <li id="ilnav"><a href="formRegistroRoles.html">Nuevo</a></li>
+                    <li id="ilnav" class="active"><a href="formActualizarRoles.html">Actualizar</a></li>
+                </ul>
+            </div>    
+        </nav>
+    </header>
+
+<div class="container">
+        <form id="miform" action="" class="form-horizontal">
+        <!--<form class="contact_form" action="" method="post" name="contact_form">-->   
+   
+                
+                                  
+                <div class="form-group">
+                    <h2><label class="control-label col-md-5" for="name">Dato del rol</label></h2> 
+                    <!--<div class="col-md-4">
+                        <span class="required_notification">Todos los campos son obligatorios</span>
+                    </div>-->
+                </div>
+                <hr>
+
+                <!--<div class="form-group">
+                    <label class="control-label col-md-4" for="name">Código:</label>
+                    <div class="col-md-5">
+                        <input class="form-control" type="text" name="codigo" placeholder="" />
+                    </div>
+                    
+                </div>-->
+
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="name">Descripción:</label>
+                    <div class="col-md-5">
+                        <input class="form-control" type="text" name="descripcion" placeholder=""/>
+                    </div>
+                </div>
+
+                <!--<label class="control-label" for="textinput">Correo:</label>
+                <input id="textinput" name="textinput" type="email" placeholder="correo" class="input-xlarge">-->
+                <hr>
+                <div class="form-group">
+                    <div class="col-md-2 col-md-offset-6">
+                        <button class="submit" type="submit">Guardar</button>        
+                    </div>
+                </div>
+                <br>            
+        </form>
+    </div> 
+{% endblock %}

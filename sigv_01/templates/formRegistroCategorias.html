@@ -1,0 +1,53 @@
+{% extends 'index.html' %}
+{% block content %}
+    <header id="header">
+        <nav id="mibaner_2" class="navbar navbar-inverse" role="banner">
+            <div  id="micontainer" class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#minavb_2">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                
+            <div id="minavb_2" class="collapse navbar-collapse navbar-left">
+                <ul id="miulnav" class="nav navbar-nav">
+                    <li id="ilnav"><a href='{% url 'categorias'%}'>Ver</a></li>
+                    <li id="ilnav" class="active"><a href='{% url 'nuevo_categoria'%}'>Nuevo</a></li>
+                </ul>
+            </div>    
+        </nav>
+    </header>
+
+<div class="container">
+        <form id="miform" action="{% url "guardar_categoria" categoriaSelec.id %}" class="form-horizontal" method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+                                  
+                <div class="form-group">
+                    <h2><label class="control-label col-md-7" for="name">Dato de la categoría</label></h2> 
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="name">Descripción:</label>
+                    <div class="col-md-4">
+                        {%if categoriaSelec.id != 0 %}
+                            <input class="form-control" type="text" name="descripcion" placeholder="" value={{categoriaSelec.descripcionCategoria}} />
+                        {%else%}
+                            <input class="form-control" type="text" name="descripcion" placeholder=""/>
+                        {%endif%}
+                    </div>
+                </div>
+
+                <!--<label class="control-label" for="textinput">Correo:</label>
+                <input id="textinput" name="textinput" type="email" placeholder="correo" class="input-xlarge">-->
+                <hr>
+                <div class="form-group">
+                    <div class="col-md-2 col-md-offset-5">
+                        <button class="submit" type="submit">Guardar</button>        
+                    </div>
+                </div>
+                <br>            
+        </form>
+    </div> 
+{% endblock %}

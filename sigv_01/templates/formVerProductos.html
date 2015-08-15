@@ -1,0 +1,70 @@
+{% extends 'index.html' %}
+{% block content %}
+
+    <header id="header">
+
+        <nav id="mibaner_2" class="navbar navbar-inverse" role="banner">
+            <div  id="micontainer" class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#minavb_2">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                
+            <div id="minavb_2" class="collapse navbar-collapse navbar-left">
+                <ul id="miulnav" class="nav navbar-nav">
+                    <li id="ilnav" class="active"><a href='{% url 'productos'%}'>Ver</a></li>
+                    <li id="ilnav"><a href='{% url 'nuevo_producto'%}'>Nuevo</a></li>
+                    <li id="ilnav"><input class="form-control" type="text" name="buscar" placeholder="Buscar"/></li>
+
+                </ul>
+            </div>    
+        </nav>
+    </header>
+
+     <div class="container">
+        <h2><label class="control-label col-md-7" for="name">Lista de productos</label></h2>
+    </div>
+
+    <div class="container">
+        <div class="table-responsive">
+        <table id="mitabla" class="table table-bordered table-condensed">
+            <tr>
+                <th id="misth1">Código</th>
+                <th id="misth2">Descripcion</th>
+                <th id="misth3">Marca</th>
+                <th id="misth4">Costo</th>
+                <th id="misth5">Precio contado</th>
+                <th id="misth6">Precio crédito</th>
+                <th id="misth7">Valor agregado</th>
+                <th id="misth8">Iva</th>
+                <th id="misth9">Cantidad</th>
+                <th id="misth10">Stock mínimo</th>
+                <th id="misth11">Estado</th>
+                <th id="misth12" colspan="2">Acciones</th>
+            </tr>
+
+            {%for pro in lstProducto%}
+            <tr>
+                <td>{{pro.id}}</td>
+                <td>{{pro.descripcionProducto}}</td>
+                <td>{{pro.marcaProducto}}</td>
+                <td>{{pro.costoProducto}}</td>
+                <td>{{pro.precioContadoProducto}}</td>
+                <td>{{pro.precioCreditoProducto}}</td>
+                <td>{{pro.valorAgregadoProducto}}</td>
+                <td>{{pro.ivaProducto}}</td>
+                <td>{{pro.cantidadProducto}}</td>
+                <td>{{pro.stockMinimoProducto}}</td>
+                <td>{{pro.estadoProducto}}</td>
+                <td id="td_editar"><span class="glyphicon glyphicon-edit"></span><a href='{% url 'editar_producto' pro.id %}'>Editar</a></td>
+                <td id="td_eliminar"><span class="glyphicon glyphicon-remove"></span><a href='{% url 'eliminar_producto' pro.id %}'>Eliminar</a></td>
+            </tr>
+            {%endfor%}
+            
+        </table>     
+        </div>
+    </div>
+
+{% endblock %}

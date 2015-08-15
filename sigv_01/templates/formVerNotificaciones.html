@@ -1,0 +1,55 @@
+{% extends 'index.html' %}
+{% block content %}
+
+    <header id="header">
+        <nav id="mibaner_2" class="navbar navbar-inverse" role="banner">
+            <div  id="micontainer" class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#minavb_2">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                
+            <div id="minavb_2" class="collapse navbar-collapse navbar-left">
+                <ul id="miulnav" class="nav navbar-nav">
+                    <li id="ilnav" class="active"><a href="formVerNotificaciones.html">Ver</a></li>
+                    <li id="ilnav"><a href="formGenerarNotificaciones.html">Nuevo</a></li>
+                    <li id="ilnav"><input class="form-control" type="text" name="buscar" placeholder="Buscar"/></li>
+
+                </ul>
+            </div>    
+        </nav>
+    </header>
+
+    <div class="container">
+        <h2><label class="control-label col-md-7" for="name">Lista de notificaciones</label></h2>
+    </div>
+
+    <div class="container">
+        <div class="table-responsive col-md-6">
+        <table id="mitabla" class="table table-bordered table-condensed">
+                <tr>
+                    <th id="misth1" class="col-md-1">Fecha</th>
+                    <th id="misth2" class="col-md-3">No. cuenta</th>
+                    <th id="misth3" class="col-md-3">Cliente</th>
+                    <th id="misth4" class="col-md-3">Aviso</th>
+                    <th id="misth5" class="col-md-3">Obserbacion</th>
+                    <th id="misth6" class="col-md-1">Editar</th>
+                    <th id="misth7" class="col-md-1">Eliminar</th>
+                </tr>
+
+                <tr>
+                    <td>06-Ago-15</td>
+                    <td>0500619123</td>
+                    <td>Jordi Durán Pesántez</td>
+                    <td>Recordatorio</td>
+                    <td>Mora</td>
+                    <td id="td_editar"><span class="glyphicon glyphicon-edit"></span>Editar</td>
+                    <td id="td_eliminar"><span class="glyphicon glyphicon-remove"></span>Eliminar</td>
+                </tr>                
+        </table>     
+        </div>
+    </div>
+
+{% endblock %}

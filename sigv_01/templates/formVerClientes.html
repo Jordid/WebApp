@@ -1,0 +1,64 @@
+{% extends 'index.html' %}
+{% block content %}
+    <header id="header">
+
+        <nav id="mibaner_2" class="navbar navbar-inverse" role="banner">
+            <div  id="micontainer" class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#minavb_2">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                
+             <div id="minavb_2" class="collapse navbar-collapse navbar-left">
+                <ul id="miulnav" class="nav navbar-nav">
+                    <li id="ilnav" class="active"><a href='{% url 'clientes'%}'>Ver</a></li>
+                    <li id="ilnav"><a href='{% url 'nuevo_cliente'%}'>Nuevo</a></li>
+                    <li id="ilnav"><input class="form-control" type="text" name="buscar" placeholder="Buscar"/></li>
+                </ul>
+            </div>    
+        </nav>
+    </header>
+
+
+    <div class="container">
+        <h2><label class="control-label col-md-7" for="name">Lista de clientes</label></h2>
+    </div>
+    <div class="container">
+        <div class="table-responsive">
+        <table id="mitabla" class="table table-bordered table-condensed">
+            <tr>
+                <th id="misth1">Id</th>
+                <th id="misth2">Cédula</th>
+                <th id="misth3">Apellidos</th>
+                <th id="misth4">Nombres</th>
+                <th id="misth5">Teléfono</th>
+                <th id="misth6">Email</th>
+                <th id="misth7">Provincia</th>
+                <th id="misth8">Ciudad</th>
+                <th id="misth9">Dirección</th>
+                <th id="misth10">Estado</th>
+                <th id="misth11" colspan="2">Acciones</th>
+            </tr>
+            {% for cli in clientes %}
+            <tr>
+                <td>{{ cli.id }}</td>
+                <td>{{ cli.personaCliente.cedulaPersona }}</td>
+                <td>{{ cli.personaCliente.apellidosPersona }}</td>
+                <td>{{ cli.personaCliente.nombresPersona }}</td>
+                <td>{{ cli.personaCliente.telefonoPersona }}</td>
+                <td>{{ cli.personaCliente.emailPersona }}</td>
+                <td>{{ cli.personaCliente.ciudadPersona.nombreCiudad }}</td>
+                <td>{{ cli.personaCliente.ciudadPersona.provinciaCiudad.nombreProvincia }}</td>
+                <td>{{ cli.personaCliente.direccionPersona }}</td>
+                <td>{{ cli.estadoCliente }}</td>
+                <td id="td_editar"><span id"icon_editar" class="glyphicon glyphicon-edit"></span><a href='{% url 'editar_cliente' cli.id %}'>Editar</a></td>
+                <td id="td_eliminar"><span class="glyphicon glyphicon-remove"></span><a href='{% url 'eliminar_cliente' cli.id %}'>Eliminar</a></td>
+            </tr>
+            {% endfor %}
+        </table>     
+        </div>
+    </div>
+
+  {% endblock %}
