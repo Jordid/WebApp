@@ -28,44 +28,45 @@
 
     <div class="container col-md-11">
         <div class="table-responsive">
-        <table id="mitabla" class="table table-bordered table-condensed">
-            <tr><!-- warning danger active ó success ó info-->
+            <table id="mitabla" class="table table-bordered table-condensed">
+                <tr>
+                    <th id="misth1">Num. cuenta</th>
+                    <th id="misth2">Fecha</th>
+                    <th id="misth3">Cédula</th>
+                    <th id="misth4" colspan="2">Cliente</th>
+                    <th id="misth5">Fecha I. Pag.</th>
+                    <th id="misth6">Total</th>
+                    <th id="misth7">Cuota inicial</th>
+                    <th id="misth8">Cuotas</th>
+                    <th id="misth9">Forma pago</th>
+                    <th id="misth10">Saldo</th>
+                    <th id="misth11">Observación</th>
+                    <th id="misth12" colspan="2">Acciones</th>
+                </tr>
 
-                <th id="misth2">Num. cuenta</th>
-                <th id="misth3">Fecha</th>
-                <th id="misth4">Cédula</th>
-                <th id="misth4">Cliente</th>
-                <th id="misth6">Ciudad</th>
-                <th id="misth7">Fecha I. Pag.</th>
-                <th id="misth8">Total</th>
-                <th id="misth9">Cuota inicial</th>
-                <th id="misth10">Cuotas</th>
-                <th id="misth11">Forma pago</th>
-                <th id="misth12">Saldo</th>
-                <th id="misth13">Observación</th>
-                <th id="misth14">Estado</th>
-                <th id="misth15">Editar</th>
-                <th id="misth16">Eliminar</th>
-            </tr>
-            <tr>
-                <td>000111</td>
-                <td>06-Ago-15</td>
-                <td>0705463123</td>
-                <td>Jordi Duran P</td>
-                <td>Machala</td>
-                <td>06-Ago-15</td>
-                <td>1200.00</td>
-                <td>50.00</td>
-                <td>30.00</td>
-                <td>Semanal</td>
-                <td>1150.00</td>
-                <td>Cobrar dias sabados después de las 3pm</td>
-                <td>Activo</td>
-                <td id="td_editar"><span id"icon_editar" class="glyphicon glyphicon-edit"></span>Editar</td>
-                <td id="td_eliminar"><span class="glyphicon glyphicon-remove"></span>Eliminar</td>
-            </tr>
-        </table>     
-    </div>
+                {% for cpc in lstCuentaCobrar %}
+                <tr>
+                    <td>{{ cpc.numeroCuentaCobrar }}</td>
+                    <td>{{ cpc.fechaCuetaCobrar }}</td>
+                    <td>{{ cpc.clienteCuentaCobrar.personaCliente.cedulaPersona }}</td>
+                    <td>{{ cpc.clienteCuentaCobrar.personaCliente.apellidosPersona }}</td>
+                    <td>{{ cpc.clienteCuentaCobrar.personaCliente.nombresPersona }}</td>
+                    <td>{{ cpc.fechaInicioPagoCuentaCobrar }}</td>
+                    <td>{{ cpc.totalCuentaCobrar }}</td>
+                    <td>{{ cpc.cuotaInicialCuentaCobrar }}</td>
+                    <td>{{ cpc.cuotaCuentaCobrar }}</td>
+                    <td>{{ cpc.formaPagoCuentaCobrar }}</td>
+                    <td>{{ cpc.saldoCuentaCobrar }}</td>
+                    <td>{{ cpc.observacionesCuentaCobrar }}</td>
+
+                    <td id="td_editar"><span id"icon_editar" class="glyphicon glyphicon-edit"></span>Editar</td>
+                    <td id="td_eliminar"><span class="glyphicon glyphicon-remove"></span>Eliminar</td>
+                </tr>
+                {% endfor %}
+
+
+            </table>     
+        </div>
     </div>
 
     <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>

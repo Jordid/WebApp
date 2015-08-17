@@ -51,3 +51,12 @@ $(document).ready(function(){
 	});
  
 });
+
+$(document).ready(function(){
+	var f = new Date();
+    $('#lblhora').text(f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate());
+});
+
+
+
+

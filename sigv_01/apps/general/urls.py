@@ -8,6 +8,7 @@ urlpatterns = patterns('',
 
     url(r'^notificacion/lista$', 'apps.general.views.notificaciones', name='notificaciones'),
     url(r'^notificacion/nuevo$', 'apps.general.views.nuevo_notificacion', name='nuevo_notificacion'),
+    url(r'^notificacion/enviar$', 'apps.general.views.enviar_notificacion', name='enviar_notificacion'),
 
     url(r'^empleado/lista$', 'apps.general.views.empleados', name='empleados'),
     url(r'^empleado/nuevo$', 'apps.general.views.nuevo_empleado', name='nuevo_empleado'),

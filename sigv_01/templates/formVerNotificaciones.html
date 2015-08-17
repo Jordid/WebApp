@@ -27,27 +27,28 @@
     </div>
 
     <div class="container">
-        <div class="table-responsive col-md-6">
+        <div class="table-responsive col-md-9">
         <table id="mitabla" class="table table-bordered table-condensed">
-                <tr>
-                    <th id="misth1" class="col-md-1">Fecha</th>
-                    <th id="misth2" class="col-md-3">No. cuenta</th>
-                    <th id="misth3" class="col-md-3">Cliente</th>
-                    <th id="misth4" class="col-md-3">Aviso</th>
-                    <th id="misth5" class="col-md-3">Obserbacion</th>
-                    <th id="misth6" class="col-md-1">Editar</th>
-                    <th id="misth7" class="col-md-1">Eliminar</th>
+            <tr>
+                    <th id="misth2">Fecha</th>
+                    <th id="misth3">No. cuenta</th>
+                    <th id="misth4"colspan="2">Cliente</th>
+                    <th id="misth5">Aviso</th>
+                    <th id="misth6">Observación</th>
+                    
                 </tr>
 
+                {% for not in lstNotificacion %}
                 <tr>
-                    <td>06-Ago-15</td>
-                    <td>0500619123</td>
-                    <td>Jordi Durán Pesántez</td>
-                    <td>Recordatorio</td>
-                    <td>Mora</td>
-                    <td id="td_editar"><span class="glyphicon glyphicon-edit"></span>Editar</td>
-                    <td id="td_eliminar"><span class="glyphicon glyphicon-remove"></span>Eliminar</td>
-                </tr>                
+                    <td>{{not.fechaNotificacion}}</td>
+                    <td>{{not.cuentaCobrar.numeroCuentaCobrar}}</td>
+                    <td>{{not.cuentaCobrar.clienteCuentaCobrar.personaCliente.apellidosPersona}}</td>
+                    <td>{{not.cuentaCobrar.clienteCuentaCobrar.personaCliente.nombresPersona}}</td>
+                    <td>{{not.aviso.tipoAviso}}</td>
+                    <td>{{not.observacionesNotificacion}}</td>
+                </tr> 
+
+                {%endfor%}               
         </table>     
         </div>
     </div>

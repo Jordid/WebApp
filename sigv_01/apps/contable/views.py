@@ -14,6 +14,7 @@ def cuentas_por_cobrar(request):
 	return render(request, template, {"listaMenu": menu(request), "lstCuentaCobrar": lstCuentaCobrar})
 #-------------------------------------
 
+
 #------------ CuentaPagar ---------------
 def cuentas_por_pagar(request):
 	lstCuentaPagar = CuentaPagar.objects.all()

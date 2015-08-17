@@ -5,6 +5,7 @@ from apps.app.models import *
 from django.http import HttpResponse,HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from apps.app import iniciar_sesion, cerrar_sesion, menu
+from apps.general import enviar_email
 # Create your views here.
 
 
@@ -29,10 +30,21 @@ def notificaciones(request):
 	return render(request, template, {"listaMenu": menu(request), 'lstNotificacion': lstNotificacion})
 
 def nuevo_notificacion(request):
+	lstCliente = Cliente.objects.all()
 	lstAviso = Aviso.objects.all()
+	lstclienteAtrasados = clientes_atrasados()
 	template = 'formGenerarNotificaciones.html'
-	return render(request, template, {"listaMenu": menu(request), 'lstAviso': lstAviso})
+	return render(request, template, {"listaMenu": menu(request), 'lstCliente': lstCliente, 
+		'lstAviso':lstAviso, "lstclienteAtrasados":lstclienteAtrasados})
+
 #-------------------------------------
+def clientes_atrasados( ):
+	lstCuenta = CuentaCobrar.objects.filter(estadoCuentaCobrar="Atrasado")
+	lstCliente =[]
+	for cue in lstCuenta:
+		if cue.clienteCuentaCobrar is not lstCliente:
+			lstCliente.append(cue.clienteCuentaCobrar)
+	return lstCliente
 
 #------------ Empleado ---------------
 def empleados(request):
@@ -165,7 +177,15 @@ def guardar_proveedor(request, proveedor_id):
         cli.save()
         return redirect('clientes')
 	returnnse(template,context_instance=RequestContext(request, locals()))
+
+def enviar_notificacion(request):
+	lstclienteAtrasados = clientes_atrasados()
+	for cli in lstclienteAtrasados:
+		enviar_email("","","Asunto", "Mensaje", cli.personaCliente.emailPersona )
+	return redirect('nuevo_notificacion')
+
 #-------------------------------------
 
 
-#------------ Notificaciones ---------------
+
+
