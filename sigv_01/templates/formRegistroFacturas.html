@@ -19,8 +19,8 @@
     </header>
 
     <div class="container">
-        <form id="miform" action="" class="form-horizontal">
-        <!--<form class="contact_form" action="" method="post" name="contact_form">-->                
+        <form id="miform" action="{% url "guardar_factura" 0 %}" class="form-horizontal" method="POST">
+        {% csrf_token %}                
                 <div class="form-group">
                     <h2><label class="control-label col-md-3" for="name">Datos de la factura</label></h2> 
                     <!--<div class="col-md-4">
@@ -31,30 +31,33 @@
 
                 <div class="form-group">
                     <label class="control-label col-md-2" for="name">C.C./Ruc:</label>
-                    <div class="col-md-2">
-                        <input class="form-control" type="text" name="cc_ruc" placeholder="0705463123" />
+                    <div class="col-md-3">
+                        <input class="form-control typeahead" name="cc_ruc" type="text" id="txtBuscarCliente" placeholder="Buscar Cliente..." autocomplete="off" />
+                    </div>
+                    <div class="col-md-1">
+                        <button class="btn" type="button" onclick="mostrarCliente();">OK</button>  
                     </div>                
-                    <label class="control-label col-md-5" for="name">Factura #:</label>
+                    <label class="control-label col-md-3" for="name">Factura #:</label>
                     <div class="col-md-2">
-                        <input class="form-control" type="text" name="numerofactura" placeholder="0001234" />
+                        <input class="form-control" type="text" id="" name="numerofactura" placeholder="0001234" />
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label class="control-label col-md-2" for="name">Cliente:</label>
                     <div class="col-md-5">
-                        <input class="form-control" type="text" name="cliente" placeholder="Jordi Marcelo Duran Pesantez" />
+                        <input class="form-control" type="text" id="txtCliente" name="cliente" placeholder="..." readonly="true" />
                     </div>
                     <label class="control-label col-md-2" for="name">Fecha:</label>
                     <div class="col-md-2">
-                        <input class="form-control" type="text" name="fecha" placeholder="18-Julio-2015" />
+                        <input class="form-control" id="txtfecha" type="text" name="fecha" placeholder="18-Julio-2015" readonly="true" />
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label class="control-label col-md-2" for="name">Dirección:</label>
                     <div class="col-md-5">
-                        <input class="form-control" type="text" name="direccion" placeholder="Shumiral Barrio C. del Consuelo" />
+                        <input class="form-control" type="text" id ="txtDireccion" name="direccion" placeholder="..." readonly="true" />
                     </div>
                     <!--
                     <a href="lista_ciudad" id="lookup_id_ciudadPersona" onclick="return showRelatedObjectLookupPopup(this);"> <img src="/static/admin/img/selector-search.gif" alt="Buscar" height="16" width="16"></a>
@@ -67,7 +70,7 @@
 
                 <div class="form-group">
                     <label class="control-label col-md-2" for="name">Buscar:</label>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                        <select class="form-control" name="country" id="basic" tabindex="-1" title="" class="select2-offscreen">
                             {%for producto in lstProducto%}
                                 <option value="{{producto.id}}">{{producto.descripcionProducto}}</option>
@@ -78,20 +81,22 @@
                         <input id="cantidad" class="form-control" type="text" name="cantidad" placeholder="cant." />            
                     </div>
                     <div class="col-md-1">
-                        <button class="button" type="button" onclick="AgregarFila();">Agregar</button>  
+                        <button class="btn" type="button" onclick="AgregarFila();">+</button>  
                     </div>
                 </div>
 
                 <div class="container col-md-11">
                     <div class="table-responsive">
-                    <table id="mitabla" class="table table-bordered table-condensed">
-                        <tr><!-- warning danger active ó success ó info-->
-                            <th id="misth1" class="col-md-1">Cantidad</th>
-                            <th id="misth2" class="col-md-5">Artículo</th>
-                            <th id="misth3" class="col-md-1">Valor unitario</th>
-                            <th id="misth4" class="col-md-1">Valor total</th>
-                            <th id="misth4" class="col-md-1">Eliminar</th>
-                        </tr>
+                    <table id="mitabla" name="mitable" class="table table-bordered table-condensed">
+                        <thead>
+                            <tr><!-- warning danger active ó success ó info-->
+                                <th id="misth1" class="col-md-1">Cantidad</th>
+                                <th id="misth2" class="col-md-5">Artículo</th>
+                                <th id="misth3" class="col-md-1">Valor unitario</th>
+                                <th id="misth4" class="col-md-1">Valor total</th>
+                                <th id="misth4" class="col-md-1">Quitar</th>
+                            </tr>
+                        </thead>
                     </table>     
                     </div>
                     
@@ -105,37 +110,37 @@
                     
                     <label class="control-label col-md-2" for="name"  >Subtotal:</label>
                     <div class="col-md-2">
-                        <input class="form-control" type="text" name="subtotal" placeholder="120.00" />
+                        <input class="form-control" type="text" id= "txtSubtotal" name="subtotal" placeholder="120.00" readonly="true" />
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label class="control-label col-md-9" for="name">Descuento:</label>
                     <div class="col-md-1">
-                        <input class="form-control" type="text" name="porcentaje" placeholder="5%" />
+                        <input class="form-control" type="text" id="txtPorcentaje" name="porcentaje" placeholder="5" />
                     </div>
                     <div class="col-md-1">
-                        <input class="form-control" type="text" name="descuento" placeholder="5.10" />
+                        <input class="form-control" type="text" id="txtDescuento" name="descuento" placeholder="5.10" readonly="true"/>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label class="control-label col-md-9" for="name">Iva 0%:</label>
                     <div class="col-md-2">
-                        <input class="form-control" type="text" name="ivacero" placeholder="0%" />
+                        <input class="form-control" type="text" id="txtIvaCero" name="ivacero" placeholder="0%" readonly="true"/>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label class="control-label col-md-9" for="name">Iva 12%:</label>
                     <div class="col-md-2">
-                        <input class="form-control" type="text" name="ivadoce" placeholder="12%" />
+                        <input class="form-control" type="text" id="txtIvaDoce" name="ivadoce" placeholder="12%" readonly="true"/>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-md-9" for="name">Total:</label>
                     <div class="col-md-2">
-                        <input class="form-control" type="text" name="total" placeholder="120" />
+                        <input class="form-control" type="text" id="txtTotal" name="total" placeholder="120" readonly="true"/>
                     </div>
                 </div>
 
@@ -154,7 +159,8 @@
                 <br>          
         </form>
     </div>              
-
+{% endblock %}
+{% block js %} 
 <script>
 $(document).ready(function(){
     $("#basic").select2();
@@ -166,34 +172,65 @@ $(document).ready(function(){
     $("#minimum").select2({
         minimumInputLength: 2
     });
-    
 });
 </script>
 
 <script type="text/javascript">
+    var f = new Date();
+    document.getElementById('txtfecha').value=(f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate());
+    //    var fecha = (f.getFullYear() + "-" + (f.getMonth() +2) + "-" + f.getDate());
+
     function AgregarFila( ){
-        var combo = document.getElementById("basic")
+        var combo = document.getElementById("basic");
         var index = combo.selectedIndex;
         var id = combo.options[index].value;
         var descripcion = combo.options[index].text;
         var table = document.getElementById("mitabla");
         index = table.rows.length;
-        
-        var row = table.insertRow(index);
-        row.value = id;
-        var cell1 = row.insertCell(0);        var cell2 = row.insertCell(1);
-        var cell3 = row.insertCell(2);        var cell4 = row.insertCell(3);
-        var cell5 = row.insertCell(4);
+        if (index <=11)
+        {
+        if (EstaEnTabla(id)==false)
+        {
+            var row = table.insertRow(index);
+            row.value = id;
+            var cantidadCell = row.insertCell(0);     var descripcionCell = row.insertCell(1);
+            var valorUnCell = row.insertCell(2);      var valorTotalCell = row.insertCell(3);
+            var quitarCell = row.insertCell(4);
 
-        var cantidadAux = (document.getElementById("cantidad").value +"").replace(",", ".");
-        var valorUnAux = (BuscarPrecioProducto(id)+"").replace(",",".");
-        var valorToAux = parseFloat(cantidadAux) * parseFloat(valorUnAux);
-        var idPp = id + "";
-        cell1.innerHTML = cantidadAux;
-        cell2.innerHTML = descripcion;
-        cell3.innerHTML = valorUnAux+"";
-        cell4.innerHTML = valorToAux+"";
-        cell5.innerHTML = "<a onclick='EliminarProducto("+idPp+")'>Quitar</a>";
+            var cantidadAux = (document.getElementById("cantidad").value +"").replace(",", ".");
+            var valorUnAux = (BuscarPrecioProducto(id)+"").replace(",",".");
+            var valorToAux = parseFloat(cantidadAux) * parseFloat(valorUnAux);
+            var idPp = id + "";
+            cantidadCell.innerHTML = cantidadAux;
+            descripcionCell.innerHTML = descripcion;
+            valorUnCell.innerHTML = valorUnAux+"";
+            valorTotalCell.innerHTML = valorToAux+"";
+            
+            var strQuitar = "<button class='btn' type='button' onclick='EliminarFilas(this);'><span class='glyphicon glyphicon-remove'></button>";
+            quitarCell.innerHTML = strQuitar;
+            Sumartotales();
+        }
+        else
+        {
+            alert("Ya existe el producto en la tabla!");
+        }
+    }else
+    {
+        alert("Solo admite 11 productos!");
+    }
+   }
+
+   function mostrarCliente(){
+        var cedulaBuscar=document.getElementById("txtBuscarCliente").value;
+        {% for cli in lstCliente %}
+          if("{{ cli.personaCliente.cedulaPersona }}" == cedulaBuscar){
+                var nombre = "{{cli.personaCliente.nombresPersona}}"
+                var apellido = "{{cli.personaCliente.apellidosPersona}}"
+                var direccion = "{{cli.personaCliente.direccionPersona}}"
+                document.getElementById("txtCliente").value=apellido + " " +nombre;
+                document.getElementById("txtDireccion").value=direccion;
+            }
+        {% endfor %}
     }
 
     function BuscarPrecioProducto(idProducto)
@@ -205,22 +242,78 @@ $(document).ready(function(){
                 return "{{pro.precioContadoProducto}}";
             }
         {% endfor %}
+    }       
+
+    function EliminarFilas(t)
+    {
+        var td = t.parentNode;
+        var tr = td.parentNode;
+        var table = tr.parentNode;
+        table.removeChild(tr)
+        Sumartotales()
     }
 
-    function EliminarProducto(idPro)
-    {
-
+    function redondeo(numero){
+        var flotante = parseFloat(numero);
+        var resultado = Math.round(flotante*100)/100;
+        return resultado;
     }
 
-    function ActualizarValores()
-    {
-        var table = document.getElementById("mitabla");
-        index = table.rows.length;
-        for (var a=0; a<index; a++)
-        {
-            fila = table.rows[a].getCell(0).value;
+    function Sumartotales(){
+        var tabla = document.getElementById('mitabla');
+        var total=0;
+        for(var i = 1;tabla.rows[i];i++){
+            total+= Number(tabla.rows[i].cells[3].innerHTML);
         }
+            console.log(total);
+            LlenarCamposTotales(total);
+        }
+
+    function LlenarCamposTotales(subtotal){
+        var subAux = subtotal + "";
+        sub = parseFloat(subAux);
+        var porDescuentoAux = document.getElementById("txtPorcentaje").value;
+        descuentoAux = parseFloat("0.00");
+        if (porDescuentoAux != "")
+        {
+            dessss = parseFloat(porDescuentoAux);
+            descuentoAux = (dessss/100)* sub;
+        }   
+
+        ivaDoceAux = sub * 0.12;
+        totalAux = sub + ivaDoceAux - descuentoAux;
+        document.getElementById("txtSubtotal").value = redondeo(sub);
+        document.getElementById("txtDescuento").value = redondeo(descuentoAux);
+        document.getElementById("txtIvaCero").value = 0;
+        document.getElementById("txtIvaDoce").value = redondeo(ivaDoceAux);
+        document.getElementById("txtTotal").value=redondeo(totalAux);
     }
 
+    function EstaEnTabla(idProAux){
+        var tabla = document.getElementById('mitabla');
+        for(var i = 1;tabla.rows[i];i++){
+            var idRow = tabla.rows[i].value;
+            if (idRow == idProAux)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+</script>
+
+<script >
+        var nombre = []
+        var contador  = 0;
+        {% for cli in lstCliente %}
+            nombre[contador]="{{cli.personaCliente.cedulaPersona}}";
+            console.log(nombre[contador]);
+            contador=contador+1;
+        {% endfor %}
+
+          $('input.typeahead').typeahead({
+                  local: nombre
+              });
 </script>
 {% endblock %}

@@ -8,37 +8,53 @@ from django.utils.encoding import force_str
 from django.utils.six.moves.urllib.parse import urlparse
 from django.shortcuts import resolve_url
 
+
+
 def iniciar_sesion(request):
 	if request.POST["usuario"] == '' or request.POST["password"] == '' :
-		return None
+		return 0
 	else:
-		usuarioCon = None
+		usuarioCon = 0
 		nick = request.POST["usuario"]
 		clave = request.POST["password"]
 		try:
 			usuarioCon = Usuario.objects.get(nickUsuario=nick, claveUsuario=clave)
 			return usuarioCon.id
 		except:
-			return None
+			return 0
 
 def cerrar_sesion(request):
-    request.session['usuarioSession'] = None
+    request.session['usuarioSession'] = 3
 
 def menu(request):
-	menuLista = []
-	if request.session.get('usuarioSession') is not None:
-		usuarioAux = request.session.get('usuarioSession')	
-		listaRoles = UsuarioRoles.objects.filter(usuarioUsurioRoles = usuarioAux)
-		if len(listaRoles) > 0:
-			listaHabilitada =[]
-			listaPermisos = Permisos.objects.all()
-			for rolA in listaRoles:
-				for per in listaPermisos:
-					if rolA == per.rolPermiso:
-						listaHabilitada.append(per.menuPermiso.id)
+    listaHabilitada =[]
+    if request.session.get('usuarioSession') is not None:
+        usuarioAux = request.session.get('usuarioSession')	
+        lstUsuRol = UsuarioRoles.objects.filter(usuarioUsurioRoles = usuarioAux)
+        if len(lstUsuRol) > 0:
+
+            listaPermisos = Permisos.objects.all()
+            for usuRol in lstUsuRol:
+                for per in listaPermisos:
+                    if usuRol.rolUsuarioRoles == per.rolPermiso:
+                        if per.menuPermiso.urlMenu != "/":
+                            url = ""
+                        else:
+                            url = "/"
+                        cont = 0;
+                        for letra in request.path:
+                            if letra == '/':
+                                cont = cont + 1;
+                            if cont ==2:
+                                break;
+                            if letra != '/' and cont < 2:
+                                url = url+ letra
+                        if url == per.menuPermiso.urlMenu:
+                            per.menuPermiso.iconoMenu = "true"
+                        if per.menuPermiso.estadoMenu == 'Activo':                            
+                            listaHabilitada.append(per.menuPermiso)
 			listaHabilitada = list(set(listaHabilitada))#, id__in=listaHabilitada
-			menuLista = Menu.objects.order_by('codigoMenu').filter(estadoMenu='Activo')
-	return menuLista;
+    return listaHabilitada
 
 
 def usuario_pasa_prueba(test_func, login_url=None, redirect_field_name=REDIRECT_FIELD_NAME):
@@ -70,6 +86,7 @@ def usuario_pasa_prueba(test_func, login_url=None, redirect_field_name=REDIRECT_
         return _wrapped_view
     return decorator
 
+
 def login_requerido(function=None, redirect_field_name=REDIRECT_FIELD_NAME, login_url=None):
     """
     Decorator for views that checks that the user is logged in, redirecting
@@ -83,3 +100,93 @@ def login_requerido(function=None, redirect_field_name=REDIRECT_FIELD_NAME, logi
     if function:
         return actual_decorator(function)
     return actual_decorator
+
+def permiso_requerido(request):
+    idUsuario = request.session.get("usuarioSession")
+    menu = Menu.objects.get(urlMenu=lista_path(request.path))
+    lstPermiso = Permisos.objects.filter(menuPermiso=menu)
+    if len(lstPermiso)>0:
+        return True
+    else:
+        return False
+
+def lista_path(path):
+    path = str(path)
+
+    #if path.find("editar") or path.find("guardar") or path.find(""):
+    #    1/0
+
+    diccionarioURL={"/":"/",
+    "/quienes_somos/":"quienes_somos",
+    "/nuestros_productos/":"nuestros_productos",
+    "/contactos/":"contactos",
+    "/contable/cuenta_por_cobrar/lista/":"cuentas_por_cobrar",
+    "/contable/cuenta_por_pagar/lista/":"cuentas_por_pagar",
+    "/general/provincia/lista":"provincias",
+    "/general/ciudad/lista":"ciudades",
+    "/general/notificacion/lista":"notificaciones",
+    "/general/notificacion/nuevo":"nuevo_notificacion",
+    "/general/empleado/lista":"empleados",
+    "/general/empleado/nuevo":"nuevo_empleado",
+    "/general/empleado/editar":"editar_empleado",
+    "/general/empleado/eliminar":"eliminar_empleado",
+    "/general/empleado/guardar":"guardar_empleado",
+    "/general/proveedor/lista":"proveedores",
+    "/general/proveedor/nuevo":"nuevo_proveedor",
+    "/general/proveedor/editar":"editar_proveedor",
+    "/general/proveedor/eliminar":"eliminar_proveedor",
+    "/general/proveedor/guardar":"guardar_proveedor",
+    "/inventario/producto/lista":"productos",
+    "/inventario/producto/nuevo":"nuevo_producto",
+    "/inventario/producto/editar":"editar_producto",
+    "/inventario/producto/guardar":"guardar_producto",
+    "/inventario/producto/eliminar":"eliminar_producto",
+    "/inventario/kardex/lista":"kardex",
+    "/inventario/categoria/lista":"categorias",
+    "/inventario/categoria/nuevo":"nuevo_categoria",
+    "/inventario/categoria/editar":"editar_categoria",
+    "/inventario/categoria/guardar":"guardar_categoria",
+    "/seguridad/usuario/lista":"usuarios",
+    "/seguridad/usuario/nuevo":"nuevo_usuario",
+    "/seguridad/usuario/editar":"editar_usuario",
+    "/seguridad/usuario/eliminar":"eliminar_usuario",
+    "/seguridad/usuario/guardar":"guardar_usuario",
+    "/seguridad/rol/lista":"roles",
+    "/ventas/cliente/lista":"clientes",
+    "/ventas/cliente/nuevo":"nuevo_cliente",
+    "/ventas/cliente/editar":"editar_cliente",
+    "/ventas/cliente/eliminar":"eliminar_cliente",
+    "/ventas/cliente/guardar":"guardar_cliente",
+    "/ventas/factura/lista":"facturas",
+    "/ventas/factura/nuevo":"nuevo_factura",
+    "/ventas/factura/editar":"editar_factura",
+    "/ventas/factura/eliminar":"eliminar_factura",
+    "/ventas/factura/guardar":"guardar_factura",
+    }
+    return diccionarioURL[path]
+
+
+
+def tiene_permiso(request):
+    idUsuario = request.session.get("usuarioSession")
+    
+    """
+    Decorator for views that checks whether a user has a particular permission
+    enabled, redirecting to the log-in page if necessary.
+    If the raise_exception parameter is given the PermissionDenied exception
+    is raised.
+   
+    def check_perms(user):
+        if not isinstance(perm, (list, tuple)):
+            perms = (perm, )
+        else:
+            perms = perm
+        # First check if the user has the permission (even anon users)
+        if user.has_perms(perms):
+            return True
+        # In case the 403 handler should be called raise the exception
+        if raise_exception:
+            raise PermissionDenied
+        # As the last resort, show the login form
+        return False
+    return usuario_pasa_prueba(check_perms, login_url=login_url) """

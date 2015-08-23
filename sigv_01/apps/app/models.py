@@ -47,6 +47,9 @@ class Usuario(models.Model):
 	estadoUsuario = models.CharField(max_length=20)
 	personaUsuario = models.ForeignKey(Persona)	
 
+	def __unicode__(self):
+		return '%s'%(self.nickUsuario)
+
 #-------Seccion Bodega-------#
 class Categoria(models.Model):
 	descripcionCategoria = models.CharField(max_length = 100)
@@ -174,6 +177,8 @@ class Rol(models.Model):
 class UsuarioRoles(models.Model):
 	rolUsuarioRoles = models.ForeignKey(Rol)
 	usuarioUsurioRoles = models.ForeignKey(Usuario)
+	def __unicode__(self):
+		return '%s-%s'%(self.rolUsuarioRoles, self.usuarioUsurioRoles)
 
 class Menu(models.Model):
 	codigoMenu = models.CharField(max_length=20)

@@ -1,5 +1,11 @@
 $(document).ready(function(){
-	var logueado = "false"
+	var log = EstadoLoguin();
+	var logueado = "false";
+	if (log != 3)
+	{
+		logueado = "true";
+	}
+
 	$('#loguin').hide();
 
 	$('#open_close').click(function(){
@@ -57,6 +63,22 @@ $(document).ready(function(){
     $('#lblhora').text(f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate());
 });
 
+<<<<<<< HEAD
+$(document).ready(function(){
+    //$('#lblhora').text(f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate());
+    $("#btnGenerarNotificacion").click(function(){
+    	//tabla = document.getElementById('#mitabla')[0];
+    	
+    	$('.form-control').value = "jaja";
+    	alert("yeah: ");
+
+    });
+});
+
+
+
+=======
+>>>>>>> origin/master
 
 
 

@@ -20,10 +20,12 @@
     <link href="{{STATIC_URL}}css/misEstilos2.css" rel="stylesheet">
 
     <link href="{{STATIC_URL}}css/select2.css" rel="stylesheet">
+    <link href="{{STATIC_URL}}css/stilo.css" rel="stylesheet">
 
     <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/cssloguin.css">
     <script type="text/javascript" src="{{STATIC_URL}}js/jquery.js"></script>
     <script type="text/javascript" src="{{STATIC_URL}}js/mijs.js"></script>
+
 
 
     <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.0/css/bootstrap.min.css" rel="stylesheet">
@@ -61,29 +63,37 @@
                         <span class="icon-bar"></span>
                     </button>
                     <!--<h2 id="logo">Créditos Vacacela</h2>-->
-                    <a class="navbar-brand" href="{% url 'home' %}"><img src="{{STATIC_URL}}images/logo.jpg" alt="logo"></a>
+                    <a class="navbar-brand" href='{% url '/'%}'><img src="{{STATIC_URL}}images/logo.jpg" alt="logo"></a>
                 </div>
                 
                 <div id="minavb" class="collapse navbar-collapse navbar-left">
                     <ul id="miulnav" class="nav navbar-nav">
-                        <li id="ilnav" class="active"><a href="{% url 'home' %}">Inicio</a></li>
-                        <li id="ilnav"><a href="{% url 'quienes_somos' %}">Quienes Somos</a></li>
-                        <li id="ilnav"><a href="{% url 'nuestros_productos' %}">Productos</a></li>
                         {%for menu in listaMenu%}
-                        {%if menu.codigoMenu == menu.codigoPadreMenu%}
-                        <li id="ilnav" class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ menu.descripcionMenu }} <i class="fa fa-angle-down"></i></a>
-                            <ul class="dropdown-menu">
-                                {%for menuItem in listaMenu%}
-                                {%if menuItem.codigoPadreMenu == menu.codigoMenu and menuItem.codigoMenu != menuItem.codigoPadreMenu%}
-                                <li><a href= {% url menuItem.urlMenu %}>{{ menuItem.descripcionMenu }}</a></li>
+                            {%if menu.codigoPadreMenu == "Principal"%}
+                                {%if menu.iconoMenu == "false"%}
+                                    <li id="ilnav"><a href="{% url menu.urlMenu %}">{{ menu.descripcionMenu }}</a></li>
+                                {%else%}
+                                    <li id="ilnav" class="active"><a href="{% url menu.urlMenu %}">{{ menu.descripcionMenu }}</a></li>
                                 {%endif%}
-                                {%endfor%}
-                            </ul>
-                        </li>
-                        {%endif%}
+                            {%else%}
+                                {%if menu.codigoMenu == menu.codigoPadreMenu%}
+                                {%if menu.iconoMenu == "true"%}
+                                <li id="ilnav" class="dropdown active">
+                                {%else%}
+                                <li id="ilnav" class="dropdown">
+                                {%endif%}
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ menu.descripcionMenu }} <i class="fa fa-angle-down"></i></a>
+                                    <ul class="dropdown-menu">
+                                        {%for menuItem in listaMenu%}
+                                        {%if menuItem.codigoPadreMenu == menu.codigoMenu and menuItem.codigoMenu != menuItem.codigoPadreMenu%}
+                                        <li><a href= {% url menuItem.urlMenu %}>{{ menuItem.descripcionMenu }}</a></li>
+                                        {%endif%}
+                                        {%endfor%}
+                                    </ul>
+                                </li>
+                                {%endif%}
+                            {%endif%}
                         {% endfor %} 
-                        <li id="ilnav"><a href="{% url 'contactos' %}">Contactos</a></li>
                         <li id="libtn"><button id="open_close" type="submit" class="btn btn-default"><span class="glyphicon glyphicon-user"></span></button></li>
                         
                     </ul>
@@ -94,7 +104,6 @@
     </header><!--/header-->
 
     
-
     <div id="loguin" class="container">
             <p><br/></p>
         <div class="row">
@@ -110,29 +119,29 @@
 
                             <div id ="migrupo"> 
                             <hr>
-	                            <div id = "usu" class="form-group">
-	                                <label class="control-label col-md-4" for="name">Usuario:</label>
-	                                <div class="col-md-8">
-	                                    <input id="usua" class="form-control" type="text" name="usuario" placeholder="" />
-	                                </div>
-	                            </div>
+                                <div id = "usu" class="form-group">
+                                    <label class="control-label col-md-4" for="name">Usuario:</label>
+                                    <div class="col-md-8">
+                                        <input id="usua" class="form-control" type="text" name="usuario" placeholder="" />
+                                    </div>
+                                </div>
 
 
-	                            <br>    
-	                            
-	                            <div id = "pas"class="form-group" >
-	                                <label class="control-label col-md-4" for="password">Password:</label>
-	                                <div class="col-md-8">
-	                                    <input id="pass" class="form-control" type="password" name="password" placeholder="" />
-	                                </div>
-	                            </div>
+                                <br>    
+                                
+                                <div id = "pas"class="form-group" >
+                                    <label class="control-label col-md-4" for="password">Password:</label>
+                                    <div class="col-md-8">
+                                        <input id="pass" class="form-control" type="password" name="password" placeholder="" />
+                                    </div>
+                                </div>
 
-	                            <div id = "che"class="form-group">
-	                                <label class="control-label col-md-4" for="prependedcheckbox">Recordarme:</label>
-	                                <div class="control-label col-md-1"><input type="checkbox"></div>
-	                            </div>
-                            	<hr>
-	                        </div>
+                                <div id = "che"class="form-group">
+                                    <label class="control-label col-md-4" for="prependedcheckbox">Recordarme:</label>
+                                    <div class="control-label col-md-1"><input type="checkbox"></div>
+                                </div>
+                                <hr>
+                            </div>
 
                             <div class="row" >
                                 <div class="col-md-5">
@@ -141,7 +150,7 @@
                                 </div>
 
                                 <div class="col-md-4">
-                                    <button id="btnEntrare" type="sumbit" class="btn btn-success"><span class="glyphicon glyphicon-lock"></span> Entrar</button>
+                                    <button id="btnEntrare" type="submit" class="btn btn-success"><span class="glyphicon glyphicon-lock"></span> Entrar</button>
                                 </div>
                             </div>
 
@@ -152,7 +161,6 @@
             </div>
         </div>
     </div>
-
 	
 	<div class="social">
 		<ul>
@@ -195,11 +203,19 @@
             </div>
         </div>
 </footer><!--/#footer-->
+    <script type="text/javascript">
+        //alert("sd");
+        var estadoLoguin = {{request.session.usuarioSession}}
+
+        function EstadoLoguin(){
+            return estadoLoguin;
+        }
+
+    </script>
 
     <script src="{{STATIC_URL}}js/jquery.js"></script>
     <script src="{{STATIC_URL}}js/bootstrap.min.js"></script>
     
-
     <script src="{{STATIC_URL}}js/jquery.prettyPhoto.js"></script>
     <script src="{{STATIC_URL}}js/jquery.isotope.min.js"></script>
     <script src="{{STATIC_URL}}js/main.js"></script>
@@ -207,5 +223,9 @@
 
     <script src="{{STATIC_URL}}js/jquery.min.js"></script>
     <script src="{{STATIC_URL}}js/select2.js"></script>
+    <script src="{{STATIC_URL}}js/typeahead.js"></script>
+{%block js%}
+
+{%endblock%}
 </body>
 </html>

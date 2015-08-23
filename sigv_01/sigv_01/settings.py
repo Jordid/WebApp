@@ -57,6 +57,9 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
+
+
+
 ROOT_URLCONF = 'sigv_01.urls'
 
 WSGI_APPLICATION = 'sigv_01.wsgi.application'
@@ -108,3 +111,9 @@ STATICFILES_DIRS=(
     RUTA_PROYECTO.child('static')),
 TEMPLATE_DIRS=(
     RUTA_PROYECTO.child('templates')),
+
+from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS as TCP
+TEMPLATE_CONTEXT_PROCESSORS = TCP + (
+    'django.core.context_processors.request',
+)
+
