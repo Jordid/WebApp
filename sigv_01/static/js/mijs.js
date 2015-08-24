@@ -63,7 +63,6 @@ $(document).ready(function(){
     $('#lblhora').text(f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate());
 });
 
-<<<<<<< HEAD
 $(document).ready(function(){
     //$('#lblhora').text(f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate());
     $("#btnGenerarNotificacion").click(function(){
@@ -74,11 +73,6 @@ $(document).ready(function(){
 
     });
 });
-
-
-
-=======
->>>>>>> origin/master
 
 
 

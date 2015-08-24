@@ -313,18 +313,11 @@ $(document).ready(function(){
                     ivaDoce:document.getElementById("txtIvaDoce").value,
                     total:document.getElementById("txtTotal").value,
                     observaciones:document.getElementById("txtObservaciones").value,
-                    cliente:document.getElementById("txtBuscarCliente").value
+                    cliente:document.getElementById("txtBuscarCliente").value,
                     });
-                }
-
-            for (var i = 1; tabla.rows[i];i++){
-                $.get('/ventas/factura/guardar',{
-                    
-                    });
-                }
+        }
         alert("Datos Guardados Correctamente... ")
-        //setTimeout("location.href='/ventas/factura/lista'",2000);
-          }       
+        //setTimeout("location.href='/ventas/factura/lista'",2000);       
         }
     )
 </script>
