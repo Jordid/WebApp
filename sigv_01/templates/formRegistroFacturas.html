@@ -19,7 +19,7 @@
     </header>
 
     <div class="container">
-        <form id="miform" action="{% url "guardar_factura" 0 %}" class="form-horizontal" method="POST">
+        <form id="miform" action="{% url "guardar_factura" %}" class="form-horizontal" method="POST">
         {% csrf_token %}                
                 <div class="form-group">
                     <h2><label class="control-label col-md-3" for="name">Datos de la factura</label></h2> 
@@ -39,7 +39,7 @@
                     </div>                
                     <label class="control-label col-md-3" for="name">Factura #:</label>
                     <div class="col-md-2">
-                        <input class="form-control" type="text" id="" name="numerofactura" placeholder="0001234" />
+                        <input class="form-control" type="text" id="txtnfactura" name="numerofactura" placeholder="0001234" />
                     </div>
                 </div>
 
@@ -87,7 +87,7 @@
 
                 <div class="container col-md-11">
                     <div class="table-responsive">
-                    <table id="mitabla" name="mitable" class="table table-bordered table-condensed">
+                    <p><table id="mitabla" name="mitable" class="table table-bordered table-condensed">
                         <thead>
                             <tr><!-- warning danger active ó success ó info-->
                                 <th id="misth1" class="col-md-1">Cantidad</th>
@@ -97,7 +97,7 @@
                                 <th id="misth4" class="col-md-1">Quitar</th>
                             </tr>
                         </thead>
-                    </table>     
+                    </table></p>     
                     </div>
                     
                 </div>
@@ -105,27 +105,27 @@
                 <div class="form-group">
                     <label class="control-label col-md-2" for="busca">Observaciones:</label>
                     <div class="col-md-5">
-                        <input class="form-control" type="text" name="observaciones" placeholder="..." />            
+                        <input  id="txtObservaciones" class="form-control" type="text" name="observaciones" placeholder="..." />            
                     </div>
                     
-                    <label class="control-label col-md-2" for="name"  >Subtotal:</label>
+                    <label  class="control-label col-md-2" for="name"  >Subtotal:</label>
                     <div class="col-md-2">
-                        <input class="form-control" type="text" id= "txtSubtotal" name="subtotal" placeholder="120.00" readonly="true" />
+                        <input  id="txtSubtotal" class="form-control" type="text" id= "txtSubtotal" name="subtotal" placeholder="120.00" readonly="true" />
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label class="control-label col-md-9" for="name">Descuento:</label>
                     <div class="col-md-1">
-                        <input class="form-control" type="text" id="txtPorcentaje" name="porcentaje" placeholder="5" />
+                        <input  id="txtDescuento" class="form-control" type="text" id="txtPorcentaje" name="porcentaje" placeholder="5" />
                     </div>
                     <div class="col-md-1">
-                        <input class="form-control" type="text" id="txtDescuento" name="descuento" placeholder="5.10" readonly="true"/>
+                        <input class="form-control" type="text" name="descuento" placeholder="5.10" readonly="true"/>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label class="control-label col-md-9" for="name">Iva 0%:</label>
+                    <label  class="control-label col-md-9" for="name">Iva 0%:</label>
                     <div class="col-md-2">
                         <input class="form-control" type="text" id="txtIvaCero" name="ivacero" placeholder="0%" readonly="true"/>
                     </div>
@@ -149,7 +149,7 @@
                 <div class="form-group">
                     <label class="control-label col-md-4" for="name"></label>
                     <div class="col-md-3">
-                        <button class="submit" type="submit">Guardar</button>        
+                        <button class="submit" type="button" id="btnGuardar">Guardar</button>        
                     </div>
 
                     <div class="col-md-2">
@@ -214,10 +214,10 @@ $(document).ready(function(){
         {
             alert("Ya existe el producto en la tabla!");
         }
-    }else
-    {
-        alert("Solo admite 11 productos!");
-    }
+        }else
+        {
+            alert("Solo admite 11 productos!");
+        }
    }
 
    function mostrarCliente(){
@@ -301,6 +301,32 @@ $(document).ready(function(){
         return false;
     }
 
+    $("#btnGuardar").click(
+        function(){
+        var tabla = document.getElementById('   ');
+        if (tabla.rows.length >1){ 
+            $.get('/ventas/factura/guardar',{
+                    numeroFactura: document.getElementById("txtnfactura").value,
+                    subtotal: document.getElementById("txtSubtotal").value,
+                    descuento: document.getElementById("txtDescuento").value,
+                    ivaCero:document.getElementById("txtIvaCero").value,
+                    ivaDoce:document.getElementById("txtIvaDoce").value,
+                    total:document.getElementById("txtTotal").value,
+                    observaciones:document.getElementById("txtObservaciones").value,
+                    cliente:document.getElementById("txtBuscarCliente").value
+                    });
+                }
+
+            for (var i = 1; tabla.rows[i];i++){
+                $.get('/ventas/factura/guardar',{
+                    
+                    });
+                }
+        alert("Datos Guardados Correctamente... ")
+        //setTimeout("location.href='/ventas/factura/lista'",2000);
+          }       
+        }
+    )
 </script>
 
 <script >

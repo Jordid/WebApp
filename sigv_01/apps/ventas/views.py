@@ -112,8 +112,11 @@ def eliminar_factura(request, factura_id):
 	clienteSelec.save()
 	return redirect('clientes')
 
-def guardar_factura(request, factura_id):
-	template = ""
+def guardar_factura(request):
+	print("Entro")
+	1/0
+	print("Hola :)")
+	"""template = ""
 	opcion = int(str(factura_id))
 	if opcion == 0:
 		template = "formRegistroFactura.html"
@@ -146,5 +149,5 @@ def guardar_factura(request, factura_id):
 		cli.personaCliente = perAux
         cli.save()
         return redirect('clientes')
-	returnnse(template,context_instance=RequestContext(request, locals()))
+	returnnse(template,context_instance=RequestContext(request, locals()))"""
 #-------------------------------------

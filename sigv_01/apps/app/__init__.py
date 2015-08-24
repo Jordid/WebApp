@@ -8,8 +8,6 @@ from django.utils.encoding import force_str
 from django.utils.six.moves.urllib.parse import urlparse
 from django.shortcuts import resolve_url
 
-
-
 def iniciar_sesion(request):
 	if request.POST["usuario"] == '' or request.POST["password"] == '' :
 		return 0
