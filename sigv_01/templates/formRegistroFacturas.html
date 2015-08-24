@@ -19,13 +19,9 @@
     </header>
 
     <div class="container">
-        <form id="miform" action="{% url "guardar_factura" %}" class="form-horizontal" method="POST">
-        {% csrf_token %}                
+        <form id="miform" class="form-horizontal" method="POST">                
                 <div class="form-group">
                     <h2><label class="control-label col-md-3" for="name">Datos de la factura</label></h2> 
-                    <!--<div class="col-md-4">
-                        <span class="required_notification">* Datos Obligatorios</span>
-                    </div>-->
                 </div>
                 <hr>
 
@@ -59,9 +55,6 @@
                     <div class="col-md-5">
                         <input class="form-control" type="text" id ="txtDireccion" name="direccion" placeholder="..." readonly="true" />
                     </div>
-                    <!--
-                    <a href="lista_ciudad" id="lookup_id_ciudadPersona" onclick="return showRelatedObjectLookupPopup(this);"> <img src="/static/admin/img/selector-search.gif" alt="Buscar" height="16" width="16"></a>
-                    -->
                     <label class="control-label col-md-2" for="name">Ciudad:</label>
                     <div class="col-md-2">
                         <input class="form-control" type="text" name="ciudad" placeholder="Pasaje" />
@@ -117,10 +110,10 @@
                 <div class="form-group">
                     <label class="control-label col-md-9" for="name">Descuento:</label>
                     <div class="col-md-1">
-                        <input  id="txtDescuento" class="form-control" type="text" id="txtPorcentaje" name="porcentaje" placeholder="5" />
+                        <input  class="form-control" type="text" id="txtPorcentaje" name="porcentaje" placeholder="5" />
                     </div>
                     <div class="col-md-1">
-                        <input class="form-control" type="text" name="descuento" placeholder="5.10" readonly="true"/>
+                        <input id="txtDescuento"  class="form-control" type="text" name="descuento" placeholder="5.10" readonly="true"/>
                     </div>
                 </div>
 
@@ -267,17 +260,23 @@ $(document).ready(function(){
         }
             console.log(total);
             LlenarCamposTotales(total);
-        }
+    }
 
     function LlenarCamposTotales(subtotal){
         var subAux = subtotal + "";
-        sub = parseFloat(subAux);
+        sub = Number(subAux);
+        alert(sub);
         var porDescuentoAux = document.getElementById("txtPorcentaje").value;
         descuentoAux = parseFloat("0.00");
         if (porDescuentoAux != "")
         {
             dessss = parseFloat(porDescuentoAux);
+            alert(dessss+" ll");
             descuentoAux = (dessss/100)* sub;
+        }
+        else
+        {
+            document.getElementById("txtPorcentaje").value = 0;
         }   
 
         ivaDoceAux = sub * 0.12;
@@ -286,7 +285,7 @@ $(document).ready(function(){
         document.getElementById("txtDescuento").value = redondeo(descuentoAux);
         document.getElementById("txtIvaCero").value = 0;
         document.getElementById("txtIvaDoce").value = redondeo(ivaDoceAux);
-        document.getElementById("txtTotal").value=redondeo(totalAux);
+        document.getElementById("txtTotal").value = redondeo(totalAux);
     }
 
     function EstaEnTabla(idProAux){
@@ -303,7 +302,7 @@ $(document).ready(function(){
 
     $("#btnGuardar").click(
         function(){
-        var tabla = document.getElementById('   ');
+        var tabla = document.getElementById('mitabla');
         if (tabla.rows.length >1){ 
             $.get('/ventas/factura/guardar',{
                     numeroFactura: document.getElementById("txtnfactura").value,
@@ -314,7 +313,16 @@ $(document).ready(function(){
                     total:document.getElementById("txtTotal").value,
                     observaciones:document.getElementById("txtObservaciones").value,
                     cliente:document.getElementById("txtBuscarCliente").value,
+                    fecha: f,
                     });
+            for (var i = 1; tabla.rows[i];i++){
+                $.get('/ventas/factura/guardarDetalle',{
+                    cantidad: document.getElementById('mitabla').rows[i].cells[0].innerHTML,
+                    precio: document.getElementById('mitabla').rows[i].cells[2].innerHTML,
+                    numeroFactura: document.getElementById("txtnfactura").value,
+                    productoId: document.getElementById("mitabla").rows[i].value,
+                });
+            }
         }
         alert("Datos Guardados Correctamente... ")
         //setTimeout("location.href='/ventas/factura/lista'",2000);       

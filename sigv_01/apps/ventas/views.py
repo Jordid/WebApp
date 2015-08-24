@@ -113,53 +113,47 @@ def eliminar_factura(request, factura_id):
 	return redirect('clientes')
 
 def guardar_factura(request):
-	print("Hola")
-	numero = request.GET['numeroFactura']
-	subtotal = request.GET['subtotal']
-	descuento = request.GET['descuento']
-	ivaCero = request.GET['ivaCero']
-	ivaDoce = request.GET['ivaDoce']
-	total = request.GET['total']
-	observaciones = request.GET['observaciones']
 	clienteCed = request.GET['cliente'] 
-	estado= "PENDIENTE"
-	datosempresa = DatosEmpresa.objects.all()[0];
+	datosempresa = DatosEmpresa.objects.all()
+	dato = datosempresa[0]
+	perAux = Persona.objects.get(cedulaPersona=clienteCed)
+	cliente = Cliente.objects.get(personaCliente = perAux)
 	
-	print("Entro" + datosempresa.id)
-	1/0
+	facAux = Factura()
+	facAux.numeroFactura = request.GET['numeroFactura']
+	facAux.fechaFactura = request.GET['fecha']
+	facAux.subtotalFactura = request.GET['subtotal']
+	facAux.descuentoFactura = request.GET['descuento']
+	facAux.ivaCeroFactura = request.GET['ivaCero']
+	facAux.ivaDoceFactura = request.GET['ivaDoce']
+	facAux.totalFactura = request.GET['total']
+	facAux.estadoFactura = "PENDIENTE"
+	facAux.observacionesFactura = request.GET['observaciones']
+	facAux.datosEmpresaFactura = dato
+	facAux.clienteFactura = cliente
+	facAux.save()
 	print("Hola :)")
-	"""template = ""
-	opcion = int(str(factura_id))
-	if opcion == 0:
-		template = "formRegistroFactura.html"
-	else:
-		template = "formActualizarClientes.html"
 
-	if request.POST:
-		ciu = Ciudad()
-		per = Persona()
-		cli = Cliente()
-		estado = "Activo"
-		if opcion != 0:
-			estado = request.POST["estado"]
-			per= Persona.objects.get(cedulaPersona=request.POST["cedula"])
-			cli= Cliente.objects.get(id = factura_id)
-		
-		ciu.id = request.POST["selectbasicC"]
-		per.cedulaPersona = request.POST["cedula"]
-		per.apellidosPersona = request.POST["apellidos"]
-		per.nombresPersona = request.POST["nombres"]
-		per.telefonoPersona =request.POST ["telefono"]
-		per.direccionPersona =request.POST["direccion"]
-		per.emailPersona =request.POST["email"]
-		per.ciudadPersona = ciu
-		per.save()
-
-		perAux = Persona.objects.get(cedulaPersona=request.POST["cedula"])
-		cli.estadoCliente = estado
-		cli.observacionesCliente = request.POST["observacion"]
-		cli.personaCliente = perAux
-        cli.save()
-        return redirect('clientes')
-	returnnse(template,context_instance=RequestContext(request, locals()))"""
+def guardar_detalle(request):
+	print("ite 1")
+	numeroFac = request.GET['numeroFactura'] 
+	print("ite 1")
+	productoId = request.GET['productoId']
+	print("ite 1")
+	factura = Factura.objects.get(numeroFactura = numeroFac)
+	print("ite 1")
+	producto = Producto.objects.get(id = productoId)
+	print("ite 1")
+	print("ite 1")
+	detFac = DetalleFactura()
+	print('Jamaas dire nunca')
+	detFac.cantidadDetalleFactura = request.GET['cantidad']
+	print('Ok')
+	detFac.precioDetalleFactura = request.GET['precio']
+	print('Ok1')
+	detFac.facturaDetalleFactura = factura
+	print('Ok2')
+	detFac.productoDetalleFactura = producto
+	facAux.save()
+	print("Hola :D")
 #-------------------------------------

@@ -12,5 +12,6 @@ urlpatterns = patterns('',
 	url(r'^factura/editar/(\d+)$', 'apps.ventas.views.editar_factura', name='editar_factura'),
 	url(r'^factura/eliminar/(\d+)$', 'apps.ventas.views.eliminar_factura', name='eliminar_factura'),
 	url(r'^factura/guardar$', 'apps.ventas.views.guardar_factura', name='guardar_factura'),
+	url(r'^factura/guardarDetalle$', 'apps.ventas.views.guardar_detalle', name='guardar_detalle'),
 
 )
