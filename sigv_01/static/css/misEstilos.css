@@ -220,6 +220,7 @@ body div div table tr td:hover{
 	height: 72px;
 	border-top: 2px solid #000;
 	position: absolute;
+	bottom: 0;
 	
 }
 .ir-arriba {

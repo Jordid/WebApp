@@ -22,7 +22,7 @@
 				<div class="form-group">
                     <label class="control-label col-md-4" for="name">Nombre:</label>
                     <div class="col-md-5">
-                        <input class="form-control" type="text" name="nombre" placeholder="" />
+                        <input class="form-control" type="text" name="nombre" placeholder="" value='{{dato.nombreDatosEmpresa}}'/>
                     </div>
                 </div>                
 
@@ -30,14 +30,14 @@
                 <div class="form-group">
                     <label class="control-label col-md-4" for="name">Teléfono:</label>
                     <div class="col-md-5">
-                        <input class="form-control" type="text" name="telefono" placeholder="" />
+                        <input class="form-control" type="text" name="telefono" placeholder="" value='{{dato.telefonoDatosEmpresa}}' />
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label class="control-label col-md-4" for="email">Email:</label>
                     <div class="col-md-5">
-                        <input class="form-control" type="email" name="email" placeholder="" />
+                        <input class="form-control" type="email" name="email" placeholder="" value='{{dato.emailDatosEmpresa}}' />
                     </div>
                     <span class="form_hint">Formato "name@something.com"</span>
                 </div>
@@ -45,7 +45,7 @@
                 <div class="form-group">
 			        <label class="control-label col-xs-4">Dirección:</label>
 			        <div class="col-xs-5">
-			            <textarea rows="2" class="form-control" placeholder=""></textarea>
+			            <textarea rows="2" class="form-control" placeholder="">value={{dato.direccionDatosEmpresa}}</textarea>
 			        </div>
 			    </div>
 
@@ -60,21 +60,21 @@
    				<div class="form-group">
 			        <label class="control-label col-xs-4">Misión:</label>
 			        <div class="col-xs-5">
-			            <textarea rows="2" class="form-control" name="mision" placeholder=""></textarea>
+			            <textarea rows="2" class="form-control" name="mision" placeholder="" >{{dato.misionDatosEmpresa}}</textarea>
 			        </div>
 			    </div>
 
                 <div class="form-group">
 			        <label class="control-label col-xs-4">Visión:</label>
 			        <div class="col-xs-5">
-			            <textarea rows="2" class="form-control" name="vision" placeholder=""></textarea>
+			            <textarea rows="2" class="form-control" name="vision" placeholder="">{{dato.visionDatosEmpresa}}</textarea>
 			        </div>
 			    </div>
 
                 <div class="form-group">
 			        <label class="control-label col-xs-4">Quienes somos:</label>
 			        <div class="col-xs-5">
-			            <textarea rows="2" class="form-control" name="quienessomos" placeholder=""></textarea>
+			            <textarea rows="2" class="form-control" name="quienessomos" placeholder="">value={{dato.quienesSomosDatosEmpresa}}</textarea>
 			        </div>
 			    </div>
 

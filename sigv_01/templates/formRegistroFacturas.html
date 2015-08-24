@@ -31,7 +31,7 @@
                         <input class="form-control typeahead" name="cc_ruc" type="text" id="txtBuscarCliente" placeholder="Buscar Cliente..." autocomplete="off" />
                     </div>
                     <div class="col-md-1">
-                        <button class="btn" type="button" onclick="mostrarCliente();">OK</button>  
+                        <button class="submit" type="button" onclick="mostrarCliente();">OK</button>  
                     </div>                
                     <label class="control-label col-md-3" for="name">Factura #:</label>
                     <div class="col-md-2">
@@ -74,7 +74,7 @@
                         <input id="cantidad" class="form-control" type="text" name="cantidad" placeholder="cant." />            
                     </div>
                     <div class="col-md-1">
-                        <button class="btn" type="button" onclick="AgregarFila();">+</button>  
+                        <button class="submit" type="button" onclick="AgregarFila();">+</button>  
                     </div>
                 </div>
 
@@ -140,13 +140,9 @@
 
                 <hr>
                 <div class="form-group">
-                    <label class="control-label col-md-4" for="name"></label>
-                    <div class="col-md-3">
+                    <label class="control-label col-md-5" for="name"></label>
+                    <div class="col-md-4">
                         <button class="submit" type="button" id="btnGuardar">Guardar</button>        
-                    </div>
-
-                    <div class="col-md-2">
-                        <button class="submit" type="submit">Cancelar</button>        
                     </div>
                 </div>  
                 <br>          
@@ -265,13 +261,11 @@ $(document).ready(function(){
     function LlenarCamposTotales(subtotal){
         var subAux = subtotal + "";
         sub = Number(subAux);
-        alert(sub);
         var porDescuentoAux = document.getElementById("txtPorcentaje").value;
         descuentoAux = parseFloat("0.00");
         if (porDescuentoAux != "")
         {
             dessss = parseFloat(porDescuentoAux);
-            alert(dessss+" ll");
             descuentoAux = (dessss/100)* sub;
         }
         else
@@ -303,6 +297,7 @@ $(document).ready(function(){
     $("#btnGuardar").click(
         function(){
         var tabla = document.getElementById('mitabla');
+        alert(tabla.rows.length);
         if (tabla.rows.length >1){ 
             $.get('/ventas/factura/guardar',{
                     numeroFactura: document.getElementById("txtnfactura").value,
@@ -315,7 +310,7 @@ $(document).ready(function(){
                     cliente:document.getElementById("txtBuscarCliente").value,
                     fecha: f,
                     });
-            for (var i = 1; tabla.rows[i];i++){
+            for (var i = 1; i< tabla.rows.length;i++){
                 $.get('/ventas/factura/guardarDetalle',{
                     cantidad: document.getElementById('mitabla').rows[i].cells[0].innerHTML,
                     precio: document.getElementById('mitabla').rows[i].cells[2].innerHTML,
@@ -323,9 +318,9 @@ $(document).ready(function(){
                     productoId: document.getElementById("mitabla").rows[i].value,
                 });
             }
+            alert("Datos Guardados Correctamente... ")
         }
-        alert("Datos Guardados Correctamente... ")
-        //setTimeout("location.href='/ventas/factura/lista'",2000);       
+        setTimeout("location.href='/ventas/factura/nuevo'",2000);       
         }
     )
 </script>

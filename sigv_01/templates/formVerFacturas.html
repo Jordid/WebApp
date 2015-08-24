@@ -45,8 +45,8 @@
                 <td>{{fac.clienteFactura.personaCliente.apellidosPersona}} {{fac.clienteFactura.personaCliente.nombresPersona}}</td>
                 <td>{{fac.clienteFactura.personaCliente.cedulaPersona}}</td>
                 <td>{{fac.totalFactura}}</td>
-                <td id="td_editar"><span id"icon_editar" class="glyphicon glyphicon-edit"></span><a href='{% url 'editar_factura' fac.id %}'>Editar</a></td>
-                <td id="td_eliminar"><span class="glyphicon glyphicon-remove"></span><a href='{% url 'eliminar_factura' fac.id %}'>Eliminar</a></td>
+                <td id="td_editar"><span id"icon_editar" class="glyphicon glyphicon-edit"></span><a href='{% url 'enviar_factura' fac.id %}'>Enviar</a></td>
+                <td id="td_eliminar"><span class="glyphicon glyphicon-remove"></span><a href='{% url 'anular_factura' fac.id %}'>Eliminar</a></td>
             {% endfor %}
             </tr>
         </table>     

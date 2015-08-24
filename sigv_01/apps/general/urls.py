@@ -22,4 +22,6 @@ urlpatterns = patterns('',
     url(r'^proveedor/eliminar/(\d+)$', 'apps.general.views.eliminar_proveedor', name='eliminar_proveedor'),
     url(r'^proveedor/guardar/(\d+)$', 'apps.general.views.guardar_proveedor', name='guardar_proveedor'),
 
+    url(r'^Empresa/datos$', 'apps.general.views.datos_empresa', name='datos_empresa'),
+
 )

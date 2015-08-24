@@ -186,6 +186,12 @@ def enviar_notificacion(request):
 
 #-------------------------------------
 
+#------------ Proveedor --------------- by Jordi
+def datos_empresa(request): 
+	dato = DatosEmpresa.objects.all()[0]
+	template = 'formActualizarDatosEmpresa.html'
+	return render(request, template, {"listaMenu": menu(request), 'dato': dato})
+
 
 
 

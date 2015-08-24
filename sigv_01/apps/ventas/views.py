@@ -84,7 +84,7 @@ def guardar_cliente(request, cliente_id):
 #------------ Factura ---------------
 def facturas(request):
 	menuLista = menu(request)
-	lstFactura = Factura.objects.all()
+	lstFactura = Factura.objects.all().exclude(estadoFactura = "Anulado")
 	template = 'formVerFacturas.html'
 	return render(request, template, {"listaMenu": menuLista, "lstFactura": lstFactura})
 
@@ -94,23 +94,17 @@ def nuevo_factura(request):
 	template = 'formRegistroFacturas.html'
 	return render(request, template, {"listaMenu": menu(request), "lstCliente":lstCliente,"lstProducto":lstProducto})
 
-def editar_factura(request, factura_id):
-	menuLista = menu(request)
-	clienteSelec = Cliente.objects.get(id=factura_id)	
-	lstProvincia = Provincia.objects.all()
-	lstCiudad = Ciudad.objects.all()
-	idPro = clienteSelec.personaCliente.ciudadPersona.provinciaCiudad.id
-	lstCiudad2 = Ciudad.objects.filter(provinciaCiudad = idPro)
-	template = 'formActualizarClientes.html'
-	return render(request, template, {"listaMenu": menuLista, 'lstProvincia': lstProvincia, 
-		'lstCiudad': lstCiudad, 'lstCiudad2': lstCiudad2, 'clienteSelec': clienteSelec})
-
-def eliminar_factura(request, factura_id):
-	menuLista = menu(request)
-	clienteSelec = Cliente.objects.get(id=factura_id)
-	clienteSelec.estadoCliente = "Inactivo"
-	clienteSelec.save()
-	return redirect('clientes')
+def enviar_factura(request, factura_id):
+	facturaSelec = Factura.objects.get(pk=factura_id)
+	lstDetalleFac = DetalleFactura.objects.filter(pk=factura_id)
+	clienteSelec = Cliente.objects.get(pk = facturaSelec.clienteFactura.id)	
+	print(clienteSelec.personaCliente.nombresPersona)
+	
+def anular_factura(request, factura_id):
+	facturaSelec = Factura.objects.get(id=factura_id)
+	facturaSelec.estadoFactura = "Anulado"
+	facturaSelec.save()
+	return redirect('facturas')
 
 def guardar_factura(request):
 	clienteCed = request.GET['cliente'] 
@@ -135,25 +129,15 @@ def guardar_factura(request):
 	print("Hola :)")
 
 def guardar_detalle(request):
-	print("ite 1")
 	numeroFac = request.GET['numeroFactura'] 
-	print("ite 1")
 	productoId = request.GET['productoId']
-	print("ite 1")
 	factura = Factura.objects.get(numeroFactura = numeroFac)
-	print("ite 1")
 	producto = Producto.objects.get(id = productoId)
-	print("ite 1")
-	print("ite 1")
 	detFac = DetalleFactura()
-	print('Jamaas dire nunca')
 	detFac.cantidadDetalleFactura = request.GET['cantidad']
-	print('Ok')
 	detFac.precioDetalleFactura = request.GET['precio']
-	print('Ok1')
 	detFac.facturaDetalleFactura = factura
-	print('Ok2')
 	detFac.productoDetalleFactura = producto
-	facAux.save()
+	detFac.save()
 	print("Hola :D")
 #-------------------------------------
