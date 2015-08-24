@@ -20,11 +20,26 @@
 		transition:all 500ms ease; /* Establecemos una transición a todas las propiedades */
 	}
  
- 	.social ul li #fac {background:#3b5998;} /*# Establecemos los colores de cada red social, aprovechando su class */
-	.social ul li #you {background: #cc0000;}
-	.social ul li #twi {background: #00abf0;}
-	.social ul li #goo {background: #d95232;}
-	
+ 	.social ul li #fac {
+ 		background:#3b5998;
+ 		width: 45px;
+ 		height: 34px;
+ 	} /*# Establecemos los colores de cada red social, aprovechando su class */
+	.social ul li #you {
+		background: #cc0000;
+		width: 45px;
+ 		height: 34px;
+	}
+	.social ul li #twi {
+		background: #00abf0;
+		width: 45px;
+ 		height: 34px;
+	}
+	.social ul li #goo {
+		background: #d95232;
+		width: 45px;
+ 		height: 34px;
+ 	}
 	.social ul li a:hover {
 		background: #000; /* Cambiamos el fondo cuando el usuario pase el mouse */
 		padding: 10px 30px; /* Hacemos mas grande el espacio cuando el usuario pase el mouse */

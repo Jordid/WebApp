@@ -239,3 +239,13 @@ body div div table tr td:hover{
 }
 
 
+/*Disenio del mapa*/
+#map_canvas{
+	width: 54%;
+	height: 54%;
+
+ 	margin: 0 auto;
+ 	bottom: 45px;
+}
+
+

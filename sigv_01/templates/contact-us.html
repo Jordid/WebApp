@@ -1,177 +1,137 @@
 {% extends 'index.html' %}
 {% block content %}
+
+        <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 <br><br>
+
+
+
+
+
+
+<!--<head>
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <style type="text/css">
+            body {
+                font-family: Helvetica, Arial, sans-serif;
+                font-size:10px;
+                margin:0;
+            }
+
+            #content {
+
+            }
+        </style>-->
+        <script type="text/javascript">
+            function initialize() {
+                var latlng = new google.maps.LatLng(-3.3387251,-79.7885514);
+                var settings = {
+                    zoom: 15,
+                    center: latlng,
+                    mapTypeControl: true,
+                    mapTypeControlOptions: {style: google.maps.MapTypeControlStyle.DROPDOWN_MENU},
+                    navigationControl: true,
+                    navigationControlOptions: {style: google.maps.NavigationControlStyle.SMALL},
+                    mapTypeId: google.maps.MapTypeId.ROADMAP};
+                var map = new google.maps.Map(document.getElementById("map_canvas"), settings);
+                var contentString = '<div id="content">'+
+                    '<div id="siteNotice">'+
+                    '</div>'+
+                    '<h1 id="firstHeading" class="firstHeading">Høgenhaug</h1>'+
+                    '<div id="bodyContent">'+
+                    '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>'+
+                    '</div>'+
+                    '</div>';
+                var infowindow = new google.maps.InfoWindow({
+                    content: contentString
+                });
+                
+                var companyImage = new google.maps.MarkerImage('parking.png',
+                    new google.maps.Size(100,50),
+                    new google.maps.Point(0,0),
+                    new google.maps.Point(50,50)
+                );
+
+                var companyShadow = new google.maps.MarkerImage('parking.png',
+                    new google.maps.Size(130,50),
+                    new google.maps.Point(0,0),
+                    new google.maps.Point(65, 50));
+
+                var companyPos = new google.maps.LatLng(-3.3247283,-79.7875748);
+
+                var companyMarker = new google.maps.Marker({
+                    position: companyPos,
+                    map: map,
+                    icon: companyImage,
+                    shadow: companyShadow,
+                    title:"Høgenhaug",
+                    zIndex: 3});
+                
+                var trainImage = new google.maps.MarkerImage('parking.png',
+                    new google.maps.Size(50,50),
+                    new google.maps.Point(0,0),
+                    new google.maps.Point(50,50)
+                );
+
+                var trainShadow = new google.maps.MarkerImage('parking.png',
+                    new google.maps.Size(70,50),
+                    new google.maps.Point(0,0),
+                    new google.maps.Point(60, 50)
+                );
+
+                var trainPos = new google.maps.LatLng(57.0429, 9.9173);
+
+                var trainMarker = new google.maps.Marker({
+                    position: trainPos,
+                    map: map,
+                    icon: trainImage,
+                    shadow: trainShadow,
+                    title:"Train Station",
+                    zIndex: 2
+                });
+
+                var parkingImage = new google.maps.MarkerImage('parking.png',
+                    new google.maps.Size(50,50),
+                    new google.maps.Point(0,0),
+                    new google.maps.Point(50,50)
+                );
+
+                var parkingShadow = new google.maps.MarkerImage('parking.png',
+                    new google.maps.Size(70,50),
+                    new google.maps.Point(0,0),
+                    new google.maps.Point(60, 50)
+                );
+
+                var parkingPos = new google.maps.LatLng(-3.3870879,-79.7928186);
+
+                var parkingMarker = new google.maps.Marker({
+                    position: parkingPos,
+                    map: map,
+                    icon: parkingImage,
+                    shadow: parkingShadow,
+                    title:"Parking Lot",
+                    zIndex: 1
+                });
+                
+                google.maps.event.addListener(companyMarker, 'click', function() {
+                    infowindow.open(map,companyMarker);
+                });
+            }
+        </script>
+    </head>
+
+
     <section id="contact-info">
         <div class="center">                
-            <h2>Encuéntranos:</h2>
-            <p class="lead">En las redes sociales más usadas...</p>
+            <h2>Ubíquenos</h2>
+            <p class="lead">Ubícanos en Vía Loma de Franco a 400 mts. Cdla. El Arenal, Calle 16-5 <br>
+            Teléfono: 072 787 267 * Celular: 0986 471 589 / 0985 104 513
+            </p>
         </div>
-        <div class="gmap-area">
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm-5 text-center">
+    <section></section>
 
-                        <!-- <div class="gmap">
-                           <iframe frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=JoomShaper,+Dhaka,+Dhaka+Division,+Bangladesh&amp;aq=0&amp;oq=joomshaper&amp;sll=37.0625,-95.677068&amp;sspn=42.766543,80.332031&amp;ie=UTF8&amp;hq=JoomShaper,&amp;hnear=Dhaka,+Dhaka+Division,+Bangladesh&amp;ll=23.73854,90.385504&amp;spn=0.001515,0.002452&amp;t=m&amp;z=14&amp;iwloc=A&amp;cid=1073661719450182870&amp;output=embed"></iframe>
-                        </div>-->
-                    <!--</div>
-
-                    <div class="col-sm-7 map-content">
-                        <ul class="row">
-                            <li class="col-sm-6">
-                                <address>
-                                    <h5>Head Office</h5>
-                                    <p>1537 Flint Street <br>
-                                    Tumon, MP 96911</p>
-                                    <p>Phone:670-898-2847 <br>
-                                    Email Address:info@domain.com</p>
-                                </address>
-
-                                <address>
-                                    <h5>Zonal Office</h5>
-                                    <p>1537 Flint Street <br>
-                                    Tumon, MP 96911</p>                                
-                                    <p>Phone:670-898-2847 <br>
-                                    Email Address:info@domain.com</p>
-                                </address>
-                            </li>
-
-
-                            <li class="col-sm-6">
-                                <address>
-                                    <h5>Zone#2 Office</h5>
-                                    <p>1537 Flint Street <br>
-                                    Tumon, MP 96911</p>
-                                    <p>Phone:670-898-2847 <br>
-                                    Email Address:info@domain.com</p>
-                                </address>
-
-                                <address>
-                                    <h5>Zone#3 Office</h5>
-                                    <p>1537 Flint Street <br>
-                                    Tumon, MP 96911</p>
-                                    <p>Phone:670-898-2847 <br>
-                                    Email Address:info@domain.com</p>
-                                </address>
-                            </li>
-                        </ul>
-                    </div>-->
-                </div>
-            </div>
-        </div>
-    </section> <!--
-    <section id="contact-page">
-        <div class="container">
-            <div class="center">        
-                <h2>Drop Your Message</h2>
-                <p class="lead">Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-            </div> 
-            <div class="row contact-wrap"> 
-                <div class="status alert alert-success" style="display: none"></div>
-                <form id="main-contact-form" class="contact-form" name="contact-form" method="post" action="sendemail.php">
-                    <div class="col-sm-5 col-sm-offset-1">
-                        <div class="form-group">
-                            <label>Name *</label>
-                            <input type="text" name="name" class="form-control" required="required">
-                        </div>
-                        <div class="form-group">
-                            <label>Email *</label>
-                            <input type="email" name="email" class="form-control" required="required">
-                        </div>
-                        <div class="form-group">
-                            <label>Phone</label>
-                            <input type="number" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label>Company Name</label>
-                            <input type="text" class="form-control">
-                        </div>                        
-                    </div>
-                    <div class="col-sm-5">
-                        <div class="form-group">
-                            <label>Subject *</label>
-                            <input type="text" name="subject" class="form-control" required="required">
-                        </div>
-                        <div class="form-group">
-                            <label>Message *</label>
-                            <textarea name="message" id="message" required="required" class="form-control" rows="8"></textarea>
-                        </div>                        
-                        <div class="form-group">
-                            <button type="submit" name="submit" class="btn btn-primary btn-lg" required="required">Submit Message</button>
-                        </div>
-                    </div>
-                </form> 
-            </div>
-        </div>
-    </section>
-
-    <section id="bottom">
-        <div class="container wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
-            <div class="row">
-                <div class="col-md-3 col-sm-6">
-                    <div class="widget">
-                        <h3>Company</h3>
-                        <ul>
-                            <li><a href="#">About us</a></li>
-                            <li><a href="#">We are hiring</a></li>
-                            <li><a href="#">Meet the team</a></li>
-                            <li><a href="#">Copyright</a></li>
-                            <li><a href="#">Terms of use</a></li>
-                            <li><a href="#">Privacy policy</a></li>
-                            <li><a href="#">Contact us</a></li>
-                        </ul>
-                    </div>    
-                </div>
-
-                <div class="col-md-3 col-sm-6">
-                    <div class="widget">
-                        <h3>Support</h3>
-                        <ul>
-                            <li><a href="#">Faq</a></li>
-                            <li><a href="#">Blog</a></li>
-                            <li><a href="#">Forum</a></li>
-                            <li><a href="#">Documentation</a></li>
-                            <li><a href="#">Refund policy</a></li>
-                            <li><a href="#">Ticket system</a></li>
-                            <li><a href="#">Billing system</a></li>
-                        </ul>
-                    </div>    
-                </div>
-
-                <div class="col-md-3 col-sm-6">
-                    <div class="widget">
-                        <h3>Developers</h3>
-                        <ul>
-                            <li><a href="#">Web Development</a></li>
-                            <li><a href="#">SEO Marketing</a></li>
-                            <li><a href="#">Theme</a></li>
-                            <li><a href="#">Development</a></li>
-                            <li><a href="#">Email Marketing</a></li>
-                            <li><a href="#">Plugin Development</a></li>
-                            <li><a href="#">Article Writing</a></li>
-                        </ul>
-                    </div>    
-                </div>
-
-                <div class="col-md-3 col-sm-6">
-                    <div class="widget">
-                        <h3>Our Partners</h3>
-                        <ul>
-                            <li><a href="#">Adipisicing Elit</a></li>
-                            <li><a href="#">Eiusmod</a></li>
-                            <li><a href="#">Tempor</a></li>
-                            <li><a href="#">Veniam</a></li>
-                            <li><a href="#">Exercitation</a></li>
-                            <li><a href="#">Ullamco</a></li>
-                            <li><a href="#">Laboris</a></li>
-                        </ul>
-                    </div>    
-                </div>
-            </div>
-        </div>
-    </section>-->
-
-    <br><br>
-<br><br><br><br><br><br><br><br><br><br><br><br>
-
+    <body onload="initialize()">
+        <div id="map_canvas" style="width:500px; height:300px"></div>
+    </body>
 {% endblock %}

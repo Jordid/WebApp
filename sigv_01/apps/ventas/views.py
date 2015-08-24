@@ -113,7 +113,7 @@ def eliminar_factura(request, factura_id):
 	return redirect('clientes')
 
 def guardar_factura(request):
-	print("Hola");
+	print("Hola")
 	numero = request.GET['numeroFactura']
 	subtotal = request.GET['subtotal']
 	descuento = request.GET['descuento']
