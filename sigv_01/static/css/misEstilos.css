@@ -249,4 +249,13 @@ body div div table tr td:hover{
  	bottom: 45px;
 }
 
+/*tablas agregacion de scroll vertical*/
+.table-responsive{
+	overflow-y: scroll;
+	height: 50%;
+	width: 88%;
+	position: absolute;
+
+}
+
 
