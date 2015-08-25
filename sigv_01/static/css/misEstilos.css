@@ -244,7 +244,7 @@ body div div table tr td:hover{
 #map_canvas{
 	width: 54%;
 	height: 54%;
-	position: absolute;
+	position: auto;
  	margin: 0 auto;
  	bottom: 45px;
 }
