@@ -31,7 +31,7 @@
                         <input class="form-control typeahead" name="cc_ruc" type="text" id="txtBuscarCliente" placeholder="Buscar Cliente..." autocomplete="off" />
                     </div>
                     <div class="col-md-1">
-                        <button class="submit" type="button" onclick="mostrarCliente();">OK</button>  
+                        <button class="submit" type="button" onclick="mostrarCliente();"><span id="add" class="glyphicon glyphicon-ok"></span></button>  
                     </div>                
                     <label class="control-label col-md-3" for="name">Factura #:</label>
                     <div class="col-md-2">
@@ -79,7 +79,7 @@
                 </div>
 
                 <div class="container col-md-11">
-                    <div class="table-responsive">
+                    <div id="miContenedorTabla" class="table-responsiv">
                     <p><table id="mitabla" name="mitable" class="table table-bordered table-condensed">
                         <thead>
                             <tr><!-- warning danger active ó success ó info-->
@@ -145,7 +145,7 @@
                         <button class="submit" type="button" id="btnGuardar">Guardar</button>        
                     </div>
                 </div>  
-                <br>          
+                <br>  <hr>       
         </form>
     </div>              
 {% endblock %}

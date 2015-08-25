@@ -219,7 +219,7 @@ body div div table tr td:hover{
 	width: 100%;
 	height: 72px;
 	border-top: 2px solid #000;
-	
+	position: auto;
 	bottom: 0;
 	
 }
@@ -244,22 +244,31 @@ body div div table tr td:hover{
 #map_canvas{
 	width: 54%;
 	height: 54%;
-
+	position: absolute;
  	margin: 0 auto;
  	bottom: 45px;
 }
 
-/*tablas agregacion de scroll vertical*/
 .table-responsive{
-	overflow-y: scroll;
-	height: 50%;
+	overflow: scroll;
 	width: 88%;
+	height: 63%;
 	position: absolute;
+	
+}
 
+#miContenedorTabla{
+	overflow: scroll;
+	height: 210px;
+	width: 100%;
+	position: auto;
+	margin-bottom: 30px;
 }
  
 
 .submit{
 	position: absolute;
 }
+
+
 

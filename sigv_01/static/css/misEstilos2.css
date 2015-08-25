@@ -87,7 +87,7 @@ button.submit {
     text-shadow: 0 -1px 0 #3399ff;
 }
 button.submit:hover {
-    opacity:.85;
+    opacity:.95;
     cursor: pointer; 
 }
 button.submit:active {
@@ -100,34 +100,6 @@ button.submit:active {
      
 }
 
-
-
-#btnGuardar {
-    background-color:#000;
-    background: -webkit-gradient(linear, left top, left bottom, from(#000), to(#000));
-    background: -webkit-linear-gradient(top, #000, #000);
-    background: -moz-linear-gradient(top, #000, #000);
-    background: -ms-linear-gradient(top, #000, #000);
-    background: -o-linear-gradient(top, #000, #000);
-    background: linear-gradient(top, #000, #000);
-    border: 1px solid #3399ff;
-    border-bottom: 1px solid #000;
-    border-radius: 3px;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    -ms-border-radius: 3px;
-    -o-border-radius: 3px;
-    box-shadow: inset 0 1px 0 0 #000;
-    -webkit-box-shadow: 0 1px 0 0 #000 inset ;
-    -moz-box-shadow: 0 1px 0 0 #000 inset;
-    -ms-box-shadow: 0 1px 0 0 #000 inset;
-    -o-box-shadow: 0 1px 0 0 #000 inset;
-    color: white;
-    font-weight: bold;
-    padding: 6px 20px;
-    text-align: center;
-    text-shadow: 0 -1px 0 #000;
-}
 
 .contact_form input:focus, .contact_form textarea:focus { /* add this to the already existing style */
     padding-right:70px;
