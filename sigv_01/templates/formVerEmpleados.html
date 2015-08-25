@@ -14,7 +14,7 @@
                 <ul id="miulnav" class="nav navbar-nav">
                     <li id="ilnav" class="active"><a href="{% url "empleados" %}">Ver</a></li>
                     <li id="ilnav"><a href="{% url "nuevo_empleado" %}">Nuevo</a></li>
-                    <li id="ilnav"><input class="form-control" type="text" name="buscar" placeholder="Buscar"/></li>
+                    <li id="ilnav"><input id="searchTerm" class="form-control" type="text" name="buscar" onkeyup="doSearch()" placeholder="Buscar"/></li>
 
                 </ul>
             </div>    

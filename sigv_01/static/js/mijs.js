@@ -53,6 +53,7 @@ $(document).ready(function(){
  		$('.ir-arriba').hide();
 		$('.social').hide();
 		$('#footer').hide();
+		
 
  		
 	}else{
