@@ -219,7 +219,7 @@ body div div table tr td:hover{
 	width: 100%;
 	height: 72px;
 	border-top: 2px solid #000;
-	position: absolute;
+	
 	bottom: 0;
 	
 }
@@ -257,5 +257,9 @@ body div div table tr td:hover{
 	position: absolute;
 
 }
+ 
 
+.submit{
+	position: absolute;
+}
 

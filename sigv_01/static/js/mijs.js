@@ -1,4 +1,5 @@
 $(document).ready(function(){
+
 	var log = EstadoLoguin();
 	var logueado = "false";
 	if (log != 3)
@@ -14,6 +15,7 @@ $(document).ready(function(){
 				$('.control-labe').text("Salir del sistema");
 				$('#migrupo').hide();
 				$('#btnEntrare').hide();	
+
 				$('#btnCerrar').show();
 		}else{
 				//$('#usu').show();
@@ -28,33 +30,44 @@ $(document).ready(function(){
 })
 
 $(document).ready(function(){
+
+	
 	var altura = $('#minavb').offset().top;
 	
 	$(window).on('scroll', function(){
 		if ($(window).scrollTop() > altura){
+			$('#libtn').hide();
 			$('#minavb').addClass('menu-fixed');
 			
 		}else{
+			$('#libtn').show();
 			$('#minavb').removeClass('menu-fixed');
 		}
 	});
 });
 
 $(document).ready(function(){
- 
-	$('.ir-arriba').click(function(){
-		$('body, html').animate({
-			scrollTop: '0px'
-		}, 300);
-	});
- 
-	$(window).scroll(function(){
-		if( $(this).scrollTop() > 0 ){
-			$('.ir-arriba').slideDown(300);
-		} else {
-			$('.ir-arriba').slideUp(300);
-		}
-	});
+ 	var log = EstadoLoguin();
+	if (log != 3)
+	{
+ 		$('.ir-arriba').hide();
+		$('.social').hide();
+ 		
+	}else{
+		$('.ir-arriba').click(function(){
+			$('body, html').animate({
+				scrollTop: '0px'
+			}, 300);
+		});
+	 
+		$(window).scroll(function(){
+			if( $(this).scrollTop() > 0 ){
+				$('.ir-arriba').slideDown(300);
+			} else {
+				$('.ir-arriba').slideUp(300);
+			}
+		});
+	}
  
 });
 
