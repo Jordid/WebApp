@@ -11,6 +11,7 @@ urlpatterns = patterns('',
 	url(r'^factura/nuevo$', 'apps.ventas.views.nuevo_factura', name='nuevo_factura'),
 	url(r'^factura/enviar/(\d+)$', 'apps.ventas.views.enviar_factura', name='enviar_factura'),
 	url(r'^factura/anular/(\d+)$', 'apps.ventas.views.anular_factura', name='anular_factura'),
+	url(r'^factura/vista/(\d+)$', 'apps.ventas.views.vista_factura', name='vista_factura'),
 	url(r'^factura/guardar$', 'apps.ventas.views.guardar_factura', name='guardar_factura'),
 	url(r'^factura/guardarDetalle$', 'apps.ventas.views.guardar_detalle', name='guardar_detalle'),
 

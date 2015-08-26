@@ -106,6 +106,12 @@ def anular_factura(request, factura_id):
 	facturaSelec.save()
 	return redirect('facturas')
 
+def vista_factura(request, factura_id):
+	facturaSelec = Factura.objects.get(pk=factura_id)
+	lstDetalleFac = DetalleFactura.objects.filter(pk=factura_id)
+	template = 'formVistaFactura.html'
+	return render(request, template, {"listaMenu": menu(request), "facturaSelec":facturaSelec,"lstDetalleFac":lstDetalleFac})
+
 def guardar_factura(request):
 	clienteCed = request.GET['cliente'] 
 	datosempresa = DatosEmpresa.objects.all()

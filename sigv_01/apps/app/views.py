@@ -33,8 +33,9 @@ def home(request):
 	return response
 
 def quienes_somos(request):
+	dato = DatosEmpresa.objects.all()[0]
 	template = 'about-us.html'
-	return render(request, template, {"listaMenu": menu(request)})
+	return render(request, template, {"listaMenu": menu(request), 'dato': dato})
 
 def nuestros_productos(request):
 	template = 'portfolio.html'

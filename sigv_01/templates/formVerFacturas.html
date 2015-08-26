@@ -25,20 +25,20 @@
     <div class="container">
         <h2><label class="control-label col-md-11" for="name">Lista de facturas</label></h2>
     </div>
-    <div class="container col-md-7">
+    <div class="container">
         <div class="table-responsive">
         <table id="mitabla" class="table table-bordered table-condensed">
-            <tr>
+            <thead>
                 <th id="misth1">Id</th>
                 <th id="misth2"># Factura</th>
                 <th id="misth3">Fecha</th>
                 <th id="misth4">Cliente</th>
                 <th id="misth5">Cédula</th>
                 <th id="misth6">Total</th>
-                <th id="misth7" colspan="2">Acciones</th>
-            </tr>
+                <th id="misth7" colspan="3">Acciones</th>
+            </thead>
             {% for fac in lstFactura %}
-            <tr>
+            <tbody>
                 <td>{{fac.id}}</td>
                 <td>{{fac.numeroFactura}}</td>
                 <td>{{fac.fechaFactura}}</td>
@@ -47,8 +47,9 @@
                 <td>{{fac.totalFactura}}</td>
                 <td id="td_editar"><span id"icon_editar" class="glyphicon glyphicon-edit"></span><a href='{% url 'enviar_factura' fac.id %}'>Enviar</a></td>
                 <td id="td_eliminar"><span class="glyphicon glyphicon-remove"></span><a href='{% url 'anular_factura' fac.id %}'>Eliminar</a></td>
+                <td id="td_eliminar"><span class="glyphicon glyphicon-remove"></span><a href='{% url 'vista_factura' fac.id %}'>Ver</a></td>
             {% endfor %}
-            </tr>
+            </tbody>
         </table>     
         </div>
     </div>

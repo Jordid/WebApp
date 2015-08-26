@@ -1,0 +1,151 @@
+{% extends 'index.html' %}
+    {% block content %}
+    <nav id="mibaner_2" class="navbar navbar-inverse" role="banner">
+            <div  id="micontainer" class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#minavb_2">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                
+            <div id="minavb_2" class="collapse navbar-collapse navbar-left">
+                <ul id="miulnav" class="nav navbar-nav">
+                    <li id="ilnav"><a href='{% url 'facturas'%}'>Ver</a></li>
+                    <li id="ilnav" class="active"><a href='{% url 'nuevo_factura'%}'>Nuevo</a></li>
+                </ul>
+            </div>    
+        </nav>
+    </header>
+
+    <div class="container">
+        <form id="miform" class="form-horizontal" method="POST">                
+                <div class="form-group">
+                    <h2><label class="control-label col-md-3" for="name">Datos de la factura</label></h2> 
+                </div>
+                <hr>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="name">C.C./Ruc:</label>
+                    <div class="col-md-4">
+                        <input class="form-control" name="cc_ruc" type="text" id="txtBuscarCliente" placeholder="Buscar Cliente..." autocomplete="off" value='{{facturaSelec.clienteFactura.personaCliente.cedulaPersona}}' readonly="true"/>
+                    </div>           
+                    <label class="control-label col-md-3" for="name">Factura #:</label>
+                    <div class="col-md-2">
+                        <input class="form-control" type="text" id="txtnfactura" name="numerofactura" placeholder="0001234" value='{{facturaSelec.numeroFactura}}' readonly="true" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="name">Cliente:</label>
+                    <div class="col-md-5">
+                        <input class="form-control" type="text" id="txtCliente" name="cliente" placeholder="..." readonly="true"  value='{{facturaSelec.clienteFactura.personaCliente.apellidosPersona}} {{facturaSelec.clienteFactura.personaCliente.nombresPersona}}'/>
+                    </div>
+                    <label class="control-label col-md-2" for="name">Fecha:</label>
+                    <div class="col-md-2">
+                        <input class="form-control" id="txtfecha" type="text" name="fecha" placeholder="18-Julio-2015" readonly="true" value='{{facturaSelec.fechaFactura}}'/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="name">Dirección:</label>
+                    <div class="col-md-5">
+                        <input class="form-control" type="text" id ="txtDireccion" name="direccion" placeholder="..." readonly="true" value='{{facturaSelec.clienteFactura.personaCliente.direccionPersona}}'/>
+                    </div>
+                    <label class="control-label col-md-2" for="name">Ciudad:</label>
+                    <div class="col-md-2">
+                        <input class="form-control" type="text" name="ciudad" placeholder="Pasaje" />
+                    </div>
+                </div>
+
+                <div class="container col-md-11">
+                    <div id="miContenedorTabla" class="table-responsiv">
+                    <p><table id="mitabla" name="mitable" class="table table-bordered table-condensed">
+                        <thead>
+                            <tr><!-- warning danger active ó success ó info-->
+                                <th id="misth1" class="col-md-1">Cantidad</th>
+                                <th id="misth2" class="col-md-5">Artículo</th>
+                                <th id="misth3" class="col-md-1">Valor unitario</th>
+                                <th id="misth4" class="col-md-1">Valor total</th>
+                                <th id="misth4" class="col-md-1">Quitar</th>
+                            </tr>
+                        </thead>
+                    </table></p>     
+                    </div>
+                    
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="busca">Observaciones:</label>
+                    <div class="col-md-5">
+                        <input  id="txtObservaciones" class="form-control" type="text" name="observaciones" placeholder="..." value='{{facturaSelec.observacionesFactura}}' readonly="true" />            
+                    </div>
+                    
+                    <label  class="control-label col-md-2" for="name"  >Subtotal:</label>
+                    <div class="col-md-2">
+                        <input  id="txtSubtotal" class="form-control" type="text" id= "txtSubtotal" name="subtotal" placeholder="120.00" readonly="true" value='{{facturaSelec.subtotalFactura}}'/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-9" for="name">Descuento:</label>
+                    <div class="col-md-1">
+                        <input  class="form-control" type="text" id="txtPorcentaje" name="porcentaje" placeholder="5" value='{{facturaSelec.descuentoFactura}}' readonly="true" />
+                    </div>
+                    <div class="col-md-1">
+                        <input id="txtDescuento"  class="form-control" type="text" name="descuento" placeholder="5.10" readonly="true" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label  class="control-label col-md-9" for="name">Iva 0%:</label>
+                    <div class="col-md-2">
+                        <input class="form-control" type="text" id="txtIvaCero" name="ivacero" placeholder="0%" readonly="true" value='{{facturaSelec.ivaCeroFactura}}'/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-9" for="name">Iva 12%:</label>
+                    <div class="col-md-2">
+                        <input class="form-control" type="text" id="txtIvaDoce" name="ivadoce" placeholder="12%" readonly="true" value='{{facturaSelec.ivaDoceFactura}}'/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-9" for="name">Total:</label>
+                    <div class="col-md-2">
+                        <input class="form-control" type="text" id="txtTotal" name="total" placeholder="120" readonly="true" value='{{facturaSelec.totalFactura}}'/>
+                    </div>
+                </div>
+
+                <hr>       
+        </form>
+    </div>              
+{% endblock %}
+{% block js %} 
+
+<script type="text/javascript">
+        var subAux = document.getElementById("txtSubtotal").value + "";
+        sub = Number(subAux);
+        var porDescuentoAux = document.getElementById("txtPorcentaje").value;
+        alert(porDescuentoAux);
+        descuentoAux = parseFloat("0.00");
+        if (porDescuentoAux != "")
+        {
+            dessss = parseFloat(porDescuentoAux);
+            descuentoAux = (dessss/100) * sub;
+        }
+        else
+        {
+            document.getElementById("txtPorcentaje").value = 0;
+        }   
+        document.getElementById("txtDescuento").value = redondeo(descuentoAux);
+        
+
+    function redondeo(numero){
+        var flotante = parseFloat(numero);
+        var resultado = Math.round(flotante*100)/100;
+        return resultado;
+    }
+</script>
+
+{% endblock %}
