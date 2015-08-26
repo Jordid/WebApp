@@ -16,8 +16,12 @@ def cuentas_por_cobrar(request):
 def nuevo_cuenta_por_cobrar(request):
 	lstProducto = Producto.objects.all()
 	lstCliente = Cliente.objects.all();
+	lstProvincia = Provincia.objects.all()
+	lstCiudad = Ciudad.objects.all()
+	lstCiudad2 = Ciudad.objects.filter(provinciaCiudad = lstProvincia[0])
 	template = 'formRegistroCuentasPorCobrar.html'
-	return render(request, template, {"listaMenu": menu(request), "lstCliente":lstCliente,"lstProducto":lstProducto})
+	return render(request, template, {"listaMenu": menu(request),"lstCliente":lstCliente,
+		"lstProducto":lstProducto, 'lstProvincia': lstProvincia, 'lstCiudad': lstCiudad, 'lstCiudad2': lstCiudad2})
 
 #-------------------------------------
 

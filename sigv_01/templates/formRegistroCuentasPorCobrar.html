@@ -44,7 +44,7 @@
                     <div class="form-inline">
                         <label class="control-label col-md-4" for="name">Cont. No.:</label>
                         <div class="col-md-2">
-                            <input class="form-control" type="text" name="num_cuenta" placeholder="001" />
+                            <input id="txtNumero" class="form-control" type="text" name="num_cuenta" placeholder="001" />
                         </div>
                     </div>
                 </div>              
@@ -52,11 +52,11 @@
                 <div class="form-group">
                     <label class="control-label col-md-2" for="name">Cliente:</label>
                     <div class="col-md-5">
-                        <input id="txtCliente" class="form-control" type="text" name="cliente" placeholder="Jordi Marcelo Duran Pesantez" readonly="true" />
+                        <input id="txtCliente" class="form-control" type="text" name="cliente" placeholder="..." readonly="true" />
                     </div>
                     <label class="control-label col-md-2" for="name">Fecha:</label>
                     <div class="col-md-2">
-                        <input class="form-control"  type="text" placeholder="Seleccionar fecha"  id="example1">
+                        <input id="txtFecha" class="form-control"  type="text" placeholder="Seleccionar fecha"  id="example1">
                     </div>
                 </div>
 
@@ -64,13 +64,13 @@
                     <div class="form-inline">
                         <label class="control-label col-md-2" for="name">Dirección:</label>
                         <div class="col-md-5">
-                            <input id="txtDireccion" class="form-control" type="text" name="direccion" placeholder="Av. Alejandro Castro y Av. Ferroviaria"  readonly="true" />
+                            <input id="txtDireccion" class="form-control" type="text" name="direccion" placeholder="..."  readonly="true" />
                         </div>
                     </div>
                     <div class="form-inline">
                         <label class="control-label col-md-2" for="name">Saldo empenzará:</label>
                         <div class="col-md-2">
-                            <input class="form-control"  type="text" placeholder="Seleccionar fecha"  id="example2">
+                            <input id="txtFechaCI" class="form-control"  type="text" placeholder="Seleccionar fecha"  id="example2">
                         </div>
                     </div>
                 </div>
@@ -79,31 +79,30 @@
                     <div class="form-inline">
                         <label class="control-label col-md-2" for="name">Teléfono:</label>
                         <div class="col-md-2">
-                            <input id="txtTelefono" class="form-control" type="text" name="telefono" placeholder="0989108982" readonly="true" />
+                            <input id="txtTelefono" class="form-control" type="text" name="telefono" placeholder="..." readonly="true" />
                         </div>
                     </div>
                     <div class="form-inline">
                         <label class="control-label col-md-1" for="name">Provincia:</label>
                         <div class="col-md-2">
-                            <select class="form-control" id="selectbasic" name="selectbasic">
-                                <option>Azuay</option>
-                                <option>El Oro</option>
-                                <option>Guayas</option>  
-                                <option>Riobamba</option>  
-                                <option>Esmeraldas</option>  
+                            <select class="form-control" onChange="ListaCiudad(this);" id="selectbasicP" name="selectbasicP">
+                                {% for item in lstProvincia %}
+                                <option value = {{ item.id }}>
+                                {{ item.nombreProvincia }}
+                                </option>
+                                {% endfor %}
                             </select>
                         </div>
                     </div>
                     <div class="form-inline">
                         <label class="control-label col-md-2" for="name">Ciudad:</label>
                         <div class="col-md-2">
-                            <select class="form-control" id="selectbasic" name="selectbasic">
-                                <option>El Cambio</option>
-                                <option>Guabo</option>
-                                <option>La Iberia</option>
-                                <option>Machala</option>
-                                <option>Pasaje</option>
-                                <option>Santa Rosa</option>
+                            <select class="form-control" id="selectbasicC" name="selectbasicC">
+                                {% for item in lstCiudad2 %}
+                                <option value = {{ item.id }}>
+                                {{ item.nombreCiudad }}
+                                </option>
+                                {% endfor %}
                             </select>
                         </div>
                     </div>
@@ -113,13 +112,13 @@
                 <div class="form-group">
                     <label class="control-label col-md-2" for="name">Cuotas:</label>
                     <div class="col-md-1">
-                        <input class="form-control" type="text" name="cuotas_de" placeholder="10.00" />
+                        <input id="txtCuotas" class="form-control" type="text" name="cuotas_de" placeholder="10.00" />
                     </div>
 
                     <div class="form-inline">
                         <label class="control-label col-md-2" for="name">Forma de Pago:</label>
                         <div class="col-md-2">
-                            <select class="form-control" id="selectbasic" name="selectbasic">
+                            <select class="form-control" id="selectbasicF" name="selectbasic">
                                 <option>Diario</option>
                                 <option>Semanal</option>
                                 <option>Mensual</option>
@@ -176,19 +175,26 @@
                 <div class="form-group">
                     <label class="control-label col-md-2">Observaciones:</label>
                     <div class="col-md-6">
-                        <textarea rows="1" class="form-control" name="observaciones" placeholder=""></textarea>
+                        <textarea id="txtObservaciones" rows="1" class="form-control" name="observaciones" placeholder=""></textarea>
                     </div>
 
-                    <label class="control-label col-md-1" for="name">Total:</label>
+                    <label class="control-label col-md-1" for="name">Subtotal:</label>
                     <div class="col-md-2">
-                        <input class="form-control" type="text" name="total" placeholder="1200.00" />
+                        <input id ="txtSubtotal" class="form-control" type="text" name="total" placeholder="1200.00" readonly="true" />
                     </div>
                     
                 </div>
-                    <div class="form-group">
+                <div class="form-group">
+                    <label class="control-label col-md-9" for="name">Cuota Inicial:</label>
+                    <div class="col-md-2">
+                            <input  id="txtCI" class="form-control" type="text" name="cuota_inicial" placeholder="20.00" readonly="true" />
+                    </div>
+                </div>
+
+                <div class="form-group">
                     <label class="control-label col-md-9" for="name">Saldo:</label>
                     <div class="col-md-2">
-                        <input class="form-control" type="text" name="saldo" placeholder="100.00" />
+                        <input id="txtSaldo" class="form-control" type="text" name="saldo" placeholder="100.00" readonly="true" />
                     </div>
                 </div>
                 
@@ -233,7 +239,6 @@
             }
         {% endfor %}
     }
-
 </script>
 
 <script type="text/javascript">
@@ -330,25 +335,22 @@
     function LlenarCamposTotales(subtotal){
         var subAux = subtotal + "";
         sub = Number(subAux);
-        var porDescuentoAux = document.getElementById("txtPorcentaje").value;
-        descuentoAux = parseFloat("0.00");
-        if (porDescuentoAux != "")
+        var cuota_inicial = document.getElementById("txtCI").value;
+
+        cuota = parseFloat("0.00");
+        if (cuota_inicial != "")
         {
-            dessss = parseFloat(porDescuentoAux);
-            descuentoAux = (dessss/100)* sub;
+            cuota = parseFloat(cuota_inicial);
         }
         else
         {
-            document.getElementById("txtPorcentaje").value = 0;
+            document.getElementById("txtCI").value = 0;
         }   
 
-        ivaDoceAux = sub * 0.12;
-        totalAux = sub + ivaDoceAux - descuentoAux;
+        totalAux = sub - cuota;
         document.getElementById("txtSubtotal").value = redondeo(sub);
-        document.getElementById("txtDescuento").value = redondeo(descuentoAux);
-        document.getElementById("txtIvaCero").value = 0;
-        document.getElementById("txtIvaDoce").value = redondeo(ivaDoceAux);
-        document.getElementById("txtTotal").value = redondeo(totalAux);
+        document.getElementById("txtCI").value = redondeo(cuota);
+        document.getElementById("txtSaldo").value = redondeo(totalAux);
     }
 
     function EstaEnTabla(idProAux){
@@ -363,18 +365,44 @@
         return false;
     }
 
+    function ListaCiudad(combo){
+        var index = combo.selectedIndex;
+        var id = combo.options[index].value;
+        var valor = combo.options[index].text;
+        var comboC = document.createElement('selectbasicC');
+        document.getElementById("selectbasicC").options.length = 0;
+        {% for ciu in lstCiudad %}
+        var idProv = "{{ciu.provinciaCiudad.id}}";
+            if (id == idProv)
+            {
+                var option = document.createElement('option');
+                option.text = "{{ciu.nombreCiudad}}";
+                option.value = "{{ciu.id}}";
+                document.getElementById('selectbasicC').options.add(option);
+            }
+        {% endfor %}
+    }
+
     $("#btnGuardar").click(
         function(){
         var tabla = document.getElementById('mitabla');
-        alert(tabla.rows.length);
+        var combo = document.getElementById('selectbasicF');
+        var index = combo.selectedIndex;
+        var formaPagoA = combo.options[index].text;
+
+        var comboC = document.getElementById('selectbasicC');
+        var indexC = comboC.selectedIndex;
+        var ciudad = comboC.options[indexC].value;
+
         if (tabla.rows.length >1){ 
-            $.get('/ventas/factura/guardar',{
-                    numeroFactura: document.getElementById("txtnfactura").value,
-                    subtotal: document.getElementById("txtSubtotal").value,
-                    descuento: document.getElementById("txtDescuento").value,
-                    ivaCero:document.getElementById("txtIvaCero").value,
-                    ivaDoce:document.getElementById("txtIvaDoce").value,
-                    total:document.getElementById("txtTotal").value,
+            $.get('/contable/cuenta_por_cobrar/guardar',{
+                    numeroCuenta: document.getElementById("txtNumero").value,
+                    coutaInicial: document.getElementById("txtCI").value,
+                    cuota: document.getElementById("txtCuotas").value,
+                    formaPago: formaPagoA,
+                    total: document.getElementById("txtSubtotal").value,
+                    saldo: document.getElementById("txtSaldo").value,
+                    ciudadID: ciudad,
                     observaciones:document.getElementById("txtObservaciones").value,
                     cliente:document.getElementById("txtBuscarCliente").value,
                     fecha: f,
