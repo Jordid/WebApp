@@ -161,6 +161,8 @@ class Factura(models.Model):
 	observacionesFactura = models.TextField(default="")
 	datosEmpresaFactura = models.ForeignKey(DatosEmpresa)
 	clienteFactura = models.ForeignKey(Cliente)
+	def __unicode__(self):
+		return '%s'%(self.numeroFactura)
 
 class DetalleFactura(models.Model):
 	cantidadDetalleFactura = models.DecimalField(max_digits = 20,decimal_places = 2)

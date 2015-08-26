@@ -8,4 +8,5 @@ urlpatterns = patterns('',
 	url(r'^contactos/$', 'apps.app.views.contactos', name='contactos'),
     url(r'^login/$', 'apps.app.views.login', name='login'),
     url(r'^logout/$', 'apps.app.views.logout', name='logout'),
+    url(r'^fecha/$', 'apps.app.views.fecha', name='fecha'),
 )

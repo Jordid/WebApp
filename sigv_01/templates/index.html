@@ -23,6 +23,10 @@
     <link href="{{STATIC_URL}}css/stilo.css" rel="stylesheet">
 
     <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/cssloguin.css">
+    
+    <link rel="stylesheet" href="{{STATIC_URL}}css/datepicker.css">
+    
+
     <script type="text/javascript" src="{{STATIC_URL}}js/jquery.js"></script>
     <script type="text/javascript" src="{{STATIC_URL}}js/mijs.js"></script>
     <script type="text/javascript" src="{{STATIC_URL}}js/busquedaEnTablas.js"></script>
@@ -224,6 +228,20 @@
     <script src="{{STATIC_URL}}js/jquery.min.js"></script>
     <script src="{{STATIC_URL}}js/select2.js"></script>
     <script src="{{STATIC_URL}}js/typeahead.js"></script>
+    <!-->Para la fecha<-->
+    <script src="{{STATIC_URL}}js/jquery-1.9.min.js"></script>
+    <script src="{{STATIC_URL}}js/bootstrap-datepicker.js"></script>
+    <script type="text/javascript">
+            // When the document is ready
+            $(document).ready(function () {
+                
+                $('#example1').datepicker({
+                    format: "dd/mm/yyyy"
+                });  
+            
+            });
+    </script>
+    <!-->Fin fecha<-->
 {%block js%}
 
 {%endblock%}

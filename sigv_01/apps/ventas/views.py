@@ -108,7 +108,9 @@ def anular_factura(request, factura_id):
 
 def vista_factura(request, factura_id):
 	facturaSelec = Factura.objects.get(pk=factura_id)
-	lstDetalleFac = DetalleFactura.objects.filter(pk=factura_id)
+	lstDetalleFac = DetalleFactura.objects.filter(facturaDetalleFactura=facturaSelec)
+	print("Heysdsd")
+	print(len(lstDetalleFac))
 	template = 'formVistaFactura.html'
 	return render(request, template, {"listaMenu": menu(request), "facturaSelec":facturaSelec,"lstDetalleFac":lstDetalleFac})
 

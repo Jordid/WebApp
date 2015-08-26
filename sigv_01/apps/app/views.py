@@ -51,4 +51,7 @@ def tiene_permiso(request):
 		return render(request, template, {"listaMenu": menu(request)})
 	else:
 		return False
+def fecha(request):
+	template = 'fecha.html'
+	return render(request, template)
 

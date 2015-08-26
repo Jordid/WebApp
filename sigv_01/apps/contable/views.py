@@ -12,6 +12,13 @@ def cuentas_por_cobrar(request):
 	lstCuentaCobrar = CuentaCobrar.objects.all()
 	template = 'formVerCuentasPorCobrar.html'
 	return render(request, template, {"listaMenu": menu(request), "lstCuentaCobrar": lstCuentaCobrar})
+
+def nuevo_cuenta_por_cobrar(request):
+	lstProducto = Producto.objects.all()
+	lstCliente = Cliente.objects.all();
+	template = 'formRegistroCuentasPorCobrar.html'
+	return render(request, template, {"listaMenu": menu(request), "lstCliente":lstCliente,"lstProducto":lstProducto})
+
 #-------------------------------------
 
 

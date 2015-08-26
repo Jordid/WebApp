@@ -67,9 +67,11 @@
                                 <th id="misth2" class="col-md-5">Artículo</th>
                                 <th id="misth3" class="col-md-1">Valor unitario</th>
                                 <th id="misth4" class="col-md-1">Valor total</th>
-                                <th id="misth4" class="col-md-1">Quitar</th>
                             </tr>
                         </thead>
+                        <tbody>
+                            
+                        </tbody>
                     </table></p>     
                     </div>
                     
@@ -125,9 +127,8 @@
 
 <script type="text/javascript">
         var subAux = document.getElementById("txtSubtotal").value + "";
-        sub = Number(subAux);
+        sub = Number(subAux.replace(",","."));
         var porDescuentoAux = document.getElementById("txtPorcentaje").value;
-        alert(porDescuentoAux);
         descuentoAux = parseFloat("0.00");
         if (porDescuentoAux != "")
         {
@@ -140,6 +141,25 @@
         }   
         document.getElementById("txtDescuento").value = redondeo(descuentoAux);
         
+
+        ////////////////////////////////////////////////////////////////
+        var table = document.getElementById("mitabla");
+        {%for detalle in lstDetalleFac%}
+            index = table.rows.length;
+            var row = table.insertRow(index);
+            row.value = '{{detalle.id}}';
+            var cantidadCell = row.insertCell(0);     var descripcionCell = row.insertCell(1);
+            var valorUnCell = row.insertCell(2);      var valorTotalCell = row.insertCell(3);
+
+            var cantidadAux = ('{{detalle.cantidadDetalleFactura}}').replace(",", ".");
+            var valorUnAux = ('{{detalle.precioDetalleFactura}}').replace(",",".");
+            var valorToAux = parseFloat(cantidadAux) * parseFloat(valorUnAux);
+            cantidadCell.innerHTML = cantidadAux;
+            descripcionCell.innerHTML = '{{detalle.productoDetalleFactura.descripcionProducto}}';
+            valorUnCell.innerHTML = valorUnAux+"";
+            valorTotalCell.innerHTML = valorToAux+"";
+        {%endfor%}
+        ///////////////////////////////////////////////////////////////
 
     function redondeo(numero){
         var flotante = parseFloat(numero);
