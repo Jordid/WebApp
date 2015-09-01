@@ -173,3 +173,7 @@ input:required, textarea:required {
 ::-webkit-input-placeholder {
     color: blue;
 }
+
+input[readonly] {
+  background-color: white;
+}

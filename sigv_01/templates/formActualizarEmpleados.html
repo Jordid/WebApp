@@ -9,40 +9,38 @@
                         <span class="icon-bar"></span>
                     </button>
                 </div>
-				
-                <div id="minavb_2" class="collapse navbar-collapse navbar-left">
+                
+            <div id="minavb_2" class="collapse navbar-collapse navbar-left">
                 <ul id="miulnav" class="nav navbar-nav">
-                    <li id="ilnav"><a href='{% url 'empleados' %}'>Ver</a></li>
-                    <li id="ilnav"><a href='{% url 'nuevo_empleado' %}'>Nuevo</a></li>
+                    <li id="ilnav"><a href="{% url "empleados" %}">Ver</a></li>
+                    <li id="ilnav"><a href="{% url "nuevo_empleado" %}">Nuevo</a></li>
                 </ul>
             </div>    
         </nav>
     </header>
-    
+
     <div class="container">
-        <form id="miform" action="{% url "guardar_empleado" empleadoSelec.id %}" class="form-horizontal" method="POST">
+        <form id="miform" action="{% url "guardar_empleado" empleadoSelec.id %}" class="form-horizontal" method="POST" onsubmit="return formulario(this);">
         {% csrf_token %}
-        {{ form.as_p }}         
+        {{ form.as_p }}
                 <div class="form-group">
                     <h2><label class="control-label col-md-5" for="name">Datos del empleado</label></h2> 
                     <div class="col-md-4">
                         <span class="required_notification">Todos los campos son obligatorios</span>
                     </div>
                 </div>
-                <hr>
 
                 <div class="form-group">
                     <label class="control-label col-md-4" for="name">Cédula:</label>
-                    <div class="col-md-5">
-                        <input class="form-control" type="text" name="cedula" placeholder="0705463124" value= "{{empleadoSelec.personaEmpleado.cedulaPersona}}"/>
+                    <div class="col-md-2">
+                        <input class="form-control" name="cc_ruc" type="text" id="txtBuscarPersona" placeholder="Buscar..." autocomplete="off" value= "{{empleadoSelec.personaEmpleado.cedulaPersona}}" />
                     </div>
-                    
                 </div>
 
                 <div class="form-group">
                     <label class="control-label col-md-4" for="name">Apellidos:</label>
                     <div class="col-md-5">
-                        <input class="form-control" type="text" name="apellidos" placeholder="Mars Klinton" value= "{{empleadoSelec.personaEmpleado.apellidosPersona}}"/>
+                        <input id="txtApellido" class="form-control" type="text" name="apellidos" placeholder="Mars Klinton" value= "{{empleadoSelec.personaEmpleado.apellidosPersona}}" required/>
                     </div>
 
                 </div>
@@ -50,7 +48,7 @@
                 <div class="form-group">
                     <label class="control-label col-md-4" for="name">Nombres:</label>
                     <div class="col-md-5">
-                        <input class="form-control" type="text" name="nombres" placeholder="John Doe" value= "{{empleadoSelec.personaEmpleado.nombresPersona}}" />
+                        <input id="txtNombre" class="form-control" type="text" name="nombres" placeholder="John Doe"  value= "{{empleadoSelec.personaEmpleado.nombresPersona}}" required/>
                     </div>
                 </div>
 
@@ -58,14 +56,14 @@
                 <div class="form-group">
                     <label class="control-label col-md-4" for="name">Teléfono:</label>
                     <div class="col-md-5">
-                        <input class="form-control" type="text" name="telefono" placeholder="0989108983" value= "{{empleadoSelec.personaEmpleado.telefonoPersona}}"/>
+                        <input id="txtTelefono" class="form-control" type="text" name="telefono" placeholder="0989108983" value= "{{empleadoSelec.personaEmpleado.telefonoPersona}}" required/>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label class="control-label col-md-4" for="email">Email:</label>
                     <div class="col-md-5">
-                        <input class="form-control" type="email" name="email" placeholder="john_doe@example.com" value= "{{empleadoSelec.personaEmpleado.emailPersona}}">
+                        <input id="txtEmail" class="form-control" type="email" name="email" placeholder="john_doe@example.com" value= "{{empleadoSelec.personaEmpleado.emailPersona}}" required/>
                     </div>
                     <span class="form_hint">Formato "name@something.com"</span>
                 </div>
@@ -74,7 +72,7 @@
                     <div class="form-inline">
                         <label class="control-label col-md-4" for="name">Provincia:</label>
                         <div class="col-md-2">
-                            <select class="form-control" onChange="ListaCiudad(this);" id="selectbasicP" name="selectbasicP">
+                            <select class="form-control" onChange="listaCiudad(this);" id="selectbasicP" name="selectbasicP">
                                 {% for item in lstProvincia %}
                                     {%if item.id == empleadoSelec.personaEmpleado.ciudadPersona.provinciaCiudad.id%}
                                         <option value = {{ item.id }} selected>
@@ -111,7 +109,7 @@
                 <div class="form-group">
                     <label class="control-label col-md-4" for="name">Dirección:</label>
                     <div class="col-md-5">
-                        <input class="form-control" type="text" name="direccion" placeholder="Av. Alejandro Castro y Av. Ferroviaría"  value= "{{empleadoSelec.personaEmpleado.direccionPersona}}"/>
+                        <input id="txtDireccion" class="form-control" type="text" name="direccion" placeholder="Av. Alejandro Castro y Av. Ferroviaría" value= "{{empleadoSelec.personaEmpleado.direccionPersona}}" required />
                     </div>
 
                 </div>
@@ -120,28 +118,30 @@
                 <div class="form-group">
                     <label class="control-label col-md-4" for="name">Cargo:</label>
                     <div class="col-md-5">
-                        <input class="form-control" type="text" name="cargo" placeholder=""  value= "{{empleadoSelec.cargoEmpleado}}"/>
+                        <input id="txtCargo" class="form-control" type="text" name="cargo" placeholder="" value= "{{empleadoSelec.cargoEmpleado}}" required />
                     </div>
-
                 </div>
-
+                
                 <div class="form-group">
                     <label class="control-label col-md-4" for="name">Observaciones:</label>
                     <div class="col-md-5">
-                        <input class="form-control" type="text" name="observaciones" placeholder="..." value= "{{empleadoSelec.observacionesEmpledo}}" />
+                        <input id="txtObservaciones" class="form-control" type="text" name="observaciones" placeholder="..." value= "{{empleadoSelec.observacionesEmpledo}}" />
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label class="control-label col-md-4" for="prependedcheckbox">Estado:</label>
+                    <label class="control-label col-md-4" for="prependedcheckbox">Estado (A/I):</label>
                     <div class="col-md-5">
-                    {%if empleadoSelec.estadoEmpleado == 'Activo' %}
-                        <input  id="estadoBox" name="estado" onclick="estadoCambia()" type="checkbox" value="Activo" checked="checked"/>
-                    {%else%}
-                        <input  id="estadoBox" name="estado" onclick="estadoCambia()" type="checkbox" value="Inactivo"/>
-                    {%endif%}
+                    <input id='testNameHidden' type='hidden' value='Inactivo' name='estado'>
+                    <input  id="estadoBox" name="estado" type="checkbox" value="Activo"/>
                     </div>
                 </div>
+
+                <!--
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="prependedcheckbox">Estado: Activo/Inactivo:</label>
+                    <div class="control-label col-md-1"><input type="checkbox"></div>
+                </div>-->
 
                 <!--<label class="control-label" for="textinput">Correo:</label>
                 <input id="textinput" name="textinput" type="email" placeholder="correo" class="input-xlarge">-->
@@ -153,5 +153,58 @@
                 </div>
                 <br>            
         </form>
-    </div>  
+    </div> 
+
+{% endblock %}
+
+{%block js%}
+
+<script type="text/javascript">
+
+    if ('{{empleadoSelec.estadoEmpleado}}'== 'Activo')
+    {
+        document.getElementById("estadoBox").value = 'Activo';
+        document.getElementById("estadoBox").checked = true;
+    }
+    else
+    {
+        document.getElementById("estadoBox").value = 'Inactivo';
+        document.getElementById("estadoBox").checked = false;
+    }
+ 
+    function listaCiudad(combo){
+        
+        var index = combo.selectedIndex;
+        var id = combo.options[index].value;
+        var valor = combo.options[index].text;
+        var comboC = document.createElement('selectbasicC');
+        document.getElementById("selectbasicC").options.length = 0;
+        {% for ciu in lstCiudad %}
+        var idProv = "{{ciu.provinciaCiudad.id}}";
+            if (id == idProv)
+            {
+                var option = document.createElement('option');
+                option.text = "{{ciu.nombreCiudad}}";
+                option.value = "{{ciu.id}}";
+                document.getElementById('selectbasicC').options.add(option);
+            }
+        {% endfor %}
+    }
+
+    function formulario(f) {
+        {% for per in lstPersona %}
+          if("{{ per.cedulaPersona }}" == f.cc_ruc.value &&
+            "{{per.id}}"!= "{{empleadoSelec.personaEmpleado.id}}"){
+            alert ('La cedula esta siendo usada por otra persona'); 
+            f.cc_ruc.focus(); return false;
+         }
+        {% endfor %}
+        if(document.getElementById("estadoBox").checked) {
+        document.getElementById('testNameHidden').disabled = true;
+        }   
+        return true; 
+    } 
+
+</script>
+
 {% endblock %}

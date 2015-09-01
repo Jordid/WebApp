@@ -13,325 +13,219 @@
                 
             <div id="minavb_2" class="collapse navbar-collapse navbar-left">
                 <ul id="miulnav" class="nav navbar-nav">
-                    <li id="ilnav"><a href="formVerAbonosCuentasPorCobrar.html">Ver</a></li>
-                    <li id="ilnav" class="active"><a href="formRegistroAbonosCuentasPorCobrar.html">Nuevo</a></li>
+                    <li id="ilnav"><a href='{% url 'cuentas_por_cobrar'%}'>Ver</a></li>
+                    <li id="ilnav"><a href='{% url 'nuevo_cuenta_por_cobrar'%}'>Nuevo</a></li>
                 </ul>
             </div>    
         </nav>		
     </header>
     
-<div class="container">
+    <div class="container">
         <form id="miform" action="" class="form-horizontal">
-                <div class="form-group">
-                    <h2><label class="control-label col-md-5" for="name">Datos de abonos de la cta. por cobrar</label></h2> 
-                </div>
-                <hr>
+            <div class="form-group">
+                <h2><label class="control-label col-md-5" for="name">Datos de abonos de la Cta. por cobrar</label></h2>
+            </div>
+            <hr>
 
-                <div class="form-group">
-                    <label class="control-label col-md-2" for="name">C.C./Ruc:</label>
+            <div class="form-group">
+                <label class="control-label col-md-2" for="name">Cliente: </label>
+                <div class="col-md-5">
+                    <input class="form-control" type="text" name="cedula_ruc" placeholder="..." readonly="true" value='{{cuentaSelec.clienteCuentaCobrar.personaCliente.cedulaPersona}} - {{cuentaSelec.clienteCuentaCobrar.personaCliente.apellidosPersona}} {{cuentaSelec.clienteCuentaCobrar.personaCliente.nombresPersona}}'/>
+                </div>
+                <label class="control-label col-md-2" for="name">Contrato No.:</label>
+                <div class="col-md-2">
+                    <input id="txtNumero" class="form-control" type="text" name="num_cuenta" placeholder="..."  readonly="true" value='{{cuentaSelec.numeroCuentaCobrar}}'/>
+                </div>            
+            </div>              
+
+            <div class="form-group">
+                <label class="control-label col-md-2" for="name">Lugar:</label>
+                <div class="col-md-2">
+                    <input class="form-control" type="text" name="lugar" placeholder="..." readonly="true"  value='{{lugar}}'/>
+                </div>
+                <div class="form-inline">
+                    <label class="control-label col-md-1" for="name">Fecha:</label>
                     <div class="col-md-2">
-                        <input class="form-control" type="text" name="cedula_ruc" placeholder="0705463124" />
+                        <input class="form-control" type="text" name="fecha" placeholder="..." readonly="true" value='{{cuentaSelec.fechaCuetaCobrar |date:"d-m-Y" }}' />   
                     </div>
-                    <label class="control-label col-md-4" for="name">Cont. No.:</label>
+                </div>
+                <div class="form-inline">
+                    <label class="control-label col-md-2" for="name">Forma Pago:</label>
                     <div class="col-md-2">
-                        <input class="form-control" type="text" name="num_cuenta" placeholder="001" />
-                    </div>
-                    
-                </div>              
-
-                <div class="form-group">
-                    <label class="control-label col-md-2" for="name">Cliente:</label>
-                    <div class="col-md-3">
-                        <input class="form-control" type="text" name="cliente" placeholder="Jordi Marcelo Duran Pesantez" />
-                    </div>
-                    <label class="control-label col-md-2" for="name">Fecha:</label>
-                    <div class="form-inline">
-                        <div class="col-md-1">
-                            <select class="form-control" id="selectbasic" name="selectbasic">
-                                <option>Día</option>
-                                <option>01</option>
-                                <option>02</option>
-                                <option>03</option>
-                                <option>04</option>
-                                <option>05</option>
-                                <option>06</option>
-                                <option>07</option>
-                                <option>08</option>
-                                <option>09</option>
-                                <option>10</option>
-                                <option>11</option>
-                                <option>12</option>
-                                <option>13</option>
-                                <option>14</option>
-                                <option>15</option>
-                                <option>16</option>
-                                <option>17</option>
-                                <option>18</option>
-                                <option>19</option>
-                                <option>20</option>
-                                <option>21</option>
-                                <option>22</option>
-                                <option>23</option>
-                                <option>24</option>
-                                <option>25</option>
-                                <option>26</option>
-                                <option>27</option>
-                                <option>28</option>
-                                <option>29</option>
-                                <option>30</option>
-                                <option>31</option>
-
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="form-inline">
-                        <div class="col-md-1">
-                            <select class="form-control" id="selectbasic" name="selectbasic">
-                                <option>Mes</option>
-                                <option>Ene</option>
-                                <option>Feb</option>
-                                <option>Mar</option>
-                                <option>Abr</option>
-                                <option>May</option>
-                                <option>Jun</option>
-                                <option>Jul</option>
-                                <option>Ago</option>
-                                <option>Sep</option>
-                                <option>Oct</option>
-                                <option>Nov</option>
-                                <option>Dic</option>
-                                <option>Año</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-inline">
-                        <div class="col-md-1">
-                            <select class="form-control" id="selectbasic" name="selectbasic">
-                                <option>Año</option>
-                                <option>15</option>
-                                <option>16</option>
-                                <option>17</option>
-                                <option>18</option>
-                                <option>19</option>
-                                <option>20</option>
-                                <option>21</option>
-                                <option>22</option>
-                                <option>23</option>
-                                <option>24</option>
-                                <option>25</option>
-                                <option>26</option>
-
-                            </select>
-                        </div>
+                        <input class="form-control" type="text" name="formaPago" placeholder="..." readonly="true" value='{{cuentaSelec.formaPagoCuentaCobrar}}' />
                     </div>
                 </div>
+            </div>
 
-                <div class="form-group">
-                    <label class="control-label col-md-2" for="name">Teléfono:</label>
-                    <div class="col-md-2">
-                        <input class="form-control" type="text" name="telefono" placeholder="0989108982" />
-                    </div>
-                </div>
-
-                <div class="form-group"> 
-                    <div class="form-inline">
-                        <label class="control-label col-md-2" for="name">Provincia:</label>
-                        <div class="col-md-1">
-                            <select class="form-control" id="selectbasic" name="selectbasic">
-                                <option>Azuay</option>
-                                <option>El Oro</option>
-                                <option>Guayas</option>  
-                                <option>Riobamba</option>  
-                                <option>Esmeraldas</option>  
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="form-inline">
-                        <label class="control-label col-md-2" for="name">Ciudad:</label>
-                        <div class="col-md-2">
-                            <select class="form-control" id="selectbasic" name="selectbasic">
-                                <option>El Cambio</option>
-                                <option>Guabo</option>
-                                <option>La Iberia</option>
-                                <option>Machala</option>
-                                <option>Pasaje</option>
-                                <option>Santa Rosa</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="form-group">
-                    <label class="control-label col-md-2" for="name">Dirección:</label>
-                    <div class="col-md-8">
-                        <input class="form-control" type="text" name="direccion" placeholder="Av. Alejandro Castro y Av. Ferroviaria"  />
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="control-label col-md-2" for="name">Total:</label>
-                    <div class="col-md-2">
-                        <input class="form-control" type="text" name="total" placeholder="20.00" />
-                    </div>
-                    <label class="control-label col-md-2" for="name">Cuota inicial:</label>
-                    <div class="col-md-1">
-                        <input class="form-control" type="text" name="cuotas_inicial" placeholder="10.00" />
-                    </div>
-
-                    <div class="form-inline">
-                        <label class="control-label col-md-2" for="name">Forma de pago:</label>
-                        <div class="col-md-1">
-                            <select class="form-control" id="selectbasic" name="selectbasic">
-                                <option>Diario</option>
-                                <option>Semanal</option>
-                                <option>Mensual</option>
-                                <option>Trimestral</option>
-                                <option>Anual</option>
-                            </select>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="form-group">
-                    <label class="control-label col-md-2" for="name">Fecha abono:</label>
-                     <div class="form-inline">
-                        <div class="col-md-1">
-                            <select class="form-control" id="selectbasic" name="selectbasic">
-                                <option>Día</option>
-                                <option>01</option>
-                                <option>02</option>
-                                <option>03</option>
-                                <option>04</option>
-                                <option>05</option>
-                                <option>06</option>
-                                <option>07</option>
-                                <option>08</option>
-                                <option>09</option>
-                                <option>10</option>
-                                <option>11</option>
-                                <option>12</option>
-                                <option>13</option>
-                                <option>14</option>
-                                <option>15</option>
-                                <option>16</option>
-                                <option>17</option>
-                                <option>18</option>
-                                <option>19</option>
-                                <option>20</option>
-                                <option>21</option>
-                                <option>22</option>
-                                <option>23</option>
-                                <option>24</option>
-                                <option>25</option>
-                                <option>26</option>
-                                <option>27</option>
-                                <option>28</option>
-                                <option>29</option>
-                                <option>30</option>
-                                <option>31</option>
-
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="form-inline">
-                        <div class="col-md-1">
-                            <select class="form-control" id="selectbasic" name="selectbasic">
-                                <option>Mes</option>
-                                <option>Ene</option>
-                                <option>Feb</option>
-                                <option>Mar</option>
-                                <option>Abr</option>
-                                <option>May</option>
-                                <option>Jun</option>
-                                <option>Jul</option>
-                                <option>Ago</option>
-                                <option>Sep</option>
-                                <option>Oct</option>
-                                <option>Nov</option>
-                                <option>Dic</option>
-                                <option>Año</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-inline">
-                        <div class="col-md-1">
-                            <select class="form-control" id="selectbasic" name="selectbasic">
-                                <option>Año</option>
-                                <option>15</option>
-                                <option>16</option>
-                                <option>17</option>
-                                <option>18</option>
-                                <option>19</option>
-                                <option>20</option>
-                                <option>21</option>
-                                <option>22</option>
-                                <option>23</option>
-                                <option>24</option>
-                                <option>25</option>
-                                <option>26</option>
-
-                            </select>
-                        </div>
-                    </div>
-
-                <div class="form-group">
-                    <label class="control-label col-md-2" for="name">Abono:</label>
-                    <div class="col-md-1">
-                        <input class="form-control" type="text" name="abono" placeholder="21.00"  />
-                    </div>
-                    <div class="form-group">
-	                    <label class="control-label col-md-1" for="name">Saldo:</label>
-	                    <div class="col-md-2">
-	                        <input class="form-control" type="text" name="saldo" placeholder="1150.00"  />
-	                    </div>
-                	</div>
+            
+            <div class="form-group">
+                <label class="control-label col-md-2" for="name">Total:</label>
+                <div class="col-md-2">
+                    <input class="form-control" type="text" name="total" placeholder="..." readonly="true" value='{{cuentaSelec.totalCuentaCobrar}}' />
                 </div>
                 
-            
-                <div class="container col-md-11">
-			        <div class="table-responsive">
-				        <table id="mitabla" class="table table-bordered table-condensed">
-				            <tr>
-				                <th id="misth1">No.</th>
-				                <th id="misth1">No. recibo</th>
-				                <th id="misth1">Fecha</th>
-				                <th id="misth1">Total</th>
-				                <th id="misth2">Abono</th>
-				                <th id="misth3">Saldo</th>
-				                <th id="misth7">Editar</th>
-				                <th id="misth8">Eliminar</th>
-				            </tr>
-				            <tr>
-				                <td>1</td>
-				                <td>000111</td>
-				                <td>06-Ago-2015</td>
-				                <td>1200.00</td>
-				                <td>50.00</td>
-				                <td>1150.00</td>
-				                <td id="td_editar"><span id"icon_editar" class="glyphicon glyphicon-edit"></span>Editar</td>
-				                <td id="td_eliminar"><span class="glyphicon glyphicon-remove"></span>Eliminar</td>
-				            </tr>
-				        </table>     
-			    	</div>
-			    </div>
-			</div>
-			<hr>
-                <div class="form-group">
-                    <label class="control-label col-md-4" for="name"></label>
-                    <div class="col-md-3">
-                        <button class="submit" type="submit">Guardar</button>        
+                <label class="control-label col-md-1" for="name">C. I. :</label>
+                    <div class="col-md-2">
+                        <input class="form-control" type="text" name="cuotas_inicial" placeholder="..." readonly="true" value='{{cuentaSelec.cuotaInicialCuentaCobrar}}' />
                     </div>
 
+                <div class="form-inline">
+                    <label class="control-label col-md-2" for="name">Saldo Actual:</label>
                     <div class="col-md-2">
-                        <button class="submit" type="submit">Cancelar</button>        
+                        <input id="txtSaldoActual" class="form-control" type="text" name="saldoActual" placeholder="..." readonly="true" value='{{cuentaSelec.saldoCuentaCobrar}}'/>
                     </div>
-                </div>  
-	        </form>
-	    </div>  
+                </div>
+            </div>
+
+            <hr>
+            <div class="form-group">
+                <div class="form-inline">
+                    <label class="control-label col-md-2" for="name">Fecha abono:</label>
+                    <div class="col-md-2">
+                        <input id="txtFecha" name="fecha" class="form-control"  type="text" placeholder="Seleccionar fecha">
+                    </div>
+                </div>
+                        
+                <div class="form-inline">
+                    <label class="control-label col-md-1" for="name">Recibo:</label>
+                    <div class="col-md-2">
+                        <input id="txtRecibo" class="form-control" type="text" name="recibo" placeholder="00001" />
+                    </div>
+                </div>
+            </div>
+            
+             <div class="form-group">                        
+                <div class="form-inline">
+                    <label class="control-label col-md-2" for="name">Abono:</label>
+                    <div class="col-md-2">
+                        <input id="txtAbono" class="form-control" type="text" name="abono" placeholder="21.00"  onkeyup="calcularSaldo()"/>
+                    </div>
+                </div>
+
+                <div class="form-inline">
+                    <label class="control-label col-md-1" for="name">Saldo:</label>
+                    <div class="col-md-2">
+                       <input id="txtSaldoTemp" class="form-control" type="text" name="saldo" placeholder="..." readonly="true" />
+                    </div>
+                </div>
+                
+                <div class="form-inline">
+                    <div class="col-md-1">
+                        <button class="submit" type="button" id="btnAgregar"><span id="add" class="glyphicon glyphicon-plus-sign"></span></button>  
+                    </div>
+                </div>
+                <div class="form-inline">
+                    <div class="col-md-1">
+                        <button class="submit" type="button" id="btnEliminar"><span id="less" class="glyphicon glyphicon-remove"></span></button>  
+                    </div>
+                </div>
+            </div>
+
+            <div class="container col-md-11">
+                <div id="miContenedorTabla" class="table-responsiv">
+    			     <table id="mitabla" class="table table-bordered table-condensed">
+    				    <tr>
+    				        <th id="misth1">IDE</th>
+    				        <th id="misth1">No. recibo</th>
+    				        <th id="misth1">Fecha</th>
+    				        <th id="misth2">Abono</th>
+    				        <th id="misth3">Saldo Act.</th>
+    				    </tr>
+                        {%for abono in lstAbonos%}
+    				    <tr>
+    				        <td>{{abono.id}}</td>
+    				        <td>{{abono.numeroReciboAbonoCuentaCobrar}}</td>
+    				        <td>{{abono.fechaAbonoCuentaCobrar}}</td>
+                            <td>{{abono.montoAbonoCuentaCobrar}}</td>
+    				        <td>{{abono.saldoAbonoCuentaCobrar}}</td>
+    				    </tr>
+                        {%endfor%}
+    				</table>     
+    			</div>
+    		</div>
+            <div class="form-group">
+                    <label class="control-label col-md-9" for="name">Total Cancelado</label>
+                    <div class="col-md-2">
+                        <input class="form-control" type="text" id="txtTotal" name="total" placeholder="..." readonly="true"/>
+                    </div>
+            </div>
+            <hr>   
+    	</form>
+    </div>  
+
+{% endblock %}
+{% block js %}
+<script type="text/javascript">
+            // When the document is ready
+    $(document).ready(function () {
+        $('#txtFecha').datepicker({
+            format: "dd/mm/yyyy"
+        });  
+    });
+</script>
+
+<script type="text/javascript">
+
+    function calcularSaldo( ){
+        var saldoActual = document.getElementById("txtSaldoActual").value;
+        var montoAbono = document.getElementById("txtAbono").value; 
+        if (montoAbono != "")
+        {
+            saldoActualAux = Number(saldoActual.replace(",", "."));
+            montoAbonoAux = Number(montoAbono);
+            saldoActualTem = saldoActualAux - montoAbonoAux;
+             document.getElementById("txtSaldoTemp").value = saldoActualTem;
+        }
+        else
+        {
+            document.getElementById("txtSaldoTemp").value = saldoActual;
+        }
+    }
+
+    $("#btnAgregar").click(
+        function(){
+            var saldoAux = document.getElementById("txtSaldoTemp").value;
+            saldoNumber = Number(saldoAux.replace(",","."));
+            if(saldoNumber >= 0)
+            {
+                $.get('/contable/cuenta_por_cobrar/abonar/insertar',{
+                    numeroCuenta: document.getElementById("txtNumero").value,
+                    numeroRecibo: document.getElementById("txtRecibo").value,
+                    fecha: document.getElementById("txtFecha").value,
+                    monto:document.getElementById("txtAbono").value,
+                    saldo:document.getElementById("txtSaldoTemp").value,
+                });
+                alert("Abono ingresado correctamente... ")
+                setTimeout("location.href=location.href",1000);
+            }
+        }            
+    );
+
+    $("#btnEliminar").click(
+        function(){
+            var tabla = document.getElementById("mitabla");
+            tamanio = tabla.rows.length;
+            if (tamanio>1)
+            {
+                $.get('/contable/cuenta_por_cobrar/abonar/eliminar',{
+                    numeroCuenta: document.getElementById("txtNumero").value,
+                    idAbono: document.getElementById('mitabla').rows[tamanio-1].cells[0].innerHTML,
+                    monto: document.getElementById('mitabla').rows[tamanio-1].cells[3].innerHTML,
+                });
+                alert("Abono eliminado correctamente... ")
+                setTimeout("location.href=location.href",1000);
+            }
+        }            
+    );
+
+
+    $(document).ready(function () {
+        suma = 0;
+        {%for abono in lstAbonos%}
+            suma = suma + Number(('{{abono.montoAbonoCuentaCobrar}}').replace(",","."))
+        {%endfor%}
+        document.getElementById("txtTotal").value = suma;  
+    });
+</script>
 
 {% endblock %}

@@ -14,11 +14,12 @@ def categorias(request):
 	template = 'formVerCategorias.html'
 	return render(request, template, {"listaMenu": menu(request), "lstCategoria": lstCategoria})
 
-#@login_requerido
 def nuevo_categoria(request):
 	categoriaSelec = Categoria(id=0)
+	lstCategoria = Categoria.objects.all()
 	template = 'formRegistroCategorias.html'
-	return render(request, template, {"listaMenu": menu(request), 'categoriaSelec': categoriaSelec})
+	return render(request, template, {"listaMenu": menu(request), 'categoriaSelec': categoriaSelec,
+		'lstCategoria':lstCategoria})
 
 def editar_categoria(request, categoria_id):
 	categoriaSelec = Categoria.objects.get(id=categoria_id)	

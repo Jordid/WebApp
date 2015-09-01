@@ -39,7 +39,7 @@
                 <th id="misth8">Ciudad</th>
                 <th id="misth9">Dirección</th>
                 <th id="misth10">Estado</th>
-                <th id="misth11" colspan="2">Acciones</th>
+                <th id="misth11">Acciones</th>
             </tr>
             {% for cli in clientes %}
             <tr>
@@ -54,7 +54,6 @@
                 <td>{{ cli.personaCliente.direccionPersona }}</td>
                 <td>{{ cli.estadoCliente }}</td>
                 <td id="td_editar"><span id"icon_editar" class="glyphicon glyphicon-edit"></span><a href='{% url 'editar_cliente' cli.id %}'>Editar</a></td>
-                <td id="td_eliminar"><span class="glyphicon glyphicon-remove"></span><a href='{% url 'eliminar_cliente' cli.id %}'>Eliminar</a></td>
             </tr>
             {% endfor %}
         </table>     

@@ -12,14 +12,14 @@
             <div id="minavb_2" class="collapse navbar-collapse navbar-left">
                 <ul id="miulnav" class="nav navbar-nav">
                     <li id="ilnav"><a href='{% url 'facturas'%}'>Ver</a></li>
-                    <li id="ilnav" class="active"><a href='{% url 'nuevo_factura'%}'>Nuevo</a></li>
+                    <li id="ilnav"><a href='{% url 'nuevo_factura'%}'>Nuevo</a></li>
                 </ul>
             </div>    
         </nav>
     </header>
 
     <div class="container">
-        <form id="miform" class="form-horizontal" method="POST">                
+        <form id="miform" class="form-horizontal" method="GET">                
                 <div class="form-group">
                     <h2><label class="control-label col-md-3" for="name">Datos de la factura</label></h2> 
                 </div>
@@ -27,10 +27,10 @@
 
                 <div class="form-group">
                     <label class="control-label col-md-2" for="name">C.C./Ruc:</label>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <input class="form-control" name="cc_ruc" type="text" id="txtBuscarCliente" placeholder="Buscar Cliente..." autocomplete="off" value='{{facturaSelec.clienteFactura.personaCliente.cedulaPersona}}' readonly="true"/>
-                    </div>           
-                    <label class="control-label col-md-3" for="name">Factura #:</label>
+                    </div>       
+                    <label class="control-label col-md-4" for="name">Factura No. :</label>
                     <div class="col-md-2">
                         <input class="form-control" type="text" id="txtnfactura" name="numerofactura" placeholder="0001234" value='{{facturaSelec.numeroFactura}}' readonly="true" />
                     </div>
@@ -43,7 +43,7 @@
                     </div>
                     <label class="control-label col-md-2" for="name">Fecha:</label>
                     <div class="col-md-2">
-                        <input class="form-control" id="txtfecha" type="text" name="fecha" placeholder="18-Julio-2015" readonly="true" value='{{facturaSelec.fechaFactura}}'/>
+                        <input class="form-control" id="txtfecha" type="text" name="fecha" placeholder="18-Julio-2015" readonly="true" value='{{facturaSelec.fechaFactura |date:"d-m-Y" }}'/>
                     </div>
                 </div>
 
@@ -54,7 +54,18 @@
                     </div>
                     <label class="control-label col-md-2" for="name">Ciudad:</label>
                     <div class="col-md-2">
-                        <input class="form-control" type="text" name="ciudad" placeholder="Pasaje" />
+                        <input class="form-control" type="text" name="ciudad" placeholder="Pasaje" value="{{dato.ciudadDatosEmpresa.nombreCiudad    }}" readonly />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="prependedcheckbox">Es Cuenta:</label>
+                    <div class="col-md-1">
+                        {%if facturaSelec.esCuentaCobrarFactura == "SI" %}
+                            <input  id="estadoBox" name="estado" type="checkbox" value="Activo" checked/>
+                        {%else%}
+                            <input  id="estadoBox" name="estado" type="checkbox" value="Activo" />
+                        {%endif%}
                     </div>
                 </div>
 
@@ -69,9 +80,6 @@
                                 <th id="misth4" class="col-md-1">Valor total</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            
-                        </tbody>
                     </table></p>     
                     </div>
                     
@@ -115,16 +123,14 @@
                 <div class="form-group">
                     <label class="control-label col-md-9" for="name">Total:</label>
                     <div class="col-md-2">
-                        <input class="form-control" type="text" id="txtTotal" name="total" placeholder="120" readonly="true" value='{{facturaSelec.totalFactura}}'/>
+                         <input class="form-control" type="text" id="txtTotal" name="total" placeholder="120" readonly="true" value='{{facturaSelec.totalFactura}}'/>
                     </div>
                 </div>
-
                 <hr>       
         </form>
     </div>              
 {% endblock %}
 {% block js %} 
-
 <script type="text/javascript">
         var subAux = document.getElementById("txtSubtotal").value + "";
         sub = Number(subAux.replace(",","."));
@@ -167,5 +173,4 @@
         return resultado;
     }
 </script>
-
 {% endblock %}

@@ -43,7 +43,7 @@
                 <th id="misth9">Cantidad</th>
                 <th id="misth10">Stock mínimo</th>
                 <th id="misth11">Estado</th>
-                <th id="misth12" colspan="2">Acciones</th>
+                <th id="misth12">Acciones</th>
             </tr>
 
             {%for pro in lstProducto%}
@@ -60,7 +60,6 @@
                 <td>{{pro.stockMinimoProducto}}</td>
                 <td>{{pro.estadoProducto}}</td>
                 <td id="td_editar"><span class="glyphicon glyphicon-edit"></span><a href='{% url 'editar_producto' pro.id %}'>Editar</a></td>
-                <td id="td_eliminar"><span class="glyphicon glyphicon-remove"></span><a href='{% url 'eliminar_producto' pro.id %}'>Eliminar</a></td>
             </tr>
             {%endfor%}
             
@@ -69,16 +68,5 @@
 
 
     </div>
-    <script type="text/javascript">
-    function fnc() {
-    document.getElementById('table-scroll').onscroll = function() {
-
-    document.getElementById('fixedY').style.top = document.getElementById('table-scroll').scrollTop + 'px';
-
-    };
-    }
-
-    window.onload = fnc;
-</script>
 
 {% endblock %}

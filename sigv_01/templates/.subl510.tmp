@@ -142,7 +142,7 @@
                 </div>
                 <hr>
                 <div class="form-group">
-                    <label id="lblEstado" class="control-label col-md-5" for="name"></label>
+                    <label class="control-label col-md-5" for="name"></label>
                     <div class="col-md-4">
                         <button id="btnGuardar" class="submit" type="button" >Guardar</button>        
                     </div>
@@ -305,20 +305,12 @@ $(document).ready(function(){
 </script>
 
 <script>
-/*
-    for(var er=1; er< 4; er++)
-    {
-        sleep(5000);
-        alert("Ok");
-    }
-  */  
-    
-    function sleep(miliseconds) {
-           var currentTime = new Date().getTime();
 
-           while (currentTime + miliseconds >= new Date().getTime()) {
-           }
-    }
+    $("#btnGuardar").click(function(){
+      $(this).fadeTo(5000,1,function(){
+        $(this).fadeOut("slow");
+      });
+    });
 
     $("#btnGuardar").click(
         function(){
@@ -328,7 +320,7 @@ $(document).ready(function(){
             }
             else
             {
-                alert("ok")
+                
                 esCuentaAux = "NO";
                 if (document.getElementById("estadoBox").checked)
                 {
@@ -337,9 +329,7 @@ $(document).ready(function(){
                 var fechaA = document.getElementById("txtFecha").value;
                 var tabla = document.getElementById('mitabla');
                 if (tabla.rows.length >1){ 
-                    document.getElementById('btnGuardar').disabled = true;
-                    document.getElementById('lblEstado').innerHTML = "Guardando datos. Espere...";
-                    for (var i = 1; tabla.rows[i];i++){
+                    for (var i = 1; i<tabla.rows.length;i++){
                         $.get("{%url 'guardar_factura'%}",{
                             productoId:document.getElementById("mitabla").rows[i].value,
                             cantidad:document.getElementById("mitabla").rows[i].cells[0].innerHTML,
@@ -356,11 +346,11 @@ $(document).ready(function(){
                             fecha:fechaA,
                             esCuenta:'NO',
                         });
-                        sleep(5000);
+                        
                     }
                     alert("Datos Guardados Correctamente... ");
                 }
-                setTimeout("location.href='{% url 'facturas'%}'",1000);      
+                //setTimeout("location.href='{% url 'facturas'%}'",1000);      
             }
         }
     )

@@ -56,7 +56,7 @@
                     </div>
                     <label class="control-label col-md-2" for="name">Fecha:</label>
                     <div class="col-md-2">
-                        <input id="txtFecha" class="form-control"  type="text" placeholder="Seleccionar fecha"  id="example1">
+                        <input id="txtFecha" name="fecha" class="form-control"  type="text" placeholder="Seleccionar fecha">
                     </div>
                 </div>
 
@@ -70,7 +70,7 @@
                     <div class="form-inline">
                         <label class="control-label col-md-2" for="name">Saldo empenzará:</label>
                         <div class="col-md-2">
-                            <input id="txtFechaCI" class="form-control"  type="text" placeholder="Seleccionar fecha"  id="example2">
+                            <input id="txtFechaCI" name="fechaCI" class="form-control"  type="text" placeholder="Seleccionar fecha"  />
                         </div>
                     </div>
                 </div>
@@ -119,11 +119,10 @@
                         <label class="control-label col-md-2" for="name">Forma de Pago:</label>
                         <div class="col-md-2">
                             <select class="form-control" id="selectbasicF" name="selectbasic">
-                                <option>Diario</option>
                                 <option>Semanal</option>
+                                <option>Quinsenal</option>
                                 <option>Mensual</option>
                                 <option>Trimestral</option>
-                                <option>Anual</option>
                             </select>
                         </div>
                     </div>
@@ -187,7 +186,7 @@
                 <div class="form-group">
                     <label class="control-label col-md-9" for="name">Cuota Inicial:</label>
                     <div class="col-md-2">
-                            <input  id="txtCI" class="form-control" type="text" name="cuota_inicial" placeholder="20.00" readonly="true" />
+                            <input  id="txtCI" class="form-control" type="text" name="cuota_inicial" placeholder="20.00" />
                     </div>
                 </div>
 
@@ -199,14 +198,13 @@
                 </div>
                 
                 <hr>
-
                 <div class="form-group">
                     <label class="control-label col-md-5" for="name"></label>
-                    <div class="col-md-1">
-                        <button class="form-control submit" type="submit">Guardar</button>        
+                    <div class="col-md-4">
+                        <button class="submit" type="button" id="btnGuardar">Guardar</button>        
                     </div>
                 </div>  
-                <br>         
+                <br>  <hr>     
         </form>
     </div>  
 
@@ -282,19 +280,6 @@
             alert("Solo admite 11 productos!");
         }
    }
-
-   function mostrarCliente(){
-        var cedulaBuscar=document.getElementById("txtBuscarCliente").value;
-        {% for cli in lstCliente %}
-          if("{{ cli.personaCliente.cedulaPersona }}" == cedulaBuscar){
-                var nombre = "{{cli.personaCliente.nombresPersona}}"
-                var apellido = "{{cli.personaCliente.apellidosPersona}}"
-                var direccion = "{{cli.personaCliente.direccionPersona}}"
-                document.getElementById("txtCliente").value=apellido + " " +nombre;
-                document.getElementById("txtDireccion").value=direccion;
-            }
-        {% endfor %}
-    }
 
     function BuscarPrecioProducto(idProducto)
     {
@@ -393,61 +378,56 @@
         var comboC = document.getElementById('selectbasicC');
         var indexC = comboC.selectedIndex;
         var ciudad = comboC.options[indexC].value;
-
         if (tabla.rows.length >1){ 
             $.get('/contable/cuenta_por_cobrar/guardar',{
-                    numeroCuenta: document.getElementById("txtNumero").value,
-                    coutaInicial: document.getElementById("txtCI").value,
-                    cuota: document.getElementById("txtCuotas").value,
-                    formaPago: formaPagoA,
-                    total: document.getElementById("txtSubtotal").value,
-                    saldo: document.getElementById("txtSaldo").value,
-                    ciudadID: ciudad,
-                    observaciones:document.getElementById("txtObservaciones").value,
+                    numeroCuenta:document.getElementById("txtNumero").value,
+                    fechaAc:document.getElementById("txtFecha").value,
+                    fechaCIn:document.getElementById("txtFechaCI").value,
+                    cuotaInicial:document.getElementById("txtCI").value,
+                    cuotas:document.getElementById("txtCuotas").value,
+                    formaPago:formaPagoA,
+                    total:document.getElementById("txtSubtotal").value,
+                    saldo:document.getElementById("txtSaldo").value,
+                    ciudadID:ciudad,
                     cliente:document.getElementById("txtBuscarCliente").value,
-                    fecha: f,
+                    observaciones:document.getElementById("txtObservaciones").value,
                     });
             for (var i = 1; i< tabla.rows.length;i++){
-                $.get('/ventas/factura/guardarDetalle',{
+                $.get('/contable/cuenta_por_cobrar/guardarDetalle',{
                     cantidad: document.getElementById('mitabla').rows[i].cells[0].innerHTML,
                     precio: document.getElementById('mitabla').rows[i].cells[2].innerHTML,
-                    numeroFactura: document.getElementById("txtnfactura").value,
+                    numeroCuenta: document.getElementById("txtNumero").value,
                     productoId: document.getElementById("mitabla").rows[i].value,
                 });
             }
             alert("Datos Guardados Correctamente... ")
         }
-        setTimeout("location.href='/ventas/factura/nuevo'",2000);       
+        setTimeout("location.href='/contable/cuenta_por_cobrar/nuevo'",2000);       
         }
-    )
+    );
 </script>
 
 <script type="text/javascript">
             // When the document is ready
             $(document).ready(function () {
                 
-                $('#example1').datepicker({
+                $('#txtFechaCI').datepicker({
                     format: "dd/mm/yyyy"
                 }); 
 
-                $('#example2').datepicker({
+                $('#txtFecha').datepicker({
                     format: "dd/mm/yyyy"
                 });  
-            
-            });
-</script>
 
-<script>
-$(document).ready(function(){
-    $("#basic").select2();
-    
-    $("#multi").select2({
-        placeholder: "Seleccione un producto"
-    });
-    
-    $("#minimum").select2({
-        minimumInputLength: 2
-    });
-});
+                $("#basic").select2();
+                $("#multi").select2({
+                    placeholder: "Seleccione un producto"
+                });
+                
+                $("#minimum").select2({
+                    minimumInputLength: 2
+                });
+
+            });
 </script>
 {%endblock%}

@@ -12,16 +12,15 @@
                 
             <div id="minavb_2" class="collapse navbar-collapse navbar-left">
                 <ul id="miulnav" class="nav navbar-nav">
-                    <li id="ilnav"><a href='{% url 'proveedores'%}'>Ver</a></li>
-                    <li id="ilnav" class="active"><a href='{% url 'nuevo_proveedor'%}'>Nuevo</a></li>
+                    <li id="ilnav"><a href="{% url "proveedores" %}">Ver</a></li>
+                    <li id="ilnav"><a href="{% url "nuevo_proveedor" %}">Nuevo</a></li>
                 </ul>
             </div>    
         </nav>
-		
     </header>
 
     <div class="container">
-        <form id="miform" action="{% url "guardar_proveedor" 0 %}" class="form-horizontal" method="POST" onsubmit="return formulario(this);">
+        <form id="miform" action="{% url "guardar_proveedor" proveedorSelec.id %}" class="form-horizontal" method="POST" onsubmit="return formulario(this);">
         {% csrf_token %}
         {{ form.as_p }}
                 <div class="form-group">
@@ -34,17 +33,14 @@
                 <div class="form-group">
                     <label class="control-label col-md-4" for="name">Cédula:</label>
                     <div class="col-md-2">
-                        <input class="form-control typeahead" name="cc_ruc" type="text" id="txtBuscarPersona" placeholder="Buscar..." autocomplete="off" />
+                        <input class="form-control" name="cc_ruc" type="text" id="txtBuscarPersona" placeholder="Buscar..." autocomplete="off" value= "{{proveedorSelec.personaProveedor.cedulaPersona}}" />
                     </div>
-                    <div class="col-md-1">
-                        <button class="submit" type="button" onclick="mostrarDatos();"><span id="add" class="glyphicon glyphicon-ok"></span></button>  
-                    </div> 
                 </div>
 
                 <div class="form-group">
                     <label class="control-label col-md-4" for="name">Apellidos:</label>
                     <div class="col-md-5">
-                        <input id="txtApellido" class="form-control" type="text" name="apellidos" placeholder="Mars Klinton" required/>
+                        <input id="txtApellido" class="form-control" type="text" name="apellidos" placeholder="Mars Klinton" value= "{{proveedorSelec.personaProveedor.apellidosPersona}}" required/>
                     </div>
 
                 </div>
@@ -52,7 +48,7 @@
                 <div class="form-group">
                     <label class="control-label col-md-4" for="name">Nombres:</label>
                     <div class="col-md-5">
-                        <input id="txtNombre" class="form-control" type="text" name="nombres" placeholder="John Doe" required/>
+                        <input id="txtNombre" class="form-control" type="text" name="nombres" placeholder="John Doe"  value= "{{proveedorSelec.personaProveedor.nombresPersona}}" required/>
                     </div>
                 </div>
 
@@ -60,14 +56,14 @@
                 <div class="form-group">
                     <label class="control-label col-md-4" for="name">Teléfono:</label>
                     <div class="col-md-5">
-                        <input id="txtTelefono" class="form-control" type="text" name="telefono" placeholder="0989108983" required/>
+                        <input id="txtTelefono" class="form-control" type="text" name="telefono" placeholder="0989108983" value= "{{proveedorSelec.personaProveedor.telefonoPersona}}" required/>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label class="control-label col-md-4" for="email">Email:</label>
                     <div class="col-md-5">
-                        <input id="txtEmail" class="form-control" type="email" name="email" placeholder="john_doe@example.com" required/>
+                        <input id="txtEmail" class="form-control" type="email" name="email" placeholder="john_doe@example.com" value= "{{proveedorSelec.personaProveedor.emailPersona}}" required/>
                     </div>
                     <span class="form_hint">Formato "name@something.com"</span>
                 </div>
@@ -78,9 +74,15 @@
                         <div class="col-md-2">
                             <select class="form-control" onChange="listaCiudad(this);" id="selectbasicP" name="selectbasicP">
                                 {% for item in lstProvincia %}
-                                <option value = {{ item.id }}>
-                                {{ item.nombreProvincia }}
-                                </option>
+                                    {%if item.id == proveedorSelec.personaProveedor.ciudadPersona.provinciaCiudad.id%}
+                                        <option value = {{ item.id }} selected>
+                                        {{ item.nombreProvincia }}
+                                        </option>
+                                    {% else %}
+                                        <option value = {{ item.id }}>
+                                        {{ item.nombreProvincia }}
+                                        </option>
+                                    {% endif %}
                                 {% endfor %}
                             </select>
                         </div>
@@ -91,9 +93,13 @@
                         <div class="col-md-2">
                             <select class="form-control" id="selectbasicC" name="selectbasicC">
                                 {% for item in lstCiudad2 %}
-                                <option value = {{ item.id }}>
-                                {{ item.nombreCiudad }}
-                                </option>
+                                    {% if item.id == proveedorSelec.personaProveedor.ciudadPersona.id%}
+                                        <option value = {{ item.id }} selected>
+                                        {{ item.nombreCiudad }}
+                                        </option>
+                                    {% else %}
+                                        <option value={{ item.id }}>{{ item.nombreCiudad }}</option>
+                                    {% endif %}
                                 {% endfor %}
                             </select>
                         </div>
@@ -103,7 +109,7 @@
                 <div class="form-group">
                     <label class="control-label col-md-4" for="name">Dirección:</label>
                     <div class="col-md-5">
-                        <input id="txtDireccion" class="form-control" type="text" name="direccion" placeholder="Av. Alejandro Castro y Av. Ferroviaría" required />
+                        <input id="txtDireccion" class="form-control" type="text" name="direccion" placeholder="Av. Alejandro Castro y Av. Ferroviaría" value= "{{proveedorSelec.personaProveedor.direccionPersona}}" required />
                     </div>
 
                 </div>
@@ -111,18 +117,17 @@
                 <div class="form-group">
                     <label class="control-label col-md-4" for="name">Observaciones:</label>
                     <div class="col-md-5">
-                        <input id="txtObservaciones" class="form-control" type="text" name="observaciones" placeholder="..."  />
+                        <input id="txtObservaciones" class="form-control" type="text" name="observaciones" placeholder="..." value= "{{proveedorSelec.observaProveedorpledo}}" />
                     </div>
                 </div>
 
-                <!--
                 <div class="form-group">
-                    <label class="control-label col-md-4" for="prependedcheckbox">Estado: Activo/Inactivo:</label>
-                    <div class="control-label col-md-1"><input type="checkbox"></div>
-                </div>-->
-
-                <!--<label class="control-label" for="textinput">Correo:</label>
-                <input id="textinput" name="textinput" type="email" placeholder="correo" class="input-xlarge">-->
+                    <label class="control-label col-md-4" for="prependedcheckbox">Estado (A/I):</label>
+                    <div class="col-md-5">
+                    <input id='testNameHidden' type='hidden' value='Inactivo' name='estado'>
+                    <input  id="estadoBox" name="estado" type="checkbox" value="Activo"/>
+                    </div>
+                </div>
                 <hr>
                 <div class="form-group">
                     <div class="col-md-2 col-md-offset-6">
@@ -131,19 +136,29 @@
                 </div>
                 <br>            
         </form>
-    </div>   
+    </div> 
 
 {% endblock %}
 
 {%block js%}
 
 <script type="text/javascript">
+
+    if ('{{proveedorSelec.estadoProveedor}}'== 'Activo')
+    {
+        document.getElementById("estadoBox").value = 'Activo';
+        document.getElementById("estadoBox").checked = true;
+    }
+    else
+    {
+        document.getElementById("estadoBox").value = 'Inactivo';
+        document.getElementById("estadoBox").checked = false;
+    }
+
     function listaCiudad(combo){
-        
         var index = combo.selectedIndex;
         var id = combo.options[index].value;
         var valor = combo.options[index].text;
-        var comboC = document.createElement('selectbasicC');
         document.getElementById("selectbasicC").options.length = 0;
         {% for ciu in lstCiudad %}
         var idProv = "{{ciu.provinciaCiudad.id}}";
@@ -157,56 +172,31 @@
         {% endfor %}
     }
 
-    function mostrarDatos(){
-        var cedulaBuscar=document.getElementById("txtBuscarPersona").value;
-        {% for per in lstPersona %}
-          if("{{ per.cedulaPersona }}" == cedulaBuscar){
-                
-                var nombres = "{{per.nombresPersona}}";
-                var apellidos = "{{per.apellidosPersona}}";
-                var telefono = "{{per.telefonoPersona}}";
-                var direccion = "{{per.direccionPersona}}";
-                var email = "{{per.emailPersona}}";
-                var provinciaId = "{{per.ciudadPersona.provinciaCiudad.id}}";
-                var ciudadId = "{{per.ciudadPersona.id}}";
-
-                document.getElementById("txtApellido").value=apellidos;
-                document.getElementById("txtNombre").value=nombres;
-                document.getElementById("txtTelefono").value=telefono;
-                document.getElementById("txtEmail").value=email;
-                document.getElementById("txtDireccion").value=direccion;
-                document.getElementById("selectbasicP").value = provinciaId;
-                var comboP = document.getElementById("selectbasicP");
-                listaCiudad(comboP)
-                document.getElementById("selectbasicC").value = ciudadId;
-            }
-        {% endfor %}
+    function estadoCambia(chk){
+        if(chk.value == 'Inactivo')
+        {
+            chk.value = "Activo";
+        }         
+        else
+        {   
+            chk.value = "Inactivo";
+        }
     }
 
     function formulario(f) {
-        {% for pro in lstProveedor %}
-          if("{{ pro.personaProveedor.cedulaPersona }}" == f.cc_ruc.value){
-            alert ('El proveedor ya esta registrado'); 
+        {% for per in lstPersona %}
+          if("{{ per.cedulaPersona }}" == f.cc_ruc.value &&
+            "{{per.id}}"!= "{{proveedorSelec.personaProveedor.id}}"){
+            alert ('La cedula esta siendo usada por otra persona'); 
             f.cc_ruc.focus(); return false;
          }
         {% endfor %}
+        if(document.getElementById("estadoBox").checked) {
+        document.getElementById('testNameHidden').disabled = true;
+        }   
         return true; 
     } 
 
-</script>
-
-<script >
-        var nombre = []
-        var contador  = 0;
-        {% for per in lstPersona %}
-            nombre[contador]="{{per.cedulaPersona}}";
-            console.log(nombre[contador]);
-            contador=contador+1;
-        {% endfor %}    
-
-          $('input.typeahead').typeahead({
-                  local: nombre
-              });
 </script>
 
 {% endblock %}

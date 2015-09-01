@@ -13,18 +13,15 @@
                 
             <div id="minavb_2" class="collapse navbar-collapse navbar-left">
                 <ul id="miulnav" class="nav navbar-nav">
-                    <li id="ilnav"><a href='{% url 'usuarios' %}'>Ver</a></li>
-                    <li id="ilnav"><a href='{% url 'nuevo_usuario' %}'>Nuevo</a></li>
+                    <li id="ilnav"><a href='{% url 'usuarios'%}'>Ver</a></li>
+                    <li id="ilnav"><a href='{% url 'nuevo_usuario'%}'>Nuevo</a></li>
                 </ul>
             </div>    
-        </nav>
-		
+        </nav>      
     </header>
     
 <div class="container">
-        <form id="miform" action="{% url "guardar_usuario" usuarioSelec.id %}" class="form-horizontal" method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}             
+        <form id="miform" class="form-horizontal">
                 <div class="form-group">
                     <h2><label class="control-label col-md-5" for="name">Datos del usuario</label></h2> 
                     <div class="col-md-4">
@@ -35,16 +32,15 @@
 
                 <div class="form-group">
                     <label class="control-label col-md-4" for="name">Cédula:</label>
-                    <div class="col-md-5">
-                        <input class="form-control" type="text" name="cedula" placeholder="0705463124" value= "{{usuarioSelec.personaUsuario.cedulaPersona}}"/>
+                    <div class="col-md-2">
+                        <input class="form-control" name="cc_ruc" type="text" id="txtBuscarPersona" placeholder="Buscar..." autocomplete="off" value= "{{usuarioSelec.personaUsuario.cedulaPersona}}" readonly="true" />
                     </div>
-                    
                 </div>
 
                 <div class="form-group">
                     <label class="control-label col-md-4" for="name">Apellidos:</label>
                     <div class="col-md-5">
-                        <input class="form-control" type="text" name="apellidos" placeholder="Mars Klinton" value= "{{usuarioSelec.personaUsuario.apellidosPersona}}"/>
+                        <input id="txtApellido" class="form-control" type="text" name="apellidos" placeholder="Mars Klinton" value= "{{usuarioSelec.personaUsuario.apellidosPersona}}" required/>
                     </div>
 
                 </div>
@@ -52,7 +48,7 @@
                 <div class="form-group">
                     <label class="control-label col-md-4" for="name">Nombres:</label>
                     <div class="col-md-5">
-                        <input class="form-control" type="text" name="nombres" placeholder="John Doe" value= "{{usuarioSelec.personaUsuario.nombresPersona}}"/>
+                        <input id="txtNombre" class="form-control" type="text" name="nombres" placeholder="John Doe" value= "{{usuarioSelec.personaUsuario.nombresPersona}}" required/>
                     </div>
                 </div>
 
@@ -60,14 +56,14 @@
                 <div class="form-group">
                     <label class="control-label col-md-4" for="name">Teléfono:</label>
                     <div class="col-md-5">
-                        <input class="form-control" type="text" name="telefono" placeholder="0989108983" value= "{{usuarioSelec.personaUsuario.telefonoPersona}}"/>
+                        <input id="txtTelefono" class="form-control" type="text" name="telefono" placeholder="0989108983" value= "{{usuarioSelec.personaUsuario.telefonoPersona}}" required/>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label class="control-label col-md-4" for="email">Email:</label>
                     <div class="col-md-5">
-                        <input class="form-control" type="email" name="email" placeholder="john_doe@example.com" value= "{{usuarioSelec.personaUsuario.emailPersona}}"/>
+                        <input id="txtEmail" class="form-control" type="email" name="email" placeholder="john_doe@example.com" value= "{{usuarioSelec.personaUsuario.emailPersona}}" required/>
                     </div>
                     <span class="form_hint">Formato "name@something.com"</span>
                 </div>
@@ -76,7 +72,7 @@
                     <div class="form-inline">
                         <label class="control-label col-md-4" for="name">Provincia:</label>
                         <div class="col-md-2">
-                            <select class="form-control" onChange="ListaCiudad(this);" id="selectbasicP" name="selectbasicP">
+                            <select class="form-control" onChange="listaCiudad(this);" id="selectbasicP" name="selectbasicP">
                                 {% for item in lstProvincia %}
                                     {%if item.id == usuarioSelec.personaUsuario.ciudadPersona.provinciaCiudad.id%}
                                         <option value = {{ item.id }} selected>
@@ -113,7 +109,7 @@
                 <div class="form-group">
                     <label class="control-label col-md-4" for="name">Dirección:</label>
                     <div class="col-md-5">
-                        <input class="form-control" type="text" name="direccion" placeholder="Av. Alejandro Castro y Av. Ferroviaría" value= "{{usuarioSelec.personaUsuario.direccionPersona}}" />
+                        <input id="txtDireccion" class="form-control" type="text" name="direccion" placeholder="Av. Alejandro Castro y Av. Ferroviaría"  value= "{{usuarioSelec.personaUsuario.direccionPersona}}" required />
                     </div>
 
                 </div>
@@ -122,24 +118,23 @@
                 <div class="form-group">
                     <label class="control-label col-md-4" for="name">Nick:</label>
                     <div class="col-md-5">
-                        <input class="form-control" type="text" name="nick" placeholder="John" value= "{{usuarioSelec.nickUsuario}}" />
+                        <input id="txtNick" class="form-control" type="text" name="nick" placeholder="John" value= "{{usuarioSelec.nickUsuario}}" required />
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label class="control-label col-md-4" for="password">Password:</label>
+                    <label class="control-label col-md-4" for="password">Contraseña:</label>
                     <div class="col-md-5">
-                        <input class="form-control" type="password" name="clave" placeholder="............" />
+                        <input  id="txtClave" class="form-control" type="password" name="clave" placeholder="*********" value= "{{usuarioSelec.claveUsuario}}" required/>
                     </div>
                 </div>
 
                <div class="form-group">
-                    <label class="control-label col-md-4" for="password">Confirme Password:</label>
+                    <label class="control-label col-md-4" for="password">Confirme Contraseña:</label>
                     <div class="col-md-5">
-                        <input class="form-control" type="password" name="confirmepassword" placeholder="............" />
+                        <input  id="txtClaveConfirme" class="form-control" type="password" name="confirmepassword" placeholder="*********" value= "{{usuarioSelec.claveUsuario}}" required />
                     </div>    
                 </div>
-
                 <div class="form-group">
                     <label class="control-label col-md-4" for="prependedcheckbox">Estado:</label>
                     <div class="col-md-5">
@@ -150,20 +145,66 @@
                     {%endif%}
                     </div>
                 </div>
-                <!--<label class="control-label" for="textinput">Correo:</label>
-                <input id="textinput" name="textinput" type="email" placeholder="correo" class="input-xlarge">-->
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="password">Roles:</label>
+                    <div class="container col-md-4">
+                    <div id="miContenedorTabla" class="table-responsiv">
+                    <table id="mitabla" name="mitable" class="table table-bordered table-condensed">
+                        <thead>
+                            <tr><!-- warning danger active ó success ó info-->
+                                <th id="misth1" class="col-md-1">IDE</th>
+                                <th id="misth2" class="col-md-3">Rol</th>
+                                <th id="misth3" class="col-md-1">Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for rol in lstRol %}
+                                <tr>
+                                    <td>{{ rol.id }}</td>
+                                    <td>{{ rol.nombreRol}}</td>
+                                    <td>
+                                        {%if rol.id in  lstRolEsta %}
+                                            <input id="chk" type="checkbox" name="checkboxes" checked="true"/>
+                                        {%else%}
+                                            <input id="chk" type="checkbox" name="checkboxes"/>
+                                        {%endif%}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table> 
+                    </div>
+                    </div>    
+                </div>                
                 <hr>
                 <div class="form-group">
                     <div class="col-md-2 col-md-offset-6">
-                        <button class="submit" type="submit">Guardar</button>        
+                        <button  id="btnGuardar" class="submit" type="button" onclick="guardarUsuario();">Guardar</button>        
                     </div>
                 </div>
                 <br>            
         </form>
     </div>  
-<script type="text/javascript">
 
-    function ListaCiudad(combo){
+{% endblock %}
+
+
+{%block js%}
+
+<script type="text/javascript">
+    function estadoCambia(){
+        var est = document.getElementById('estadoBox');
+        if(est.value == 'Inactivo')
+        {
+            document.getElementById('estadoBox').value = 'Activo';
+        }         
+        else
+        {   
+            document.getElementById('estadoBox').value = 'Inactivo';
+        }
+    }
+
+    function listaCiudad(combo){ 
         var index = combo.selectedIndex;
         var id = combo.options[index].value;
         var valor = combo.options[index].text;
@@ -181,17 +222,94 @@
         {% endfor %}
     }
 
-    function estadoCambia(){
-        var est = document.getElementById('estadoBox');
-        if(est.value == 'Inactivo')
+    function validarUsuario()
+    {
+        mensaje = "";
+        var cedula = document.getElementById("txtBuscarPersona").value;
+        var nickTemp = document.getElementById("txtNick").value;
+        {% for usu in lstUsuario %}
+            var nick = '{{usu.nickUsuario}}';
+            if(nick.toLowerCase() == nickTemp.toLowerCase() && '{{usu.personaUsuario.cedulaPersona}}' != cedula)
+            {
+                mensaje = mensaje + "El nombre de usuario ingresado ya existe \n";
+            }
+        {% endfor %}
+        var clave = document.getElementById("txtClave").value;
+        var claveOtr = document.getElementById("txtClaveConfirme").value;
+        if(clave != claveOtr)
+            mensaje= mensaje+"La contraseña no coincide";
+        return mensaje;
+    }
+
+    function validarDatos()
+    {
+        ced = document.getElementById("txtBuscarPersona").value;
+        ape = document.getElementById("txtApellido").value;
+        nom = document.getElementById("txtNombre").value;
+        tel = document.getElementById("txtTelefono").value;
+        ema = document.getElementById("txtEmail").value;
+        dir = document.getElementById("txtDireccion").value;
+        ciu = document.getElementById("selectbasicC").value;
+        nic = document.getElementById("txtNick").value;
+        cla = document.getElementById("txtClave").value;
+        clO = document.getElementById("txtClaveConfirme").value;
+        if (ced.length == 0 || /^\s+$/.test(ced) ||
+            ape.length == 0 || /^\s+$/.test(ape)||
+            nom.length == 0 || /^\s+$/.test(nom)||
+            tel.length == 0 || /^\s+$/.test(tel)||
+            ema.length == 0 || /^\s+$/.test(ema)||
+            dir.length == 0 || /^\s+$/.test(dir)||
+            ciu.length == 0 || /^\s+$/.test(ciu)||
+            nic.length == 0 || /^\s+$/.test(nic)||
+            cla.length == 0 || /^\s+$/.test(cla)||
+            clO.length == 0 || /^\s+$/.test(clO))
         {
-            document.getElementById('estadoBox').value = 'Activo';
-        }         
-        else
-        {   
-            document.getElementById('estadoBox').value = 'Inactivo';
+            return "Ingrese todos los datos";
+        } 
+        else{
+            return "";
         }
     }
 
+    function guardarUsuario ( ) {
+        mensaje1 = validarDatos();
+        mensaje = validarUsuario();
+
+        if(mensaje1 != "" || mensaje!="")
+        {
+            alert(mensaje1+"\n"+mensaje);
+        }
+        else
+        {
+            var tabla = document.getElementById('mitabla');
+            if (tabla.rows.length >1){ 
+                $.get('/seguridad/usuario/guardar',{
+                        cedula: document.getElementById("txtBuscarPersona").value,
+                        apellidos: document.getElementById("txtApellido").value,
+                        nombres: document.getElementById("txtNombre").value,
+                        telefono:document.getElementById("txtTelefono").value,
+                        direccion:document.getElementById("txtDireccion").value,
+                        email:document.getElementById("txtEmail").value,
+                        ciudadId:document.getElementById("selectbasicC").value,
+                        nick:document.getElementById("txtNick").value, 
+                        clave:document.getElementById("txtClave").value,
+                        estado: document.getElementById("estadoBox").value,
+                });
+
+                for (var i = 1; i< tabla.rows.length;i++){
+                    var row = (tabla.rows[i].getElementsByTagName('td')[2].getElementsByTagName('input')[0].checked);
+                    if(row == true){
+                        $.get('/seguridad/usuariorol/guardar',{
+                            nick:document.getElementById("txtNick").value, 
+                            rolId: document.getElementById('mitabla').rows[i].cells[0].innerHTML,
+                        });
+                    }
+                }
+                alert("Datos Guardados Correctamente... ")
+            }
+            setTimeout("location.href='/seguridad/usuario/lista'",1000);     
+        }
+        // body...
+    }
 </script>
 {% endblock %}

@@ -30,37 +30,36 @@
         <div class="table-responsive">
             <table id="mitabla" class="table table-bordered table-condensed">
                 <tr>
-                    <th id="misth1">Num. cuenta</th>
+                    <th id="misth1">No.</th>
                     <th id="misth2">Fecha</th>
                     <th id="misth3">Cédula</th>
-                    <th id="misth4" colspan="2">Cliente</th>
-                    <th id="misth5">Fecha I. Pag.</th>
+                    <th id="misth4">Cliente</th>
+                    <th id="misth5">Fecha In.</th>
                     <th id="misth6">Total</th>
-                    <th id="misth7">Cuota inicial</th>
-                    <th id="misth8">Cuotas</th>
-                    <th id="misth9">Forma pago</th>
-                    <th id="misth10">Saldo</th>
-                    <th id="misth11">Observación</th>
-                    <th id="misth12" colspan="2">Acciones</th>
+                    <th id="misth7">C.I.</th>
+                    <th id="misth8">Saldo</th>
+                    <th id="misth9">Cuota</th>
+                    <th id="misth10">Forma Pago</th>
+                    <th id="misth11">Estado</th>
+                    <th id="misth12" colspan="3">Acciones</th>
                 </tr>
 
                 {% for cpc in lstCuentaCobrar %}
                 <tr>
                     <td>{{ cpc.numeroCuentaCobrar }}</td>
-                    <td>{{ cpc.fechaCuetaCobrar }}</td>
+                    <td>{{ cpc.fechaCuetaCobrar |date:"d-m-Y"}}</td>
                     <td>{{ cpc.clienteCuentaCobrar.personaCliente.cedulaPersona }}</td>
-                    <td>{{ cpc.clienteCuentaCobrar.personaCliente.apellidosPersona }}</td>
-                    <td>{{ cpc.clienteCuentaCobrar.personaCliente.nombresPersona }}</td>
-                    <td>{{ cpc.fechaInicioPagoCuentaCobrar }}</td>
+                    <td>{{ cpc.clienteCuentaCobrar.personaCliente.apellidosPersona }} {{ cpc.clienteCuentaCobrar.personaCliente.nombresPersona }}</td>
+                    <td>{{ cpc.fechaInicioPagoCuentaCobrar|date:"d-m-Y" }}</td>
                     <td>{{ cpc.totalCuentaCobrar }}</td>
                     <td>{{ cpc.cuotaInicialCuentaCobrar }}</td>
+                    <td>{{ cpc.saldoCuentaCobrar }}</td>
                     <td>{{ cpc.cuotaCuentaCobrar }}</td>
                     <td>{{ cpc.formaPagoCuentaCobrar }}</td>
-                    <td>{{ cpc.saldoCuentaCobrar }}</td>
-                    <td>{{ cpc.observacionesCuentaCobrar }}</td>
-
-                    <td id="td_editar"><span id"icon_editar" class="glyphicon glyphicon-edit"></span>Editar</td>
-                    <td id="td_eliminar"><span class="glyphicon glyphicon-remove"></span>Eliminar</td>
+                    <td>{{ cpc.estadoCuentaCobrar }}</td>
+                    <td id="td_editar"><span id"icon_editar" class="glyphicon glyphicon-edit"></span><a href='{% url 'abonar_cuenta_por_cobrar' cpc.id %}'>Abonar</a></td>
+                    <td id="td_eliminar"><span class="glyphicon glyphicon-zoom-in"></span><a href='{% url 'vista_cuenta_por_cobrar' cpc.id %}'>Ver</a></td>
+                    <td id="td_eliminar"><span class="glyphicon glyphicon-remove"></span><a href="">Anular</a></td>
                 </tr>
                 {% endfor %}
 

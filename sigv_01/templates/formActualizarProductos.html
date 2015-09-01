@@ -22,7 +22,7 @@
 
 
 <div class="container">
-        <form id="miform" action="{% url "guardar_producto" productoSelec.id %}" class="form-horizontal" method="POST">
+        <form id="miform" action="{% url "guardar_producto" productoSelec.id %}" class="form-horizontal" method="POST" onsubmit="return formulario(this);">
         {% csrf_token %}
         {{ form.as_p }}                  
                 <div class="form-group">
@@ -84,14 +84,14 @@
                     <div class="form-inline">
                         <label class="control-label col-md-4" for="name">Stock_Min:</label>
                         <div class="col-md-2">
-                            <input class="form-control" type="text" name="stockMinimo" placeholder="20" value= "{{productoSelec.stockMinimoProducto}}"/>
+                            <input id="txtStockMin" class="form-control" type="text" name="stockMinimo" placeholder="20" value= "{{productoSelec.stockMinimoProducto}}"/>
                         </div>
                     </div>
 
                      <div class="form-inline">
                         <label class="control-label col-md-1" for="name">Costo:</label>
                         <div class="col-md-2">
-                        <input class="form-control" type="text" name="costo" placeholder="40,00" value= "{{productoSelec.costoProducto}}"/>
+                        <input id="txtCosto" class="form-control" type="text" name="costo" placeholder="40,00" value= "{{productoSelec.costoProducto}}"/>
                     </div>
                     </div>
                 </div>
@@ -100,14 +100,14 @@
                     <div class="form-inline">
                         <label class="control-label col-md-4" for="name">Valor Agregado (%):</label>
                         <div class="col-md-2">
-                            <input class="form-control" type="text" name="valorAgregado" placeholder="0,05" value= "{{productoSelec.valorAgregadoProducto}}" />
+                            <input id="txtValorAgr" class="form-control" type="text" name="valorAgregado" placeholder="0,05" value= "{{productoSelec.valorAgregadoProducto}}" />
                         </div>
                     </div>
 
                      <div class="form-inline">
                         <label class="control-label col-md-1" for="name">Iva (%):</label>
                         <div class="col-md-2">
-                        <input class="form-control" type="text" name="iva" placeholder="12" value= "{{productoSelec.ivaProducto}}" />
+                        <input id="txtIva" class="form-control" type="text" name="iva" placeholder="12" value= "{{productoSelec.ivaProducto}}" />
                     </div>
                     </div>
                 </div>
@@ -116,27 +116,24 @@
                     <div class="form-inline">
                         <label class="control-label col-md-4" for="name">Precio contado:</label>
                         <div class="col-md-2">
-                            <input class="form-control" type="text" name="precioContado" placeholder="200,00" value= "{{productoSelec.precioContadoProducto}}" />
+                            <input id="txtPrecioCon" class="form-control" type="text" name="precioContado" placeholder="200,00" value= "{{productoSelec.precioContadoProducto}}" />
                         </div>
                     </div>
 
                      <div class="form-inline">
                         <label class="control-label col-md-1" for="name">Precio crédito:</label>
                         <div class="col-md-2">
-                        <input class="form-control" type="text" name="precioCredito" placeholder="300,00" value= "{{productoSelec.precioCreditoProducto}}" />
+                        <input id="txtPrecioCre" class="form-control" type="text" name="precioCredito" placeholder="300,00" value= "{{productoSelec.precioCreditoProducto}}" />
                     </div>
                     </div>
                 </div>
 
                 
                 <div class="form-group">
-                    <label class="control-label col-md-4" for="prependedcheckbox">Estado (Activo/Inactivo):</label>
-                    <div class="col-md-2">
-                        {%if productoSelec.estadoProducto == 'Activo' %}
-                            <input  id="estadoBox" name="estado" onclick="estadoCambia()" type="checkbox" value="Activo" checked="checked"/>
-                        {%else%}
-                            <input  id="estadoBox" name="estado" onclick="estadoCambia()" type="checkbox" value="Inactivo"/>
-                        {%endif%}
+                    <label class="control-label col-md-4" for="prependedcheckbox">Estado (A/I):</label>
+                    <div class="col-md-5">
+                    <input id='testNameHidden' type='hidden' value='Inactivo' name='estado'>
+                    <input  id="estadoBox" name="estado" type="checkbox" value="Activo"/>
                     </div>
                 </div>
         
@@ -152,17 +149,37 @@
 
 <script type="text/javascript">
 
-    function estadoCambia(){
-        var est = document.getElementById('estadoBox');
-        if(est.value == 'Inactivo')
-        {
-            document.getElementById('estadoBox').value = 'Activo';
-        }         
-        else
-        {   
-            document.getElementById('estadoBox').value = 'Inactivo';
-        }
+    if ('{{productoSelec.estadoProducto}}'== 'Activo')
+    {
+        document.getElementById("estadoBox").value = 'Activo';
+        document.getElementById("estadoBox").checked = true;
     }
 
+    if ('{{productoSelec.id}}' != 0)
+    {
+        document.getElementById('txtStockMin').value = '{{productoSelec.stockMinimoProducto}}'.replace(",",".");
+        document.getElementById('txtCosto').value = '{{productoSelec.costoProducto}}'.replace(",",".");
+        document.getElementById('txtValorAgr').value = '{{productoSelec.valorAgregadoProducto}}'.replace(",",".");
+        document.getElementById('txtIva').value = '{{productoSelec.ivaProducto}}'.replace(",",".");
+        document.getElementById('txtPrecioCon').value = '{{productoSelec.precioContadoProducto}}'.replace(",",".");
+        document.getElementById('txtPrecioCre').value = '{{productoSelec.precioCreditoProducto}}'.replace(",",".");
+
+    }
+
+    function formulario(f) {
+        /*{% for per in lstPersona %}
+          if("{{ per.cedulaPersona }}" == f.cc_ruc.value &&
+            "{{per.id}}"!= "{{empleadoSelec.personaEmpleado.id}}"){
+            alert ('La cedula esta siendo usada por otra persona'); 
+            f.cc_ruc.focus(); return false;
+         }
+        {% endfor %}*/
+        
+        if(document.getElementById("estadoBox").checked) {
+            document.getElementById('testNameHidden').disabled = true;
+        }  
+        alert("Ok") 
+        return true; 
+    } 
 </script>
 {% endblock %}

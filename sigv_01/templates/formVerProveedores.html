@@ -52,8 +52,8 @@
                 <td>{{pro.personaProveedor.ciudadPersona.provinciaCiudad.nombreProvincia}}</td>
                 <td>{{pro.personaProveedor.ciudadPersona}}</td>
                 <td>{{pro.personaProveedor.direccionPersona}}</td>
-                <td id="td_editar"><span id"icon_editar" class="glyphicon glyphicon-edit"></span>Editar</td>
-                <td id="td_eliminar"><span class="glyphicon glyphicon-remove"></span>Eliminar</td>
+                <td id="td_editar"><span id"icon_editar" class="glyphicon glyphicon-edit"></span><a href='{% url 'editar_proveedor' pro.id%}'>Editar</a></td>
+                <td id="td_eliminar"><span class="glyphicon glyphicon-remove"></span><a href='{% url 'eliminar_proveedor' pro.id%}'>Eliminar</a></td>
             </tr>
             {%endfor%}
         </table>     

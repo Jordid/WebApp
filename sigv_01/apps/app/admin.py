@@ -21,7 +21,7 @@ class ClienteAdmin(admin.ModelAdmin):
 	list_filter = ('estadoCliente', )
 
 class EmpleadoAdmin(admin.ModelAdmin):
-	list_display = ('id', 'cargoEmpleado', 'observacionesEmpledo','estadoEmpleado', 'personaEmpleado')
+	list_display = ('id', 'cargoEmpleado', 'observacionesEmpleado','estadoEmpleado', 'personaEmpleado')
 	list_filter = ('cargoEmpleado', )
 	search_fields = ('cargoEmpleado',)
 
@@ -96,7 +96,7 @@ class RolAdmin(admin.ModelAdmin):
 	list_display = ('id', 'nombreRol',)
 
 class UsuarioRolesAdmin(admin.ModelAdmin):
-	list_display = ('id', 'rolUsuarioRoles', 'usuarioUsurioRoles', )
+	list_display = ('id', 'rolUsuarioRoles', 'usuarioUsuarioRoles', )
 
 class MenuAdmin(admin.ModelAdmin):
 	list_display = ('id', 'codigoMenu', 'descripcionMenu', 'posicionMenu' ,

@@ -20,7 +20,7 @@
     </header>
     
     <div class="container">
-        <form id="miform" action="{% url "guardar_cliente" 0 %}" class="form-horizontal" method="POST">
+        <form id="miform" action="{% url "guardar_cliente" 0 %}" class="form-horizontal" method="POST" onsubmit="return formulario(this);">
         {% csrf_token %}
         {{ form.as_p }}
                 <div class="form-group">
@@ -33,16 +33,18 @@
 
                 <div class="form-group">
                     <label class="control-label col-md-4" for="name">Cédula:</label>
-                    <div class="col-md-5">
-                        <input class="form-control" type="text" name="cedula" placeholder="0705463124" pattern="[0-9]*"/>
+                    <div class="col-md-2">
+                        <input class="form-control typeahead" name="cc_ruc" type="text" id="txtBuscarPersona" placeholder="Buscar..." autocomplete="off" />
                     </div>
-                    
+                    <div class="col-md-1">
+                        <button class="submit" type="button" onclick="mostrarDatos();"><span id="add" class="glyphicon glyphicon-ok"></span></button>  
+                    </div> 
                 </div>
 
                 <div class="form-group">
                     <label class="control-label col-md-4" for="name">Apellidos:</label>
                     <div class="col-md-5">
-                        <input class="form-control" type="text" name="apellidos" placeholder="Mars Klinton" />
+                        <input id="txtApellido" class="form-control" type="text" name="apellidos" placeholder="Mars Klinton" required/>
                     </div>
 
                 </div>
@@ -50,7 +52,7 @@
                 <div class="form-group">
                     <label class="control-label col-md-4" for="name">Nombres:</label>
                     <div class="col-md-5">
-                        <input class="form-control" type="text" name="nombres" placeholder="John Doe" />
+                        <input id="txtNombre" class="form-control" type="text" name="nombres" placeholder="John Doe" required/>
                     </div>
                 </div>
 
@@ -58,23 +60,23 @@
                 <div class="form-group">
                     <label class="control-label col-md-4" for="name">Teléfono:</label>
                     <div class="col-md-5">
-                        <input class="form-control" type="text" name="telefono" placeholder="0989108983" />
+                        <input id="txtTelefono" class="form-control" type="text" name="telefono" placeholder="0989108983" required/>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label class="control-label col-md-4" for="email">Email:</label>
                     <div class="col-md-5">
-                        <input class="form-control" type="email" name="email" placeholder="john_doe@example.com" />
+                        <input id="txtEmail" class="form-control" type="email" name="email" placeholder="john_doe@example.com" required/>
                     </div>
                     <span class="form_hint">Formato "name@something.com"</span>
                 </div>
-
+                
                 <div class="form-group"> 
                     <div class="form-inline">
                         <label class="control-label col-md-4" for="name">Provincia:</label>
                         <div class="col-md-2">
-                            <select class="form-control" onChange="ListaCiudad(this);" id="selectbasicP" name="selectbasicP">
+                            <select class="form-control" onChange="listaCiudad(this);" id="selectbasicP" name="selectbasicP">
                                 {% for item in lstProvincia %}
                                 <option value = {{ item.id }}>
                                 {{ item.nombreProvincia }}
@@ -101,27 +103,17 @@
                 <div class="form-group">
                     <label class="control-label col-md-4" for="name">Dirección:</label>
                     <div class="col-md-5">
-                        <input class="form-control" type="text" name="direccion" placeholder="Av. Alejandro Castro y Av. Ferroviaría"  />
+                        <input id="txtDireccion" class="form-control" type="text" name="direccion" placeholder="Av. Alejandro Castro y Av. Ferroviaría" required />
                     </div>
 
                 </div>
-
-
+                
                 <div class="form-group">
-                    <label class="control-label col-md-4" for="name">Observación:</label>
+                    <label class="control-label col-md-4" for="name">Observaciones:</label>
                     <div class="col-md-5">
-                        <input class="form-control" type="text" name="observacion" placeholder="" />
+                        <input id="txtObservaciones" class="form-control" type="text" name="observaciones" placeholder="..."  />
                     </div>
                 </div>
-
-                <!--
-                <div class="form-group">
-                    <label class="control-label col-md-4" for="prependedcheckbox">Estado: Activo/Inactivo:</label>
-                    <input  id="estadoBox" name="estado" onclick="estadoCambia()" type="checkbox" value="Inactivo"/>
-                </div>-->
-
-                <!--<label class="control-label" for="textinput">Correo:</label>
-                <input id="textinput" name="textinput" type="email" placeholder="correo" class="input-xlarge">-->
                 <hr>
                 <div class="form-group">
                     <div class="col-md-2 col-md-offset-6">
@@ -131,9 +123,12 @@
                 <br>            
         </form>
     </div>  
+{% endblock %}
+
+{%block js%}
 
 <script type="text/javascript">
-    function ListaCiudad(combo){
+    function listaCiudad(combo){
         var index = combo.selectedIndex;
         var id = combo.options[index].value;
         var valor = combo.options[index].text;
@@ -150,5 +145,57 @@
             }
         {% endfor %}
     }
+
+    function mostrarDatos(){
+        var cedulaBuscar=document.getElementById("txtBuscarPersona").value;
+        {% for per in lstPersona %}
+          if("{{ per.cedulaPersona }}" == cedulaBuscar){
+                
+                var nombres = "{{per.nombresPersona}}";
+                var apellidos = "{{per.apellidosPersona}}";
+                var telefono = "{{per.telefonoPersona}}";
+                var direccion = "{{per.direccionPersona}}";
+                var email = "{{per.emailPersona}}";
+                var provinciaId = "{{per.ciudadPersona.provinciaCiudad.id}}";
+                var ciudadId = "{{per.ciudadPersona.id}}";
+
+                document.getElementById("txtApellido").value=apellidos;
+                document.getElementById("txtNombre").value=nombres;
+                document.getElementById("txtTelefono").value=telefono;
+                document.getElementById("txtEmail").value=email;
+                document.getElementById("txtDireccion").value=direccion;
+                document.getElementById("selectbasicP").value = provinciaId;
+                var comboP = document.getElementById("selectbasicP");
+                listaCiudad(comboP)
+                document.getElementById("selectbasicC").value = ciudadId;
+            }
+        {% endfor %}
+    }
+
+    function formulario(f) {
+        {% for cli in lstCliente %}
+          if("{{ cli.personaCliente.cedulaPersona }}" == f.cc_ruc.value){
+            alert ('El cliente ya esta registrado'); 
+            f.cc_ruc.focus(); return false;
+         }
+        {% endfor %}
+        return true; 
+    } 
+
 </script>
+
+<script >
+        var nombre = []
+        var contador  = 0;
+        {% for per in lstPersona %}
+            nombre[contador]="{{per.cedulaPersona}}";
+            console.log(nombre[contador]);
+            contador=contador+1;
+        {% endfor %}    
+
+          $('input.typeahead').typeahead({
+                  local: nombre
+              });
+</script>
+
 {% endblock %}

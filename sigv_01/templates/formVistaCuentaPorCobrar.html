@@ -1,0 +1,245 @@
+{% extends 'index.html' %}
+{% block content %}
+    <header id="header">
+        <nav id="mibaner_2" class="navbar navbar-inverse" role="banner">
+            <div  id="micontainer" class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#minavb_2">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                
+            <div id="minavb_2" class="collapse navbar-collapse navbar-left">
+                <ul id="miulnav" class="nav navbar-nav">
+                    <li id="ilnav"><a href='{% url 'cuentas_por_cobrar'%}'>Ver</a></li>
+                    <li id="ilnav"><a href='{% url 'nuevo_cuenta_por_cobrar'%}'>Nuevo</a></li>
+                </ul>
+            </div>    
+        </nav>		
+    </header>
+
+<div class="container">
+        <form id="miform" action="" class="form-horizontal">
+        <!--<form class="contact_form" action="" method="post" name="contact_form">-->         		  
+                <div class="form-group">
+                    <h2><label class="control-label col-md-4" for="name">Datos de la cuenta por cobrar</label></h2> 
+                    <!--<div class="col-md-4">
+                        <span class="required_notification">* Datos Obligatorios</span>
+                    </div>-->
+                </div>
+                <hr>
+
+                <div class="form-group">
+                    <div class="form-inline">
+                        <label class="control-label col-md-2" for="name">C.C./Ruc:</label>
+                        <div class="col-md-2">
+                            <input class="form-control" name="cc_ruc" type="text" id="txtBuscarCliente" placeholder="Buscar Cliente..." autocomplete="off" value='{{cuentaSelec.clienteCuentaCobrar.personaCliente.cedulaPersona}}' />
+                        </div>
+                    </div>
+                    
+                    <div class="form-inline">
+                        <label class="control-label col-md-5" for="name">Cont. No.:</label>
+                        <div class="col-md-2">
+                            <input id="txtNumero" class="form-control" type="text" name="num_cuenta" placeholder="001" value='{{cuentaSelec.numeroCuentaCobrar}}'/>
+                        </div>
+                    </div>
+                </div>              
+
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="name">Cliente:</label>
+                    <div class="col-md-5">
+                        <input id="txtCliente" class="form-control" type="text" name="cliente" value='{{cuentaSelec.clienteCuentaCobrar.personaCliente.apellidosPersona}} {{cuentaSelec.clienteCuentaCobrar.personaCliente.nombresPersona}}' />
+                    </div>
+                    <label class="control-label col-md-2" for="name">Fecha:</label>
+                    <div class="col-md-2">
+                        <input id="txtFecha" name="fecha" class="form-control"  type="text" placeholder="Seleccionar fecha" value='{{cuentaSelec.fechaCuetaCobrar |date:"d-m-Y"}} '>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="form-inline">
+                        <label class="control-label col-md-2" for="name">Dirección:</label>
+                        <div class="col-md-5">
+                            <input id="txtDireccion" class="form-control" type="text" name="direccion" placeholder="..."  value='{{cuentaSelec.clienteCuentaCobrar.personaCliente.direccionPersona}}'/>
+                        </div>
+                    </div>
+                    <div class="form-inline">
+                        <label class="control-label col-md-2" for="name">Saldo empenzará:</label>
+                        <div class="col-md-2">
+                            <input id="txtFechaCI" name="fechaCI" class="form-control"  type="text" placeholder="Seleccionar fecha"  value='{{cuentaSelec.fechaInicioPagoCuentaCobrar |date:"d-m-Y"}}'/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="form-inline">
+                        <label class="control-label col-md-2" for="name">Teléfono:</label>
+                        <div class="col-md-2">
+                            <input id="txtTelefono" class="form-control" type="text" name="telefono" placeholder="..." value='{{cuentaSelec.clienteCuentaCobrar.personaCliente.telefonoPersona}}' />
+                        </div>
+                    </div>
+                    <div class="form-inline">
+                        <label class="control-label col-md-1" for="name">Provincia:</label>
+                        <div class="col-md-2">
+                            <select class="form-control" onChange="ListaCiudad(this);" id="selectbasicP" name="selectbasicP">
+                                {% for item in lstProvincia %}
+                                    {%if item.id == cuentaSelec.ciudadCuentaCobrar.provinciaCiudad.id%}
+                                        <option value = {{ item.id }} selected>
+                                        {{ item.nombreProvincia }}
+                                        </option>
+                                    {% else %}
+                                        <option value = {{ item.id }}>
+                                        {{ item.nombreProvincia }}
+                                        </option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-inline">
+                        <label class="control-label col-md-2" for="name">Ciudad:</label>
+                        <div class="col-md-2">
+                            <select class="form-control" id="selectbasicC" name="selectbasicC">
+                                {% for item in lstCiudad2 %}
+                                    {% if item.id == cuentaSelec.ciudadCuentaCobrar.id%}
+                                        <option value = {{ item.id }} selected>
+                                        {{ item.nombreCiudad }}
+                                        </option>
+                                    {% else %}
+                                        <option value={{ item.id }}>{{ item.nombreCiudad }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+
+                </div>                
+
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="name">Cuotas:</label>
+                    <div class="col-md-1">
+                        <input id="txtCuotas" class="form-control" type="text" name="cuotas_de" placeholder="10.00" value='{{cuentaSelec.cuotaCuentaCobrar}}' />
+                    </div>
+
+                    <div class="form-inline">
+                        <label class="control-label col-md-2" for="name">Forma de Pago:</label>
+                        <div class="col-md-2">
+                            <select class="form-control" id="selectbasicF" name="selectbasic">
+                                <option>Semanal</option>
+                                <option>Quinsenal</option>
+                                <option>Mensual</option>
+                                <option>Trimestral</option>
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+            
+                <div class="container col-md-11">
+                    <div id="miContenedorTabla" class="table-responsiv">
+                    <p><table id="mitabla" name="mitable" class="table table-bordered table-condensed">
+                        <thead>
+                            <tr><!-- warning danger active ó success ó info-->
+                                <th id="misth1" class="col-md-1">Cantidad</th>
+                                <th id="misth2" class="col-md-5">Artículo</th>
+                                <th id="misth3" class="col-md-1">Valor unitario</th>
+                                <th id="misth4" class="col-md-1">Valor total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table></p>     
+                    </div>
+                    
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2">Observaciones:</label>
+                    <div class="col-md-6">
+                        <textarea id="txtObservaciones" rows="1" class="form-control" name="observaciones" placeholder="">{{cuentaSelec.observacionesCuentaCobrar}} </textarea>
+                    </div>
+
+                    <label class="control-label col-md-1" for="name">Subtotal:</label>
+                    <div class="col-md-2">
+                        <input id ="txtSubtotal" class="form-control" type="text" name="total" placeholder="1200.00" value='{{cuentaSelec.totalCuentaCobrar}}' />
+                    </div>
+                    
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-9" for="name">Cuota Inicial:</label>
+                    <div class="col-md-2">
+                            <input  id="txtCI" class="form-control" type="text" name="cuota_inicial" placeholder="20.00" value='{{cuentaSelec.cuotaInicialCuentaCobrar}}' />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-9" for="name">Saldo:</label>
+                    <div class="col-md-2">
+                        <input id="txtSaldo" class="form-control" type="text" name="saldo" placeholder="100.00" value='{{cuentaSelec.saldoCuentaCobrar}}' />
+                    </div>
+                </div>
+                
+                <hr>
+        </form>
+    </div>  
+
+{% endblock %}
+{%block js %}
+
+<script type="text/javascript">
+        var table = document.getElementById("mitabla");
+        {%for detalle in lstDetalleCue%}
+            index = table.rows.length;
+            var row = table.insertRow(index);
+            row.value = '{{detalle.id}}';
+            var cantidadCell = row.insertCell(0);     var descripcionCell = row.insertCell(1);
+            var valorUnCell = row.insertCell(2);      var valorTotalCell = row.insertCell(3);
+
+            var cantidadAux = ('{{detalle.cantidadDetCueCob}}').replace(",", ".");
+            var valorUnAux = ('{{detalle.precioDetCueCob}}').replace(",",".");
+            var valorToAux = parseFloat(cantidadAux) * parseFloat(valorUnAux);
+            cantidadCell.innerHTML = cantidadAux;
+            descripcionCell.innerHTML = '{{detalle.productoDetCueCob.descripcionProducto}}';
+            valorUnCell.innerHTML = valorUnAux+"";
+            valorTotalCell.innerHTML = valorToAux+"";
+        {%endfor%}
+</script>
+
+<script type="text/javascript">
+    function ListaCiudad(combo){
+        var index = combo.selectedIndex;
+        var id = combo.options[index].value;
+        var valor = combo.options[index].text;
+        var comboC = document.createElement('selectbasicC');
+        document.getElementById("selectbasicC").options.length = 0;
+        {% for ciu in lstCiudad %}
+        var idProv = "{{ciu.provinciaCiudad.id}}";
+            if (id == idProv)
+            {
+                var option = document.createElement('option');
+                option.text = "{{ciu.nombreCiudad}}";
+                option.value = "{{ciu.id}}";
+                document.getElementById('selectbasicC').options.add(option);
+            }
+        {% endfor %}
+    }
+
+</script>
+
+<script type="text/javascript">
+            // When the document is ready
+            $(document).ready(function () {
+                
+                var combo = document.getElementById("selectbasicF");
+                for (var i = 1; i< combo.options.length;i++){
+                    if (combo.options[i].text == '{{cuentaSelec.formaPagoCuentaCobrar}}')
+                    {
+                        document.getElementById("selectbasicF").selectedIndex = i;
+                    } 
+                }
+
+            });
+</script>
+{%endblock%}

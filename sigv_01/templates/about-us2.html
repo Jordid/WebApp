@@ -4,18 +4,29 @@
     <section id="about-us">
         <div class="container">
             <div class="center wow fadeInDown">
-                <a href='{% url 'factura_pdf'%}'>Ver</a>
                 <h2>Créditos Vacacela</h2>
-                <!--<div  id="subirLogotipo">
+                <div  id="subirLogotipo">
                         <center>
                         <img src='{{dato.logoDatosEmpresa}}' alt="logo" class="img-responsive img-rounded" height="200" width="200">
                         </center>             
-                </div>-->
-                
+                </div>
+                <br>
+                <p class="lead">{{dato.quienesSomosDatosEmpresa}}
+                </p>
             </div>
 
-            
-            <div id="about-slider">
+            <div class="center wow fadeInDown">
+                <h3>Misión</h3>
+                <p class="lead">{{dato.misionDatosEmpresa}}
+                </p>
+            </div>
+
+            <div class="center wow fadeInDown">
+                <h3>Visión</h3>
+                <p class="lead">{{dato.visionDatosEmpresa}}
+                </p>
+            </div>
+            <!--<div id="about-slider">
                 <div id="carousel-slider" class="carousel slide" data-ride="carousel">
                     
                     <ol class="carousel-indicators visible-xs">
@@ -46,25 +57,8 @@
                 </div> 
             </div>
             
-            <div class="center wow fadeInDown">
-                <h2>¿Quienes Somos?</h2>
-                <p class="lead">{{dato.quienesSomosDatosEmpresa}}
-                </p>
-            </div>
-
-            <div class="center wow fadeInDown">
-                <h2>Misión</h2>
-                <p class="lead">{{dato.misionDatosEmpresa}}
-                </p>
-            </div>
-
-            <div class="center wow fadeInDown">
-                <h2>Visión</h2>
-                <p class="lead">{{dato.visionDatosEmpresa}}
-                </p>
-            </div>
             
-
+            Our Skill
             <div class="skill-wrap clearfix">
             
                 <div class="center wow fadeInDown">
@@ -248,7 +242,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>-->
         </div>
     </section>
 {% endblock %}

@@ -2,7 +2,7 @@ $(document).ready(function(){
 
 	var log = EstadoLoguin();
 	var logueado = "false";
-	if (log != 3)
+	if (log != 5)
 	{
 		logueado = "true";
 	}

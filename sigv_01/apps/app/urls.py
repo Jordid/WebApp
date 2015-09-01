@@ -9,4 +9,6 @@ urlpatterns = patterns('',
     url(r'^login/$', 'apps.app.views.login', name='login'),
     url(r'^logout/$', 'apps.app.views.logout', name='logout'),
     url(r'^fecha/$', 'apps.app.views.fecha', name='fecha'),
+    url(r'^some/$', 'apps.app.views.hello_pdf', name='some_view'),
+
 )

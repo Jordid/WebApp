@@ -13,8 +13,8 @@
                 
             <div id="minavb_2" class="collapse navbar-collapse navbar-left">
                 <ul id="miulnav" class="nav navbar-nav">
-                    <li id="ilnav" class="active"><a href="formVerCiudades.html">Ver</a></li>
-                    <li id="ilnav"><a href="formRegistroCiudades.html">Nuevo</a></li>
+                    <li id="ilnav" class="active"><a href='{% url 'ciudades'%}'>Ver</a></li>
+                    <li id="ilnav"><a href='{% url 'nuevo_ciudad'%}'>Nuevo</a></li>
                     <li id="ilnav"><input id="searchTerm" class="form-control" type="text" name="buscar" onkeyup="doSearch()" placeholder="Buscar"/></li>
                     
                 </ul>
@@ -30,14 +30,14 @@
         <h2><label class="control-label col-md-7" for="name">Lista de ciudades</label></h2>
     </div>
 
-    <div class="container col-md-5">
+    <div class="container">
         <div class="table-responsive">
         <table id="mitabla" class="table table-bordered table-condensed">
             <tr>
                 <th id="misth1">Código</th>
                 <th id="misth2">Ciudad</th>
                 <th id="misth3">Provincia</th>
-                <th id="misth4" colspan="2">Acciones</th>
+                <th id="misth4">Acciones</th>
             </tr>
             
             {%for ciu in lstCiudad%}
@@ -45,8 +45,7 @@
                 <td>{{ciu.id}}</td>
                 <td>{{ciu.nombreCiudad}}</td>
                 <td>{{ciu.provinciaCiudad.nombreProvincia}}</td>
-                <td id="td_editar"><span id"icon_editar" class="glyphicon glyphicon-edit"></span>Editar</td>
-                <td id="td_eliminar"><span class="glyphicon glyphicon-remove"></span>Eliminar</td>
+                <td id="td_editar"><span id"icon_editar" class="glyphicon glyphicon-edit"></span><a href='{% url 'editar_ciudad' ciu.id%}'>Editar</a></td>
             </tr>
             {%endfor%}
            

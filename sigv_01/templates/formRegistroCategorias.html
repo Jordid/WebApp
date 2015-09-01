@@ -13,14 +13,18 @@
             <div id="minavb_2" class="collapse navbar-collapse navbar-left">
                 <ul id="miulnav" class="nav navbar-nav">
                     <li id="ilnav"><a href='{% url 'categorias'%}'>Ver</a></li>
-                    <li id="ilnav" class="active"><a href='{% url 'nuevo_categoria'%}'>Nuevo</a></li>
+                    {%if categoriaSelec.id != 0 %}
+                        <li id="ilnav"><a href='{% url 'nuevo_categoria'%}'>Nuevo</a></li>
+                    {%else%}    
+                        <li id="ilnav" class="active"><a href='{% url 'nuevo_categoria'%}'>Nuevo</a></li>
+                    {%endif%}
                 </ul>
             </div>    
         </nav>
     </header>
 
 <div class="container">
-        <form id="miform" action="{% url "guardar_categoria" categoriaSelec.id %}" class="form-horizontal" method="POST">
+        <form id="miform" action="{% url "guardar_categoria" categoriaSelec.id %}" class="form-horizontal" method="POST" onsubmit="return formulario(this);">
         {% csrf_token %}
         {{ form.as_p }}
                                   
@@ -32,9 +36,9 @@
                     <label class="control-label col-md-4" for="name">Descripción:</label>
                     <div class="col-md-4">
                         {%if categoriaSelec.id != 0 %}
-                            <input class="form-control" type="text" name="descripcion" placeholder="" value="{{categoriaSelec.descripcionCategoria}}" />
+                            <input class="form-control" type="text" name="descripcion" placeholder="" value="{{categoriaSelec.descripcionCategoria}}" required />
                         {%else%}
-                            <input class="form-control" type="text" name="descripcion" placeholder=""/>
+                            <input class="form-control" type="text" name="descripcion" placeholder="" required/>
                         {%endif%}
                     </div>
                 </div>
@@ -50,4 +54,21 @@
                 <br>            
         </form>
     </div> 
+{% endblock %}
+
+{%block js%}
+
+<script type="text/javascript">
+    function formulario(f) {
+        {% for cat in lstCategoria %}
+          if("{{ cat.descripcionCategoria }}".toLowerCase() == f.descripcion.value.toLowerCase() &&
+            "{{cat.id}}" != '{{categoriaSelec.id}}'){
+            alert ('El nombre de categoría ya existe'); 
+            f.descripcion.focus(); return false;
+         }
+        {% endfor %}
+        return true; 
+    } 
+
+</script>
 {% endblock %}

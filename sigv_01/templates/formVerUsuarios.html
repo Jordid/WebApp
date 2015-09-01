@@ -33,8 +33,7 @@
             <tr><!-- warning danger active Ã³ success Ã³ info-->
                 <th id="misth1">#Id</th>
                 <th id="misth2">Cédula</th>
-                <th id="misth3">Apellidos</th>
-                <th id="misth4">Nombres</th>
+                <th id="misth3">Nombre</th>
                 <th id="misth5">Teléfono</th>
                 <th id="misth6">Nick</th>
                 <th id="misth7">Email</th>
@@ -42,15 +41,15 @@
                 <th id="misth9">Provincia</th>
                 <th id="misth10">Ciudad</th>
                 <th id="misth11">Dirección</th>
-                <th id="misth12" colspan="2">Acciones</th>
+                <th id="misth12">Estado</th>
+                <th id="misth13" colspan="2">Acciones</th>
             </tr>
 
             {%for usuario in lstUsuarios%}
             <tr>
                 <td>{{usuario.id}}</td>
                 <td>{{usuario.personaUsuario.cedulaPersona}}</td>
-                <td>{{usuario.personaUsuario.apellidosPersona}}</td>
-                <td>{{usuario.personaUsuario.nombresPersona}}</td>
+                <td>{{usuario.personaUsuario.apellidosPersona}} {{usuario.personaUsuario.nombresPersona}}</td>
                 <td>{{usuario.personaUsuario.telefonoPersona}}</td>
                 <td>{{usuario.nickUsuario}}</td>
                 <td>{{usuario.personaUsuario.emailPersona}}</td>
@@ -58,8 +57,9 @@
                 <td>{{usuario.personaUsuario.ciudadPersona.provinciaCiudad.nombreProvincia}}</td>
                 <td>{{usuario.personaUsuario.ciudadPersona}}</td>
                 <td>{{usuario.personaUsuario.direccionPersona}}</td>
+                <td>{{usuario.estadoUsuario}}</td>
                 <td id="td_editar"><span id"icon_editar" class="glyphicon glyphicon-edit"></span><a href='{% url 'editar_usuario' usuario.id%}'>Editar</a></td>
-                <td id="td_eliminar"><span class="glyphicon glyphicon-remove"></span><a href='{% url 'eliminar_usuario' usuario.id%}'>Eliminar</a></td>
+                <td id="td_eliminar"><span class="glyphicon glyphicon-remove"></span><a href='{% url 'eliminar_usuario' usuario.id%}'>Inactivar</a></td>
             </tr>
             {%endfor%}
         </table>     

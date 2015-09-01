@@ -13,6 +13,6 @@ urlpatterns = patterns('',
 	url(r'^factura/anular/(\d+)$', 'apps.ventas.views.anular_factura', name='anular_factura'),
 	url(r'^factura/vista/(\d+)$', 'apps.ventas.views.vista_factura', name='vista_factura'),
 	url(r'^factura/guardar$', 'apps.ventas.views.guardar_factura', name='guardar_factura'),
-	url(r'^factura/guardarDetalle$', 'apps.ventas.views.guardar_detalle', name='guardar_detalle'),
+	url(r'^factura/algun$', 'apps.ventas.views.factura_pdf', name='factura_pdf'),
 
 )

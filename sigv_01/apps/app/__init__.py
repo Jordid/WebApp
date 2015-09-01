@@ -1,4 +1,4 @@
-from apps.app.models import Usuario, UsuarioRoles, Permisos, Menu
+from apps.app.models import UsuarioRoles, Permisos, Menu, Usuario
 from functools import wraps
 from django.conf import settings
 from django.contrib.auth import REDIRECT_FIELD_NAME
@@ -22,38 +22,45 @@ def iniciar_sesion(request):
 			return 0
 
 def cerrar_sesion(request):
-    request.session['usuarioSession'] = 3
+    request.session['usuarioSession'] = 5
 
 def menu(request):
     listaHabilitada =[]
-    if request.session.get('usuarioSession') is not None:
-        usuarioAux = request.session.get('usuarioSession')	
-        lstUsuRol = UsuarioRoles.objects.filter(usuarioUsurioRoles = usuarioAux)
-        if len(lstUsuRol) > 0:
-
-            listaPermisos = Permisos.objects.all()
-            for usuRol in lstUsuRol:
-                for per in listaPermisos:
-                    if usuRol.rolUsuarioRoles == per.rolPermiso:
-                        if per.menuPermiso.urlMenu != "/":
-                            url = ""
-                        else:
-                            url = "/"
-                        cont = 0;
-                        for letra in request.path:
-                            if letra == '/':
-                                cont = cont + 1;
-                            if cont ==2:
-                                break;
-                            if letra != '/' and cont < 2:
-                                url = url+ letra
-                        if url == per.menuPermiso.urlMenu:
-                            per.menuPermiso.iconoMenu = "true"
-                        if per.menuPermiso.estadoMenu == 'Activo':                            
-                            listaHabilitada.append(per.menuPermiso)
-			listaHabilitada = list(set(listaHabilitada))#, id__in=listaHabilitada
-    return listaHabilitada
-
+    if request.session.get('usuarioSession') is None:
+    	print("Okkkkkk")
+        request.session["usuarioSession"] = 5
+    else:
+    	usuarioAux = Usuario.objects.get(id=request.session.get('usuarioSession'))
+    	lstUsuRol = UsuarioRoles.objects.filter(usuarioUsuarioRoles = usuarioAux)
+    	if len(lstUsuRol) > 0:
+        	listaPermisos = Permisos.objects.all().order_by("menuPermiso")
+        	for usuRol in lstUsuRol:
+        		for per in listaPermisos:
+        			if usuRol.rolUsuarioRoles == per.rolPermiso:
+        				if per.menuPermiso.urlMenu != "/":
+        					url = ""
+        				else:
+        					url = "/"
+        				cont = 0
+        				for letra in request.path:
+        					if letra == '/':
+        						cont = cont + 1
+        					if cont ==2:
+        						break
+        					if letra != '/' and cont < 2:
+        						url = url+ letra
+        				if url == per.menuPermiso.urlMenu:
+        					per.menuPermiso.iconoMenu = "true"
+        				if per.menuPermiso.estadoMenu == 'Activo':                            
+        					listaHabilitada.append(per.menuPermiso)
+			listaAux = []
+			for men in listaHabilitada:
+				if men in listaAux:
+					print("Ya esta")
+				else:
+					listaAux.append(men)
+			return listaAux
+	return listaHabilitada
 
 def usuario_pasa_prueba(test_func, login_url=None, redirect_field_name=REDIRECT_FIELD_NAME):
     """

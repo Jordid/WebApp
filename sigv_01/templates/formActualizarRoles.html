@@ -1,6 +1,5 @@
 {% extends 'index.html' %}
 {% block content %}
-    <header id="header">
 
         <nav id="mibaner_2" class="navbar navbar-inverse" role="banner">
             <div  id="micontainer" class="container">
@@ -13,20 +12,16 @@
                 
             <div id="minavb_2" class="collapse navbar-collapse navbar-left">
                 <ul id="miulnav" class="nav navbar-nav">
-                    <li id="ilnav"><a href="formVerRoles.html">Ver</a></li>
-                    <li id="ilnav"><a href="formRegistroRoles.html">Nuevo</a></li>
-                    <li id="ilnav" class="active"><a href="formActualizarRoles.html">Actualizar</a></li>
+                    <li id="ilnav"><a href='{% url 'roles'%}'>Ver</a></li>
+                    <li id="ilnav"><a href='{% url 'nuevo_rol'%}'>Nuevo</a></li>
                 </ul>
             </div>    
         </nav>
     </header>
 
-<div class="container">
-        <form id="miform" action="" class="form-horizontal">
+    <div class="container">
+         <form id="miform" action="" class="form-horizontal">
         <!--<form class="contact_form" action="" method="post" name="contact_form">-->   
-   
-                
-                                  
                 <div class="form-group">
                     <h2><label class="control-label col-md-5" for="name">Dato del rol</label></h2> 
                     <!--<div class="col-md-4">
@@ -46,19 +41,96 @@
                 <div class="form-group">
                     <label class="control-label col-md-4" for="name">Descripción:</label>
                     <div class="col-md-5">
-                        <input class="form-control" type="text" name="descripcion" placeholder=""/>
+                        <input id="txtRol" class="form-control" type="text" name="descripcion" placeholder="" value="{{rolSelec.nombreRol}}" />
                     </div>
                 </div>
 
                 <!--<label class="control-label" for="textinput">Correo:</label>
                 <input id="textinput" name="textinput" type="email" placeholder="correo" class="input-xlarge">-->
-                <hr>
+               
+                <hr>                                  
                 <div class="form-group">
-                    <div class="col-md-2 col-md-offset-6">
-                        <button class="submit" type="submit">Guardar</button>        
+                    <h2>
+                        <label class="control-label col-md-5" for="name">Asignación de menús</label>
+                    </h2> 
+                </div>
+
+                <div class="container col-md-8">
+                    <div id="miContenedorTabla" class="table-responsiv">
+                    <p><table id="mitabla" name="mitable" class="table table-bordered table-condensed">
+                        <thead>
+                            <tr><!-- warning danger active ó success ó info-->
+                                <th id="misth1" class="col-md-1">IDE</th>
+                                <th id="misth2" class="col-md-1">Codigo</th>
+                                <th id="misth3" class="col-md-5">Descripcion</th>
+                                <th id="misth4" class="col-md-1">Permiso</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for men in lstMenu %}
+                                <tr>
+                                    <td>{{ men.id }}</td>
+                                    <td>{{ men.codigoMenu}}</td>
+                                    <td>{{ men.descripcionMenu }}</td>
+                                    <td>
+                                        {%if men.id in  lstPermisos%}
+                                            <input id="chk" type="checkbox" name="checkboxes" checked="true"/>
+                                        {%else%}
+                                            <input id="chk" type="checkbox" name="checkboxes"/>
+                                        {%endif%}
+                                        
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table></p>     
+                    </div>   
+                </div>
+
+                <hr>
+
+                <!--<label class="control-label" for="textinput">Correo:</label>
+                <input id="textinput" name="textinput" type="email" placeholder="correo" class="input-xlarge">-->
+          
+                <div class="form-group">
+                    <div class="col-md-2 col-md-offset-5">
+                        <button id="btnGuardar" class="submit" type="button">Guardar</button>        
                     </div>
                 </div>
+                <hr>
                 <br>            
         </form>
     </div> 
+
 {% endblock %}
+
+{% block js %} 
+
+<script type="text/javascript">
+    $("#btnGuardar").click(
+        function(){
+        var tabla = document.getElementById('mitabla');
+        alert(tabla.rows.length);
+        if (tabla.rows.length >1){             
+            $.get('/seguridad/rol/guardar_editar',{
+                    rolID: '{{rolSelec.id}}',
+                    nombre: document.getElementById("txtRol").value,
+            });
+
+            for (var i = 1; i< tabla.rows.length;i++){
+                var row = (tabla.rows[i].getElementsByTagName('td')[3].getElementsByTagName('input')[0].checked);
+                if(row == true){
+                    $.get('/seguridad/permiso/guardar',{
+                        rol: document.getElementById("txtRol").value,
+                        idMenu: document.getElementById('mitabla').rows[i].cells[0].innerHTML,
+                    });
+                }
+            }
+            alert("Datos Guardados Correctamente... ")
+        }
+        setTimeout("location.href=location.href",2000);       
+        }
+    )
+</script>
+{% endblock %}
+
