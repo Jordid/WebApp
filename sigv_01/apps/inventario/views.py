@@ -114,6 +114,6 @@ def guardar_producto(request, producto_id):
 #------------ Kardex ---------------
 def kardex(request):
 	lstKardex = Kardex.objects.all()
-	template = 'formVerKardex.html'
+	template = 'formRegistroKardex.html'
 	return render(request, template, {"listaMenu": menu(request), "lstKardex": lstKardex})
 #-------------------------------------

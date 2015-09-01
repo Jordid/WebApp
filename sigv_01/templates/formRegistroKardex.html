@@ -1,51 +1,74 @@
 {% extends 'index.html' %}
-{% block content %}
-    <header id="header">
-        <nav id="menu-fixed2" class="navbar navbar-inverse" role="banner">
-            <div class="container">
+    {% block content %}
+    <nav id="mibaner_2" class="navbar navbar-inverse" role="banner">
+            <div  id="micontainer" class="container">
                 <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#minavb_2">
                         <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
                 </div>
                 
-                <div class="collapse navbar-collapse navbar-right">
-                    <ul class="nav navbar-nav">
-                        <li><a href="index.html">Inicio</a></li>
-                        <li  class="active"><a href="formRegistroProductos.html">Nuevo</a></li>
-                        <li><a href="formActualizarProductos.html">Actualizar</a></li>
-                        <li><a href="formVerProductos.html">Ver</a></li>
-                        <li><a href="formEliminarProductos.html">Eliminar</a></li>
-                      
-                        
-                    </ul>
-                </div>
-            </div><!--/.container-->
-        </nav><!--/nav-->
-        
-    </header><!--/header-->
-    <br><br><br><br>
+            <div id="minavb_2" class="collapse navbar-collapse navbar-left">
+                <ul id="miulnav" class="nav navbar-nav">
+                    <li id="ilnav"><a href='{% url 'facturas'%}'>Ver</a></li>
+                    <li id="ilnav" class="active"><a href='{% url 'nuevo_factura'%}'>Nuevo</a></li>
+                </ul>
+            </div>    
+    </nav>
+
     <div class="container">
-        <form id="miform" action="" class="form-horizontal">
-        <!--<form class="contact_form" action="" method="post" name="contact_form">-->   
-   
-                
-                           		  
+        <form id="miform" class="form-horizontal">                
                 <div class="form-group">
-                    <h2><label class="control-label col-md-5" for="name">Datos del Producto</label></h2> 
-                    <div class="col-md-4">
-                        <span class="required_notification">* Datos Obligatorios</span>
+                    <h2><label class="control-label col-md-3" for="name">Datos de la factura</label></h2> 
+                </div>
+                <hr>
+
+                 <div class="form-group">
+                    <label class="control-label col-md-4" for="name">Fecha:</label>
+                    <div class="col-md-2">
+                        <input id="txtFecha" name="fecha" class="form-control"  type="text" placeholder="Seleccionar fecha">
+                    </div>
+                    <label class="control-label col-md-2" for="name">Razon:</label>
+                    <div class="col-md-2">
+                        <input class="form-control" type="text" id="txtCliente" name="cliente" placeholder="..." readonly="true" />
                     </div>
                 </div>
                 <hr>
 
                 <div class="form-group">
-                    <label class="control-label col-md-4" for="name">Código:</label>
+                    <label class="control-label col-md-4" for="name">C.C./Ruc:</label>
+                    <div class="col-md-3">
+                        <input class="form-control typeahead col-md-1" name="cc_ruc" type="text" id="txtBuscarCliente" placeholder="Buscar razón social..." autocomplete="off" />
+                    </div>
+                    <div class="col-md-1">
+                        <button class="submit" type="button" onclick="mostrarCliente();"><span id="add" class="glyphicon glyphicon-ok"></span></button>  
+                    </div>                
+                    <!--<label class="control-label col-md-3" for="name">Factura #:</label>
+                    <div class="col-md-2">
+                        <input class="form-control" type="text" id="txtnfactura" name="numerofactura" placeholder="0001234" />
+                    </div>-->
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="name">Razón Social:</label>
                     <div class="col-md-5">
-                        <input class="form-control" type="text" name="codigo" placeholder="" />
+                        <input class="form-control" type="text" id="txtCliente" name="cliente" placeholder="..." readonly="true" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="name">Buscar:</label>
+                    <div class="col-md-4">
+                       <select class="form-control" name="country" id="basic" tabindex="-1" title="" class="select2-offscreen">
+                            {%for producto in lstProducto%}
+                                <option value="{{producto.id}}">{{producto.descripcionProducto}}</option>
+                            {%endfor%}
+                        </select>
+                    </div>
+    
+                    <div class="col-md-1">
+                        <button class="submit" type="button" onclick="AgregarFila();"><span id="add" class="glyphicon glyphicon-plus-sign"></span></button>  
                     </div>
                     
                 </div>
@@ -53,103 +76,278 @@
                 <div class="form-group">
                     <label class="control-label col-md-4" for="name">Descripción:</label>
                     <div class="col-md-5">
-                        <input class="form-control" type="text" name="descripcion" placeholder="" />
+                        <input class="form-control" type="text" id ="txtDireccion" name="direccion" placeholder="..." readonly="true" />
                     </div>
                 </div>
 
-                <!--<div class="form-group">
+                <div class="form-group">
                     <label class="control-label col-md-4" for="name">Cantidad:</label>
-                    <div class="col-md-5">
-                        <input class="form-control" type="text" name="cantidad" placeholder="" />
+                    <div class="col-md-2">
+                        <input class="form-control" type="text" id ="txtDireccion" name="direccion" placeholder="..."  />
                     </div>
-
-                </div>-->
-
-                <div class="form-group"> 
-                    <div class="form-inline">
-                        <label class="control-label col-md-4" for="name">Cantidad:</label>
-                        <div class="col-md-2">
-                            <input class="form-control" type="text" name="cantidad" placeholder="" />
-                        </div>
-                    </div>
-
-                    <div class="form-inline">
-                        <label class="control-label col-md-1" for="name">Categoría</label>
-                        <div class="col-md-2">
-                            <select class="form-control" id="selectbasic" name="selectbasic">
-                                <option>Refrigeradoras</option>
-                                <option>Televisores</option>
-                                <option>Planchas</option>
-                                <option>Camas</option>
-                                <option>Cocinas</option>
-                            </select>
-                        </div>
+                    <label class="control-label col-md-3" for="name">Precio:</label>
+                    <div class="col-md-2">
+                        <input class="form-control" type="text" name="ciudad" placeholder="Pasaje" value="{{dato.ciudadDatosEmpresa.nombreCiudad    }}" readonly />
                     </div>
                 </div>
-
                 <div class="form-group">
-                    <label class="control-label col-md-4" for="name">Stock mínimo:</label>
+                    <label class="control-label col-md-4" for="name">Saldo:</label>
                     <div class="col-md-5">
-                        <input class="form-control" type="text" name="stock minimo" placeholder="" />
+                        <input class="form-control" type="text" id ="txtDireccion" name="direccion" placeholder="..." readonly="true" />
                     </div>
+
                 </div>
 
-                <div class="form-group">
-                    <label class="control-label col-md-4" for="name">Costo:</label>
-                    <div class="col-md-5">
-                        <input class="form-control" type="text" name="costo" placeholder="" />
-                    </div>
-                </div>
+            
 
-                <div class="form-group">
-                    <label class="control-label col-md-4" for="name">Valor agregado:</label>
-                    <div class="col-md-5">
-                        <input class="form-control" type="text" name="valor agregado" placeholder="" />
-                    </div>
-                </div>
 
-                <div class="form-group">
-                    <label class="control-label col-md-4" for="name">Iva:</label>
-                    <div class="col-md-5">
-                        <input class="form-control" type="text" name="iva" placeholder="" />
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="control-label col-md-4" for="name">Precio contado:</label>
-                    <div class="col-md-5">
-                        <input class="form-control" type="text" name="precio contado" placeholder="" />
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="control-label col-md-4" for="name">Precio crédito:</label>
-                    <div class="col-md-5">
-                        <input class="form-control" type="text" name="precio credito" placeholder="" />
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="control-label col-md-4" for="name">Marca:</label>
-                    <div class="col-md-5">
-                        <input class="form-control" type="text" name="marca" placeholder="" />
-                    </div>
-                </div>
                 
-                <div class="form-group">
-                    <label class="control-label col-md-4" for="prependedcheckbox">Estado: Activo/Inactivo:</label>
-                    <div class="control-label col-md-1"><input type="checkbox"></div>
-                </div>
-
-                <!--<label class="control-label" for="textinput">Correo:</label>
-                <input id="textinput" name="textinput" type="email" placeholder="correo" class="input-xlarge">-->
                 <hr>
                 <div class="form-group">
-                    <div class="col-md-2 col-md-offset-6">
-                        <button class="submit" type="submit">Guardar</button>        
+                    <label id="lblEstado" class="control-label col-md-5" for="name"></label>
+                    <div class="col-md-4">
+                        <button id="btnGuardar" class="submit" type="button" >Guardar</button>        
                     </div>
-                </div>
-                <br>            
+                </div>  
+                <br>  
+                <hr>       
         </form>
-    </div>  
+    </div>              
+{% endblock %}
+{% block js %} 
+<script>
+$(document).ready(function(){
+    $("#basic").select2();
+    
+    $("#multi").select2({
+        placeholder: "Seleccione un producto"
+    });
+    
+    $("#minimum").select2({
+        minimumInputLength: 2
+    });
+});
+</script>
+
+<script type="text/javascript">
+    function AgregarFila( ){
+        var combo = document.getElementById("basic");
+        var index = combo.selectedIndex;
+        var id = combo.options[index].value;
+        var descripcion = combo.options[index].text;
+        var table = document.getElementById("mitabla");
+        index = table.rows.length;
+        if (index <=11)
+        {
+        if (EstaEnTabla(id)==false)
+        {
+            var row = table.insertRow(index);
+            row.value = id;
+            var cantidadCell = row.insertCell(0);     var descripcionCell = row.insertCell(1);
+            var valorUnCell = row.insertCell(2);      var valorTotalCell = row.insertCell(3);
+            var quitarCell = row.insertCell(4);
+
+            var cantidadAux = (document.getElementById("cantidad").value +"").replace(",", ".");
+            var valorUnAux = (BuscarPrecioProducto(id)+"").replace(",",".");
+            var valorToAux = parseFloat(cantidadAux) * parseFloat(valorUnAux);
+            var idPp = id + "";
+            cantidadCell.innerHTML = cantidadAux;
+            descripcionCell.innerHTML = descripcion;
+            valorUnCell.innerHTML = valorUnAux+"";
+            valorTotalCell.innerHTML = valorToAux+"";
+            
+            var strQuitar = "<button class='btn' type='button' onclick='EliminarFilas(this);'><span class='glyphicon glyphicon-remove'></button>";
+            quitarCell.innerHTML = strQuitar;
+            Sumartotales();
+        }
+        else
+        {
+            alert("Ya existe el producto en la tabla!");
+        }
+        }else
+        {
+            alert("Solo admite 11 productos!");
+        }
+   }
+
+   function mostrarCliente(){
+        var cedulaBuscar=document.getElementById("txtBuscarCliente").value;
+        {% for cli in lstCliente %}
+          if("{{ cli.personaCliente.cedulaPersona }}" == cedulaBuscar){
+                var nombre = "{{cli.personaCliente.nombresPersona}}"
+                var apellido = "{{cli.personaCliente.apellidosPersona}}"
+                var direccion = "{{cli.personaCliente.direccionPersona}}"
+                document.getElementById("txtCliente").value=apellido + " " +nombre;
+                document.getElementById("txtDireccion").value=direccion;
+            }
+        {% endfor %}
+    }
+
+    function BuscarPrecioProducto(idProducto)
+    {
+        {% for pro in lstProducto %}
+            var idPro = "{{pro.id}}";
+            if (idProducto == idPro)
+            {
+                return "{{pro.precioContadoProducto}}";
+            }
+        {% endfor %}
+    }       
+
+    function EliminarFilas(t)
+    {
+        var td = t.parentNode;
+        var tr = td.parentNode;
+        var table = tr.parentNode;
+        table.removeChild(tr)
+        Sumartotales()
+    }
+
+    function redondeo(numero){
+        var flotante = parseFloat(numero);
+        var resultado = Math.round(flotante*100)/100;
+        return resultado;
+    }
+
+    function Sumartotales(){
+        var tabla = document.getElementById('mitabla');
+        var total=0;
+        for(var i = 1;tabla.rows[i];i++){
+            total+= Number(tabla.rows[i].cells[3].innerHTML);
+        }
+            console.log(total);
+            LlenarCamposTotales(total);
+    }
+
+    function LlenarCamposTotales(subtotal){
+        var subAux = subtotal + "";
+        sub = Number(subAux);
+        var porDescuentoAux = document.getElementById("txtPorcentaje").value;
+        descuentoAux = parseFloat("0.00");
+        if (porDescuentoAux != "")
+        {
+            dessss = parseFloat(porDescuentoAux);
+            descuentoAux = (dessss/100)* sub;
+        }
+        else
+        {
+            document.getElementById("txtPorcentaje").value = 0;
+        }   
+
+        ivaDoceAux = sub * 0.12;
+        totalAux = sub + ivaDoceAux - descuentoAux;
+        document.getElementById("txtSubtotal").value = redondeo(sub);
+        document.getElementById("txtDescuento").value = redondeo(descuentoAux);
+        document.getElementById("txtIvaCero").value = 0;
+        document.getElementById("txtIvaDoce").value = redondeo(ivaDoceAux);
+        document.getElementById("txtTotal").value = redondeo(totalAux);
+    }
+
+    function EstaEnTabla(idProAux){
+        var tabla = document.getElementById('mitabla');
+        for(var i = 1;tabla.rows[i];i++){
+            var idRow = tabla.rows[i].value;
+            if (idRow == idProAux)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    function existeNumero()
+    {
+        var numero = document.getElementById("txtnfactura").value;
+        {% for num in lstFacturaNum %}
+            if(numero == "{{num}}")
+                {return true;}
+        {%endfor%}
+        return false;
+    }
+</script>
+
+<script>
+/*
+    for(var er=1; er< 4; er++)
+    {
+        sleep(5000);
+        alert("Ok");
+    }
+  */  
+    
+    function sleep(miliseconds) {
+           var currentTime = new Date().getTime();
+
+           while (currentTime + miliseconds >= new Date().getTime()) {
+           }
+    }
+
+    $("#btnGuardar").click(
+        function(){
+            if (existeNumero())
+            {
+                alert("El numero de factura ya ha sido registrado!")
+            }
+            else
+            {
+                esCuentaAux = "NO";
+                if (document.getElementById("estadoBox").checked)
+                {
+                    esCuentaAux ="SI";
+                }  
+                var fechaA = document.getElementById("txtFecha").value;
+                var tabla = document.getElementById('mitabla');
+                if (tabla.rows.length >1){ 
+                    document.getElementById('btnGuardar').disabled = true;
+                    document.getElementById('lblEstado').innerHTML = "Guardando datos. Espere...";
+                    for (var i = 1; tabla.rows[i];i++){
+                        $.get("{%url 'guardar_factura'%}",{
+                            productoId:document.getElementById("mitabla").rows[i].value,
+                            cantidad:document.getElementById("mitabla").rows[i].cells[0].innerHTML,
+                            precio:document.getElementById('mitabla').rows[i].cells[2].innerHTML,
+                            cliente:document.getElementById("txtBuscarCliente").value,
+                            numeroFactura:document.getElementById("txtnfactura").value,
+                            contador:i,
+                            subtotal:document.getElementById("txtSubtotal").value,
+                            descuento:document.getElementById("txtDescuento").value,
+                            ivaCero:document.getElementById("txtIvaCero").value,
+                            ivaDoce:document.getElementById("txtIvaDoce").value,
+                            total:document.getElementById("txtTotal").value,
+                            observaciones:document.getElementById("txtObservaciones").value,
+                            fecha:fechaA,
+                            esCuenta:'NO',
+                        });
+                        sleep(5000);
+                    }
+                    alert("Datos Guardados Correctamente... ");
+                }
+                setTimeout("location.href='{% url 'facturas'%}'",1000);      
+            }
+        }
+    )
+</script>
+
+<script >
+        var nombre = []
+        var contador  = 0;
+        {% for cli in lstCliente %}
+            nombre[contador]="{{cli.personaCliente.cedulaPersona}}";
+            console.log(nombre[contador]);
+            contador=contador+1;
+        {% endfor %}
+
+          $('input.typeahead').typeahead({
+                  local: nombre
+              });
+</script>
+
+
+<script type="text/javascript">
+            // When the document is ready
+            $(document).ready(function () {
+                $('#txtFecha').datepicker({
+                    format: "dd/mm/yyyy"
+                });  
+            });
+</script>
 {% endblock %}
