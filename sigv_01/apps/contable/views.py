@@ -19,6 +19,7 @@ def nuevo_cuenta_por_cobrar(request):
 	lstCliente = Cliente.objects.all();
 	lstProvincia = Provincia.objects.all()
 	lstCiudad = Ciudad.objects.all()
+	lstCuentaNum = CuentaCobrar.objects.values_list('numeroCuentaCobrar', flat=True).all().exclude(estadoCuentaCobrar="Anulado")
 	lstCiudad2 = Ciudad.objects.filter(provinciaCiudad = lstProvincia[0])
 	template = 'formRegistroCuentasPorCobrar.html'
 	return render(request, template, {"listaMenu": menu(request),"lstCliente":lstCliente,
@@ -46,56 +47,51 @@ def abonar_cuenta_por_cobrar(request, cuenta_id):
 		"lstAbonos":lstAbonos, 'lugar': lugar})
 
 def guardar_cuenta_por_cobrar(request):
-	clienteCed = request.GET['cliente'] 
-	perAux = Persona.objects.get(cedulaPersona=clienteCed)
-	clienteAux = Cliente.objects.get(personaCliente = perAux)
-	ciudadAux = Ciudad.objects.get(pk=request.GET['ciudadID'] )
+	contador = request.GET['contador']
+	print("contador: " + str(contador))
+	numeroCuenta = request.GET['numeroCuenta']
+	print("numeroCuenta"  +str(numeroCuenta))
 
-	cueAux = CuentaCobrar()
-	cueAux.numeroCuentaCobrar = request.GET['numeroCuenta']
-	print("Ok")
-	print(request.GET['fechaAc'])
-	fecha = datetime.strptime(request.GET['fechaAc'], "%d/%m/%Y").date()
-	print(type(fecha))
-	print("Fecha")
-	cueAux.fechaCuetaCobrar =  fecha
-	
-	print(request.GET['fechaAc'])
-	cueAux.fechaInicioPagoCuentaCobrar = datetime.strptime(request.GET['fechaCIn'], "%d/%m/%Y").date()
-	print(":(())")
-	print(cueAux.fechaInicioPagoCuentaCobrar)
-	print(type(cueAux.fechaInicioPagoCuentaCobrar))
-	cueAux.cuotaInicialCuentaCobrar = request.GET['cuotaInicial']
-	cueAux.cuotaCuentaCobrar = request.GET['cuotas']
-	cueAux.formaPagoCuentaCobrar = request.GET['formaPago']
-	cueAux.totalCuentaCobrar = request.GET['total']
-	cueAux.saldoCuentaCobrar = request.GET['saldo']
-	cueAux.estadoCuentaCobrar = "PENDIENTE"
-	cueAux.ciudadCuentaCobrar = ciudadAux
-	cueAux.clienteCuentaCobrar = clienteAux
-	cueAux.observacionesCuentaCobrar = request.GET['observaciones']
-	cueAux.save()
-
-	print("Ok cuenta")
-
-def guardar_detalle_cuenta_por_cobrar(request):
-	numeroCue = request.GET['numeroCuenta'] 
-	print("Hola :D 1")
-	productoId = request.GET['productoId']
+	if str(contador)=="1":
+		clienteAux = Cliente.objects.get(pk=request.GET['idClienteAux'])
+		print("ENTRO....................................3")
+		ciudadAux = Ciudad.objects.get(pk=request.GET['ciudadID'] )
+		print("ENTRO....................................6")
+		fecha=datetime.strptime(request.GET['fechaAc'], "%d/%m/%Y").date()
+		fechaA=datetime.strptime(request.GET['fechaCIn'], "%d/%m/%Y").date()
+		print("ENTRO....................................7")
+		cuenAux = CuentaCobrar(
+			numeroCuentaCobrar=request.GET['numeroCuenta'],
+			fechaCuetaCobrar=fecha,
+			fechaInicioPagoCuentaCobrar=fechaA,
+			cuotaInicialCuentaCobrar=request.GET['cuotaInicial'],
+			cuotaCuentaCobrar=request.GET['cuotas'],
+			formaPagoCuentaCobrar =request.GET['formaPago'],
+			totalCuentaCobrar=request.GET['total'],
+			saldoCuentaCobrar=request.GET['saldo'],
+			observacionesCuentaCobrar=request.GET['observaciones'],
+			estadoCuentaCobrar="Pendiente",
+			ciudadCuentaCobrar=ciudadAux,
+			clienteCuentaCobrar=clienteAux
+			)
+		cuenAux.save()
+		print("Guarde cuenta!")
 	print("Hola :D 2")
-	cuenta = CuentaCobrar.objects.get(numeroCuentaCobrar = numeroCue)
-	producto = Producto.objects.get(id = productoId)
-	print("Hola :D 3")
-	detCuenta = DetalleCuentaCobrar()
-	detCuenta.cantidadDetCueCob = request.GET['cantidad']
-	print("Hola :D 4")
-	detCuenta.precioDetCueCob = request.GET['precio']
-	print("Hola :D 5")
-	detCuenta.cuentaCobrarDetCueCob = cuenta
-	detCuenta.productoDetCueCob = producto
+	cuentaA = CuentaCobrar.objects.filter(numeroCuentaCobrar = request.GET['numeroCuenta']).exclude(estadoCuentaCobrar="Anulado")
+	print("Cantidad de mi cuenta ="+ str(len(cuenAux.count())))
+	productoA = Producto.objects.get(id = request.GET['productoId'])
+	detCuenta = DetalleCuentaCobrar(
+		cantidadDetCueCob=request.GET['cantidad'],
+		precioDetCueCob=request.GET['precio'],
+		cuentaCobrarDetCueCob=cuentaA[0],
+		productoDetCueCob=productoA
+		)
 	detCuenta.save()
 	print("Hola :D detalle")
+	
 
+def guardar_detalle_cuenta_por_cobrar(request):
+	pass
 def insertar_abono_cuenta_por_cobrar(request):
 	cuentaNumero = request.GET['numeroCuenta'] 
 	cuentaAux = CuentaCobrar.objects.get(numeroCuentaCobrar=cuentaNumero)

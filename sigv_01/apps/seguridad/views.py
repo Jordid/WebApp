@@ -176,10 +176,22 @@ def guardar_rol_nuevo(request):
 	print("Hola :) Permiso Guardado!")
 
 def guardar_rol_editar(request):
-	rolAux.save()
-	Permisos.objects.filter(rolPermiso=rolAux).delete()
-	print("Hola :) Rol editado Guardado!")
-
+	print("ok mmmmmm")
+	contador = request.GET['contador']
+	miRol = request.GET['rol']
+	rolAux=Rol.objects.get(pk=request.GET['idRol'])
+	if str(contador)=="1":
+		rolAux.nombreRol=request.GET['rol']
+		rolAux.save()
+		print("Actualizo rol...")
+		Permisos.objects.filter(rolPermiso=rolAux).delete()
+	menuAux = Menu.objects.get(pk=request.GET['idMenu'])
+	permisoAux = Permisos(
+		rolPermiso=rolAux,
+		menuPermiso=menuAux
+		)
+	permisoAux.save()
+	print("Hola :) Permiso Guardado!")
 
 def guardar_permiso(request):
 	print("Hola :) Permiso 1!")

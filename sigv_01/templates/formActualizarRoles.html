@@ -24,19 +24,8 @@
         <!--<form class="contact_form" action="" method="post" name="contact_form">-->   
                 <div class="form-group">
                     <h2><label class="control-label col-md-5" for="name">Dato del rol</label></h2> 
-                    <!--<div class="col-md-4">
-                        <span class="required_notification">Todos los campos son obligatorios</span>
-                    </div>-->
                 </div>
                 <hr>
-
-                <!--<div class="form-group">
-                    <label class="control-label col-md-4" for="name">Código:</label>
-                    <div class="col-md-5">
-                        <input class="form-control" type="text" name="codigo" placeholder="" />
-                    </div>
-                    
-                </div>-->
 
                 <div class="form-group">
                     <label class="control-label col-md-4" for="name">Descripción:</label>
@@ -45,9 +34,6 @@
                     </div>
                 </div>
 
-                <!--<label class="control-label" for="textinput">Correo:</label>
-                <input id="textinput" name="textinput" type="email" placeholder="correo" class="input-xlarge">-->
-               
                 <hr>                                  
                 <div class="form-group">
                     <h2>
@@ -89,14 +75,12 @@
 
                 <hr>
 
-                <!--<label class="control-label" for="textinput">Correo:</label>
-                <input id="textinput" name="textinput" type="email" placeholder="correo" class="input-xlarge">-->
-          
                 <div class="form-group">
-                    <div class="col-md-2 col-md-offset-5">
-                        <button id="btnGuardar" class="submit" type="button">Guardar</button>        
+                    <label id="lblEstado" class="control-label col-md-5" for="name"></label>
+                    <div class="col-md-4">
+                        <button id="btnGuardar" class="submit" type="button" >Guardar</button>        
                     </div>
-                </div>
+                </div> 
                 <hr>
                 <br>            
         </form>
@@ -104,31 +88,65 @@
 
 {% endblock %}
 
-{% block js %} 
 
+{% block js %} 
 <script type="text/javascript">
+    function validar()
+    {
+        var mensaje=""
+        var tabla = document.getElementById('mitabla');
+        var existe = false;
+        for (var i = 1; i< tabla.rows.length;i++){
+            var row = (tabla.rows[i].getElementsByTagName('td')[3].getElementsByTagName('input')[0].checked);
+            if(row == true){
+                existe=true;
+            }
+        }
+        if (existe==false)
+            mensaje = mensaje + "Debe seleccionar al menos un menu"
+        return mensaje;
+    }
+
+    function sleep(miliseconds) {
+           var currentTime = new Date().getTime();
+
+           while (currentTime + miliseconds >= new Date().getTime()) {
+           }
+    }
+
     $("#btnGuardar").click(
         function(){
-        var tabla = document.getElementById('mitabla');
-        alert(tabla.rows.length);
-        if (tabla.rows.length >1){             
-            $.get('/seguridad/rol/guardar_editar',{
-                    rolID: '{{rolSelec.id}}',
-                    nombre: document.getElementById("txtRol").value,
-            });
-
-            for (var i = 1; i< tabla.rows.length;i++){
-                var row = (tabla.rows[i].getElementsByTagName('td')[3].getElementsByTagName('input')[0].checked);
-                if(row == true){
-                    $.get('/seguridad/permiso/guardar',{
-                        rol: document.getElementById("txtRol").value,
-                        idMenu: document.getElementById('mitabla').rows[i].cells[0].innerHTML,
-                    });
-                }
+            var mensaje = validar();
+            if (mensaje != "")
+            {
+                alert(mensaje);
             }
-            alert("Datos Guardados Correctamente... ")
-        }
-        setTimeout("location.href=location.href",2000);       
+            else
+            {
+                var tabla = document.getElementById('mitabla');
+                var cuenta = 0;
+                var idRolA='{{rolSelec.id}}'
+                if (tabla.rows.length >1){   
+                    document.getElementById('btnGuardar').disabled = true;
+                    document.getElementById('lblEstado').innerHTML = "Guardando datos. Espere...";
+                    for (var i = 1; tabla.rows[i];i++){
+                        var row = (tabla.rows[i].getElementsByTagName('td')[3].getElementsByTagName('input')[0].checked);
+                        //alert("ok");
+                        if(row == true){          
+                            cuenta=cuenta+1;
+                            $.get("{% url 'guardar_rol_editar' %}",{
+                                contador:cuenta,
+                                idRol:idRolA,
+                                rol:document.getElementById("txtRol").value,
+                                idMenu:document.getElementById('mitabla').rows[i].cells[0].innerHTML
+                            });
+                            sleep(3000);
+                        }
+                    }
+                    alert("Datos Guardados Correctamente... ")
+                }
+                setTimeout("location.href='{% url 'roles' %}'",500);
+            }       
         }
     )
 </script>

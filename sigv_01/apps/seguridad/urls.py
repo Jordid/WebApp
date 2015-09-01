@@ -7,7 +7,7 @@ urlpatterns = patterns('',
  	url(r'^usuario/editar/(\d+)$', 'apps.seguridad.views.editar_usuario', name='editar_usuario'),
  	url(r'^usuario/eliminar/(\d+)$', 'apps.seguridad.views.eliminar_usuario', name='eliminar_usuario'),
  	url(r'^usuario/guardar$', 'apps.seguridad.views.guardar_usuario_nuevo', name='guardar_usuario_nuevo'),
- 	url(r'^usuario/guardaredi$', 'apps.seguridad.views.guardar_usuario_editar', name='guardar_usuario_editar'),
+ 	url(r'^usuario/guardar_editar$', 'apps.seguridad.views.guardar_usuario_editar', name='guardar_usuario_editar'),
 
     url(r'^rol/lista$', 'apps.seguridad.views.roles', name='roles'),
     url(r'^rol/nuevo$', 'apps.seguridad.views.nuevo_rol', name='nuevo_rol'),

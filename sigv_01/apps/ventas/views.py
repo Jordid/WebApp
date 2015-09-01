@@ -177,19 +177,16 @@ def guardar_factura(request):
 		#	print("asdadasdadsadsasadadsasd")
 		#except Exception, e:
 		#	print(e.message)
-	facAux = Factura.objects.filter(numeroFactura = request.GET['numeroFactura'])
+	facAux = Factura.objects.filter(numeroFactura = request.GET['numeroFactura']).exclude(estadoFactura="Anulado")
 	print("---------> cantidad Factura: " + str(len(facAux)))
-
 	print("Obtuvo factura")
 	proAux = Producto.objects.get(id = productoId)
-
 	detFac = DetalleFactura()
 	detFac.cantidadDetalleFactura = request.GET['cantidad']
 	detFac.precioDetalleFactura = request.GET['precio']
 	detFac.facturaDetalleFactura = facAux[0]
 	detFac.productoDetalleFactura = proAux
 	detFac.save()
-
 	print("Hola :D Detalle")
 #-------------------------------------
 

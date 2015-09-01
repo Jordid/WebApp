@@ -210,9 +210,11 @@
 
 {% endblock %}
 {%block js %}
-<script >
+
+<script type="text/javascript">
         var nombre = []
         var contador  = 0;
+        var idCliente=0;
         {% for cli in lstCliente %}
             nombre[contador]="{{cli.personaCliente.cedulaPersona}}";
             console.log(nombre[contador]);
@@ -231,15 +233,13 @@
                 var apellido = "{{cli.personaCliente.apellidosPersona}}";
                 var direccion = "{{cli.personaCliente.direccionPersona}}";
                 var telefono = "{{cli.personaCliente.telefonoPersona}}";
+                idCliente="{{cli.id}}"
                 document.getElementById("txtCliente").value=apellido + " " +nombre;
                 document.getElementById("txtDireccion").value=direccion;
                 document.getElementById("txtTelefono").value=telefono;
             }
         {% endfor %}
     }
-</script>
-
-<script type="text/javascript">
     
     function AgregarFila( ){
         var combo = document.getElementById("basic");
@@ -368,41 +368,61 @@
         {% endfor %}
     }
 
+    function existeNumero()
+    {
+        var numero = document.getElementById("txtNumero").value;
+        {% for num in lstCuentaNum %}
+            if(numero == "{{num}}")
+                {return true;}
+        {%endfor%}
+        return false;
+    }
+
+    function sleep(miliseconds) {
+           var currentTime = new Date().getTime();
+
+           while (currentTime + miliseconds >= new Date().getTime()) {
+           }
+    }
+
     $("#btnGuardar").click(
         function(){
-        var tabla = document.getElementById('mitabla');
-        var combo = document.getElementById('selectbasicF');
-        var index = combo.selectedIndex;
-        var formaPagoA = combo.options[index].text;
-
-        var comboC = document.getElementById('selectbasicC');
-        var indexC = comboC.selectedIndex;
-        var ciudad = comboC.options[indexC].value;
-        if (tabla.rows.length >1){ 
-            $.get('/contable/cuenta_por_cobrar/guardar',{
-                    numeroCuenta:document.getElementById("txtNumero").value,
-                    fechaAc:document.getElementById("txtFecha").value,
-                    fechaCIn:document.getElementById("txtFechaCI").value,
-                    cuotaInicial:document.getElementById("txtCI").value,
-                    cuotas:document.getElementById("txtCuotas").value,
-                    formaPago:formaPagoA,
-                    total:document.getElementById("txtSubtotal").value,
-                    saldo:document.getElementById("txtSaldo").value,
-                    ciudadID:ciudad,
-                    cliente:document.getElementById("txtBuscarCliente").value,
-                    observaciones:document.getElementById("txtObservaciones").value,
-                    });
-            for (var i = 1; i< tabla.rows.length;i++){
-                $.get('/contable/cuenta_por_cobrar/guardarDetalle',{
-                    cantidad: document.getElementById('mitabla').rows[i].cells[0].innerHTML,
-                    precio: document.getElementById('mitabla').rows[i].cells[2].innerHTML,
-                    numeroCuenta: document.getElementById("txtNumero").value,
-                    productoId: document.getElementById("mitabla").rows[i].value,
-                });
+            if (existeNumero())
+            {
+                alert("El numero de cuenta ya ha sido registrado!")
             }
-            alert("Datos Guardados Correctamente... ")
-        }
-        setTimeout("location.href='/contable/cuenta_por_cobrar/nuevo'",2000);       
+            else
+            {
+                alert(idCliente);
+                var tabla = document.getElementById('mitabla');
+                var combo = document.getElementById('selectbasicF');
+                var index = combo.selectedIndex;
+                var formaPagoA = combo.options[index].text;
+                if (tabla.rows.length >1){ 
+                    for (var i = 1; tabla.rows[i];i++){
+                        $.get("{% url 'guardar_cuenta_por_cobrar' %}",{
+                            numeroCuenta:document.getElementById("txtNumero").value,
+                            fechaAc:document.getElementById("txtFecha").value,
+                            fechaCIn:document.getElementById("txtFechaCI").value,
+                            cuotaInicial:document.getElementById("txtCI").value,
+                            cuotas:document.getElementById("txtCuotas").value,
+                            formaPago:formaPagoA,
+                            total:document.getElementById("txtSubtotal").value,
+                            saldo:document.getElementById("txtSaldo").value,
+                            ciudadID:document.getElementById('selectbasicC').value,
+                            observaciones:document.getElementById("txtObservaciones").value,
+                            cantidad:document.getElementById('mitabla').rows[i].cells[0].innerHTML,
+                            precio:document.getElementById('mitabla').rows[i].cells[2].innerHTML,
+                            productoId:document.getElementById("mitabla").rows[i].value,
+                            contador:i,
+                            idClienteAux:idCliente
+                        });
+                        sleep(5000);
+                    }
+                    alert("Datos Guardados Correctamente... ")
+                }
+                //setTimeout("location.href='{% url 'cuentas_por_cobrar' %}'",1000);       
+            }
         }
     );
 </script>
