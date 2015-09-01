@@ -108,7 +108,7 @@ def guardar_cliente(request, cliente_id):
 #------------ Factura ---------------
 def facturas(request):
 	menuLista = menu(request)
-	lstFactura = Factura.objects.all().exclude(estadoFactura = "Anulado")
+	lstFactura = Factura.objects.all().exclude(estadoFactura = "Anulado").order_by('-numeroFactura')
 	template = 'formVerFacturas.html'
 	return render(request, template, {"listaMenu": menuLista, "lstFactura": lstFactura})
 
@@ -122,10 +122,8 @@ def nuevo_factura(request):
 		"lstProducto":lstProducto, 'dato':dato, 'lstFacturaNum': lstFacturaNum})
 
 def enviar_factura(request, factura_id):
-	facturaSelec = Factura.objects.get(pk=factura_id)
-	lstDetalleFac = DetalleFactura.objects.filter(pk=factura_id)
-	clienteSelec = Cliente.objects.get(pk = facturaSelec.clienteFactura.id)	
-	print(clienteSelec.personaCliente.nombresPersona)
+	response = ayuda_enviar_factura(request, factura_id)
+	return response
 	
 def anular_factura(request, factura_id):
 	facturaSelec = Factura.objects.get(id=factura_id)
@@ -151,7 +149,6 @@ def guardar_factura(request):
 	productoId = request.GET['productoId']
 	print("productoId" + str(productoId))
 	
-#	f = Factura.objects.filter(numeroFactura=request.GET['numeroFactura']).count()
 	if str(contador)=="1":
 		perAux = Persona.objects.get(cedulaPersona=request.GET['cliente'])
 		print("------------------>Contador CINCO" + str(perAux.id))
@@ -175,14 +172,11 @@ def guardar_factura(request):
 			)
 		facAux.save()
 		print("--------------->factura guardada!")
-		#fecha = datetime.strptime(request.GET['fecha'], "%d/%m/%Y").date()
-		
 		#try:
 		#	facAux.save()
 		#	print("asdadasdadsadsasadadsasd")
 		#except Exception, e:
 		#	print(e.message)
-		#	print(str(e))
 	facAux = Factura.objects.filter(numeroFactura = request.GET['numeroFactura'])
 	print("---------> cantidad Factura: " + str(len(facAux)))
 
@@ -195,6 +189,7 @@ def guardar_factura(request):
 	detFac.facturaDetalleFactura = facAux[0]
 	detFac.productoDetalleFactura = proAux
 	detFac.save()
+
 	print("Hola :D Detalle")
 #-------------------------------------
 
@@ -206,16 +201,17 @@ from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 from apps.general import enviar_email_factura
 from reportlab.lib.units import inch
-
-# Create your views here.
 def factura_pdf(request):
+	pass
+# Create your views here.
+def ayuda_enviar_factura(request, idFac):
 	pdfmetrics.registerFont(TTFont('Vera', 'Vera.ttf'))
 	pdfmetrics.registerFont(TTFont('VeraBd', 'VeraBd.ttf'))
 	pdfmetrics.registerFont(TTFont('VeraIt', 'VeraIt.ttf'))
 	pdfmetrics.registerFont(TTFont('VeraBI', 'VeraBI.ttf'))
 	
 	dato = DatosEmpresa.objects.all()[0]
-	factura = Factura.objects.filter(numeroFactura=27)[0]
+	factura = Factura.objects.get(pk=idFac)
 	detalle = DetalleFactura.objects.filter(facturaDetalleFactura=factura)
 	deta = DetalleFactura.objects.filter(facturaDetalleFactura = factura)
 
@@ -306,11 +302,17 @@ def factura_pdf(request):
 	pdf = buffer.getvalue()
 	buffer.close()
 	try:
-		emisor = datos.emailDatosEmpresa+""
-		clave = datos.claveDatosEmpresa+""
-		asunto = datos.nombreDatosEmpresa + " - FACTURA"
-		receptor = factura.clienteFactura.personaCliente.emailPersona
-		nombreDoc = factura.numeroFactura
+		print("Ok11111")
+		emisor = str(dato.emailDatosEmpresa)
+		print("Ok111")
+		clave = str(dato.claveDatosEmpresa)
+		print("Ok11")
+		asunto = str(dato.nombreDatosEmpresa) + " - FACTURA"
+		print("Ok1")
+		receptor = str(factura.clienteFactura.personaCliente.emailPersona)
+		print("Ok2")
+		nombreDoc = "FAC - " + str(factura.numeroFactura) 
+		print("Ok3")
 		enviar_email_factura(emisor, clave, asunto, receptor, pdf, nombreDoc)
 		#
 		#enviar_email_factura(dato.emailDatosEmpresa, dato.claveDatosEmpresa,
@@ -318,8 +320,7 @@ def factura_pdf(request):
 		#enviar_email_factura("estefaniavacacela@gmail.com", "JamasDireNunca", 
 		#user, password, asunto, destinatario, pdf
 		#	"Factura 001-Creditos Vacacela", "akirevacacela@gmail.com")
-		print("Envio")
 	except:
-		print("Mal")
+		print ("Mal")
 	response.write(pdf)
 	return response

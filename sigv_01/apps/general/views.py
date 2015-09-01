@@ -5,7 +5,6 @@ from apps.app.models import *
 from django.http import HttpResponse,HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from apps.app import iniciar_sesion, cerrar_sesion, menu
-from apps.general import enviar_email
 # Create your views here.
 
 

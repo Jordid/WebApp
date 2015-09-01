@@ -170,6 +170,8 @@ class Factura(models.Model):
 	clienteFactura = models.ForeignKey(Cliente)
 	def __unicode__(self):
 		return '%s'%(self.numeroFactura)
+	class Meta:
+		ordering = ["numeroFactura"]
 #Ok
 class DetalleFactura(models.Model):
 	cantidadDetalleFactura = models.DecimalField(max_digits = 20,decimal_places = 2)

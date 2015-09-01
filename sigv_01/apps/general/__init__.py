@@ -6,49 +6,6 @@ from email.mime.text import MIMEText
 from email.mime.image import MIMEImage
 from email.mime.application import MIMEApplication
 
-def enviar_email(user, password, asunto, mensaje, destinatario, pdf):
-	"""gmail = smtplib.SMTP('smtp.gmail.com', 587)
-	gmail.starttls()
-	gmail.login(user, password)
-	gmail.set_debuglevel(1)
-	header = MIMEMultipart()
-	header['Subject'] = asunto
-	header['From'] = user
-	header['To'] = destinatario
-	mensaje = MIMEText("<p>hola que hace</p>", 'html')
-	header.attach(mensaje)
-	gmail.sendmail(remitente,destinatario,header.as_string())
-	gmail.quit()"""
-	"""print("Ok1")
-	gmail = smtplib.SMTP('smtp.gmail.com', 587)
-	gmail.starttls()
-	print("Ok2")
-	gmail.login(user, password)
-	gmail.set_debuglevel(1)
-	print("Ok3")
-	header = MIMEMultipart('related')
-	print("Ok4")
-	header['Subject'] = asunto
-	header['From'] = user
-	print("Ok5")
-	header['To'] = destinatario
-	filename = "C:\Users\Erika\Desktop\tmp\ok.pdf"
-	
-	print("Ok5SSSSLLLLLLLLLLLLLLLLL")
-	pdf = open(filename, 'rb').read()
-	msgPdf = MIMEApplication(pdf, 'pdf') # pdf for exemple
-	print("Ok5SSSS-----")
-	#msgPdf.add_header('Content-ID', '<pdf1>') # if no cid, client like MAil.app (only one?) don't show the attachment
-	#msgPdf.add_header('Content-Disposition', 'attachment', filename="options.pdf")
-	#msgPdf.add_header('Content-Disposition', 'inline', filename="options.pdf")
-	header.attach(msgPdf)
-	# Read a file and encode it into base64 format
-	#fo = open(filename, "rb")
-	gmail.sendmail(user,destinatario,header.as_string())
-	print("Ok8")
-	gmail.quit()"""
-
-
 def enviar_email_factura(user, password, asunto, destinatario, pdf, nombreDoc):
 	print("asassssssssssssssss")
 	parser = OptionParser()
@@ -92,18 +49,26 @@ def enviar_email_factura(user, password, asunto, destinatario, pdf, nombreDoc):
 	    #cd ..
 	    #pdf = open(options.pdf, 'rb').read()
 	    msgPdf = MIMEApplication(pdf, 'pdf') # pdf for exemple
+	    print("OKKK :D fine")
 	    msgPdf.add_header('Content-ID', '<pdf1>') # if no cid, client like MAil.app (only one?) don't show the attachment
+	    print("OKKK :D fine2")
 	    msgPdf.add_header('Content-Disposition', 'attachment', filename=options.pdf)
+	    print("OKKK :D fine2again")
 	    msgPdf.add_header('Content-Disposition', 'inline', filename=options.pdf)
 
 	#msgRoot.attach(msgHtml)
 	#msgRoot.attach(msgImg)
 	msgRoot.attach(msgPdf)
+	print("OKKK :D fine or wellsdsds")
 
 	# Send the message via local SMTP server.
 	s = smtplib.SMTP('smtp.gmail.com', 587)
+	print("OKKK :D fine ok")
 	s.starttls()
+	print("---"+user+"---")
+	print("---"+password+"---")
 	s.login(user, password)
+	print("OKKK :D fine or wellsdsds")
 	s.set_debuglevel(1)
 	# sendmail function takes 3 arguments: sender's address, recipient's address
 	# and message to send - here it is sent as one string.
