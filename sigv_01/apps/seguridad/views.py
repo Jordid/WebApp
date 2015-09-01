@@ -49,92 +49,90 @@ def eliminar_usuario(request, usuario_id):
 	usuarioSelec.save()
 	return redirect('usuarios')
 
-def guardar_usuario(request):
-	print("Llego :Ok")
-	per = Persona()
-	usu = Usuario()
-	cedula = request.GET['cedula'] 
-	ciu = Ciudad(pk = request.GET['ciudadId'])
-	existeP = False; existeU = False
-	try:
-		per = Persona.objects.get(cedulaPersona=cedula)
-		existeP = True
-		usu = Usuario.objects.get(personaUsuario=per)
-		existeU = True;
-	except:
-		print("No hay persona o usuario")
-
-	per.cedulaPersona = request.GET["cedula"]
-	per.apellidosPersona = request.GET["apellidos"]
-	per.nombresPersona = request.GET["nombres"]
-	per.telefonoPersona =request.GET ["telefono"]
-	per.direccionPersona =request.GET["direccion"]
-	per.emailPersona =request.GET["email"]
-	per.ciudadPersona = ciu
-	per.save()
-	estado="Activo"
-	print("Person save")
-	if existeP==False:
-		per = Persona.objects.get(cedulaPersona=cedula)
-	if existeU==True:
-		estado = request.GET['estado']
-		UsuarioRoles.objects.filter(usuarioUsuarioRoles=usu).delete()
-		print("Borro!")
-
-	usu.estadoUsuario = estado
-	usu.nickUsuario = request.GET["nick"]
-	usu.claveUsuario = request.GET["clave"]
-	usu.personaUsuario = per
-	usu.save()	
-	print("usuario guardado!")
-
-def guardar_usuario_rol(request):
-	usuAux = Usuario.objects.get( nickUsuario= request.GET['nick'])
+def guardar_usuario_nuevo(request):
+	contador = request.GET['contador']
+	print("contador: " + str(contador))
+	cedula = request.GET["cedula"]
+	print(cedula)
+	
+	if str(contador)=="1":
+		p = Persona.objects.filter(cedulaPersona=request.GET['cedula']).count()
+		print("------->CANTIDAD DE personas"+str(p))
+		ciu = Ciudad.objects.get(pk = request.GET['ciudadId'])
+		print("Mi ciudad es " + ciu.nombreCiudad)
+		if p == 0:
+			per = Persona(
+				cedulaPersona=request.GET["cedula"],
+				apellidosPersona=request.GET["apellidos"],
+				nombresPersona=request.GET["nombres"],
+				telefonoPersona=request.GET ["telefono"],
+				direccionPersona=request.GET["direccion"],
+				emailPersona=request.GET["email"],
+				ciudadPersona=ciu
+				)
+			per.save()
+		else:
+			per = Persona.objects.get(cedulaPersona=request.GET["cedula"])
+			per.cedulaPersona = request.GET["cedula"]
+			per.apellidosPersona = request.GET["apellidos"]
+			per.nombresPersona = request.GET["nombres"]
+			per.telefonoPersona =request.GET ["telefono"]
+			per.direccionPersona =request.GET["direccion"]
+			per.emailPersona =request.GET["email"]
+			per.ciudadPersona = ciu
+			per.save()
+			usu = Usuario(
+				estadoUsuario="Activo",
+				nickUsuario=request.GET["nick"],
+				claveUsuario=request.GET["clave"],
+				personaUsuario=per)
+			usu.save()	
+			print("usuario guardado!")
+	usuAux = Usuario.objects.get(nickUsuario= request.GET['nick'])
+	print("Hola")
 	rolAux = Rol.objects.get(pk=request.GET['rolId'])
-	usuRolAux = UsuarioRoles()
-	usuRolAux.usuarioUsuarioRoles = usuAux
-	usuRolAux.rolUsuarioRoles = rolAux
+	usuRolAux = UsuarioRoles(
+		usuarioUsuarioRoles=usuAux,
+		rolUsuarioRoles=rolAux
+		)
 	usuRolAux.save()
-	print("Hola :) UsuarioRol Guardado!")
 
-"""
-def guardar_usuario(request, usuario_id):
-	template = ""
-	opcion = int(str(usuario_id))
-	if opcion == 0:
-		template = "formRegistroUsuarios.html"
-	else:
-		template = "formActualizarUsuarios.html"
-	if request.POST:
-		ciu = Ciudad()
-		per = Persona()
-		usu = Usuario()
-		estado = "Activo"
-		if opcion != 0:
-			estado = request.POST["estado"]
-			per= Persona.objects.get(cedulaPersona=request.POST["cedula"])
-			usu= Usuario.objects.get(id = usuario_id)
-		
-		ciu.id = request.POST["selectbasicC"]
-		per.cedulaPersona = request.POST["cedula"]
-		per.apellidosPersona = request.POST["apellidos"]
-		per.nombresPersona = request.POST["nombres"]
-		per.telefonoPersona =request.POST ["telefono"]
-		per.direccionPersona =request.POST["direccion"]
-		per.emailPersona =request.POST["email"]
+
+def guardar_usuario_editar(request):
+	contador = request.GET['contador']
+	print("contador: " + str(contador))
+	cedula = request.GET["cedula"]
+	print(cedula)
+	
+	per = Persona.objects.get(pk=request.GET["idPersona"])
+	usuAux=Usuario.objects.get(pk= request.GET['idUsuario'])
+	if str(contador)=="1":
+		ciu = Ciudad.objects.get(pk = request.GET['ciudadId'])
+		print("Mi ciudad es " + ciu.nombreCiudad)
+		per.cedulaPersona = request.GET["cedula"]
+		per.apellidosPersona = request.GET["apellidos"]
+		per.nombresPersona = request.GET["nombres"]
+		per.telefonoPersona =request.GET ["telefono"]
+		per.direccionPersona =request.GET["direccion"]
+		per.emailPersona =request.GET["email"]
 		per.ciudadPersona = ciu
 		per.save()
+		usuAux.estadoUsuario=request.GET["estado"]
+		usuAux.nickUsuario=request.GET["nick"]
+		usuAux.claveUsuario=request.GET["clave"]
+		usuAux.save()
+		print("User save!")
+		UsuarioRoles.objects.filter(usuarioUsuarioRoles=usuAux).delete()
+		print("Borro!")
+	print("Hola")
+	rolAux = Rol.objects.get(pk=request.GET['rolId'])
+	usuRolAux = UsuarioRoles(
+		usuarioUsuarioRoles=usuAux,
+		rolUsuarioRoles=rolAux
+		)
+	usuRolAux.save()
+	print("guardo rol")
 
-		perAux = Persona.objects.get(cedulaPersona=request.POST["cedula"])
-		usu.estadoUsuario = estado
-		usu.nickUsuario = request.POST["nick"]
-		usu.claveUsuario = request.POST["clave"]
-		usu.personaUsuario = perAux
-        usu.save()
-        return redirect('usuarios')
-	returnnse(template,context_instance=RequestContext(request, locals()))
-#-------------------------------------
-"""
 #------------ Rol ---------------
 def roles(request):
 	lstRol = Rol.objects.all()
@@ -156,14 +154,28 @@ def editar_rol(request, rol_id):
 	return render(request, template, {"listaMenu": menu(request), 
 		'lstPermisos': lstPermisos, 'lstMenu': lstMenu, 'rolSelec':rolSelec})
 
-def guardar_rol(request):
-	rolAux = Rol(nombreRol = request.GET['rol'])
-	rolAux.save()
-	print("Hola :) Rol guardaado!")
+def guardar_rol_nuevo(request):
+	print("ok mmmmmm")
+	contador = request.GET['contador']
+	print("contador: " + str(contador))
+	miRol = request.GET['rol']
+	print("Rol"  +str(miRol))
+	if str(contador)=="1":
+		rolAux = Rol(
+			nombreRol=request.GET['rol']
+			)
+		rolAux.save()
+		
+	rolAux = Rol.objects.get(nombreRol = request.GET['rol'])
+	menuAux = Menu.objects.get(pk=request.GET['idMenu'])
+	permisoAux = Permisos(
+		rolPermiso=rolAux,
+		menuPermiso=menuAux
+		)
+	permisoAux.save()
+	print("Hola :) Permiso Guardado!")
 
 def guardar_rol_editar(request):
-	rolAux = Rol.objects.get(pk=request.GET['rolID'])
-	rolAux.nombreRol = request.GET['nombre']
 	rolAux.save()
 	Permisos.objects.filter(rolPermiso=rolAux).delete()
 	print("Hola :) Rol editado Guardado!")
@@ -171,17 +183,6 @@ def guardar_rol_editar(request):
 
 def guardar_permiso(request):
 	print("Hola :) Permiso 1!")
-	rolAux = Rol.objects.get(nombreRol = request.GET['rol'])
-	print("Hola :) Permiso 2!")
-	menuAux = Menu.objects.get(pk=request.GET['idMenu'])
-	print("Hola :) Permiso 3!")
-	permisoAux = Permisos()
-	print("Hola :) Permiso 4!")
-	permisoAux.rolPermiso = rolAux
-	print("Hola :) Permiso 5!")
-	permisoAux.menuPermiso = menuAux
-	permisoAux.save()
-	print("Hola :) Permiso Guardado!")
 #-------------------------------------
 
 

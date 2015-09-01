@@ -238,6 +238,18 @@
         var claveOtr = document.getElementById("txtClaveConfirme").value;
         if(clave != claveOtr)
             mensaje= mensaje+"La contraseña no coincide";
+        var tabla = document.getElementById('mitabla');
+        var existe=false;
+        for (var i = 1; tabla.rows[i];i++){
+            var row = (tabla.rows[i].getElementsByTagName('td')[2].getElementsByTagName('input')[0].checked);
+            if(row == true){
+                existe = true;
+            }
+        }
+        if (existe == false)
+        {
+            mensaje = mensaje + "Debe seleccionar al menos un rol";
+        }
         return mensaje;
     }
 
@@ -271,45 +283,56 @@
         }
     }
 
-    function guardarUsuario ( ) {
-        mensaje1 = validarDatos();
-        mensaje = validarUsuario();
-
-        if(mensaje1 != "" || mensaje!="")
-        {
-            alert(mensaje1+"\n"+mensaje);
+    function sleep(miliseconds) {
+        var currentTime = new Date().getTime();
+        while (currentTime + miliseconds >= new Date().getTime()) {
         }
-        else
-        {
-            var tabla = document.getElementById('mitabla');
-            if (tabla.rows.length >1){ 
-                $.get('/seguridad/usuario/guardar',{
-                        cedula: document.getElementById("txtBuscarPersona").value,
-                        apellidos: document.getElementById("txtApellido").value,
-                        nombres: document.getElementById("txtNombre").value,
-                        telefono:document.getElementById("txtTelefono").value,
-                        direccion:document.getElementById("txtDireccion").value,
-                        email:document.getElementById("txtEmail").value,
-                        ciudadId:document.getElementById("selectbasicC").value,
-                        nick:document.getElementById("txtNick").value, 
-                        clave:document.getElementById("txtClave").value,
-                        estado: document.getElementById("estadoBox").value,
-                });
+    }
 
-                for (var i = 1; i< tabla.rows.length;i++){
-                    var row = (tabla.rows[i].getElementsByTagName('td')[2].getElementsByTagName('input')[0].checked);
-                    if(row == true){
-                        $.get('/seguridad/usuariorol/guardar',{
+    $("#btnGuardar").click(
+        function(){
+            mensaje1 = validarDatos();
+            mensaje = validarUsuario();
+
+            if(mensaje1 != "" || mensaje!="")
+            {
+                alert(mensaje1+"\n"+mensaje);
+            }
+            else
+            {
+                var tabla = document.getElementById('mitabla');
+                var cuenta = 0;
+                var idPer = '{{usuarioSelec.personaUsuario.id}}'
+                var idUsuario ='{{usuarioSelec.id}}'
+                if (tabla.rows.length >1){ 
+                    for (var i = 1; tabla.rows[i];i++){
+                        var row = (tabla.rows[i].getElementsByTagName('td')[2].getElementsByTagName('input')[0].checked);
+                        if(row == true){
+                            cuenta = cuenta+1;
+                            $.get("{% url 'guardar_usuario_editar' %}",{
+                            contador:cuenta,
+                            cedula:document.getElementById("txtBuscarPersona").value,
+                            apellidos:document.getElementById("txtApellido").value,
+                            nombres:document.getElementById("txtNombre").value,
+                            telefono:document.getElementById("txtTelefono").value,
+                            direccion:document.getElementById("txtDireccion").value,
+                            email:document.getElementById("txtEmail").value,
+                            ciudadId:document.getElementById("selectbasicC").value,
                             nick:document.getElementById("txtNick").value, 
-                            rolId: document.getElementById('mitabla').rows[i].cells[0].innerHTML,
-                        });
+                            clave:document.getElementById("txtClave").value,
+                            rolId:document.getElementById('mitabla').rows[i].cells[0].innerHTML,
+                            estado:document.getElementById("estadoBox").value,
+                            idPersona:idPer,
+                            idUsuario:idUsuario
+                            });
+                            sleep(5000);    
+                        }
                     }
                 }
                 alert("Datos Guardados Correctamente... ")
             }
-            setTimeout("location.href='/seguridad/usuario/lista'",1000);     
+            setTimeout("location.href='{% url 'usuarios'%}'",500);     
         }
-        // body...
-    }
+    )
 </script>
 {% endblock %}
