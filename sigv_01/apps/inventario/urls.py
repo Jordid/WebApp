@@ -9,6 +9,9 @@ urlpatterns = patterns('',
     url(r'^producto/eliminar/(\d+)$', 'apps.inventario.views.eliminar_producto', name='eliminar_producto'),
 
     url(r'^kardex/lista$', 'apps.inventario.views.kardex', name='kardex'),
+    url(r'^kardex/ingreso$', 'apps.inventario.views.ingreso_kardex', name='ingreso_kardex'),
+    url(r'^kardex/salida$', 'apps.inventario.views.salida_kardex', name='salida_kardex'),
+    url(r'^kardex/guardar$', 'apps.inventario.views.guardar_kardex', name='guardar_kardex'),
 
     url(r'^categoria/lista$', 'apps.inventario.views.categorias', name='categorias'),
     url(r'^categoria/nuevo$', 'apps.inventario.views.nuevo_categoria', name='nuevo_categoria'),

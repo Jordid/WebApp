@@ -113,7 +113,7 @@ def facturas(request):
 	return render(request, template, {"listaMenu": menuLista, "lstFactura": lstFactura})
 
 def nuevo_factura(request):
-	lstProducto = Producto.objects.all()
+	lstProducto = Producto.objects.all().exclude(cantidadProducto=0)
 	lstCliente = Cliente.objects.all()
 	lstFacturaNum = Factura.objects.values_list('numeroFactura', flat=True).all().exclude(estadoFactura="Anulado")
 	dato = DatosEmpresa.objects.all()[0]
@@ -149,13 +149,13 @@ def guardar_factura(request):
 	productoId = request.GET['productoId']
 	print("productoId" + str(productoId))
 	
+	perAux = Persona.objects.get(cedulaPersona=request.GET['cliente'])
+	fecha = datetime.strptime(request.GET['fecha'], "%d/%m/%Y").date()
 	if str(contador)=="1":
-		perAux = Persona.objects.get(cedulaPersona=request.GET['cliente'])
 		print("------------------>Contador CINCO" + str(perAux.id))
 		clienteAux = Cliente.objects.get(personaCliente = perAux)
 		datosempresa = DatosEmpresa.objects.all()
 		print datosempresa
-		fecha = datetime.strptime(request.GET['fecha'], "%d/%m/%Y").date()
 		facAux = Factura(
 			numeroFactura=request.GET['numeroFactura'],
 			fechaFactura=fecha,
@@ -188,6 +188,26 @@ def guardar_factura(request):
 	detFac.productoDetalleFactura = proAux
 	detFac.save()
 	print("Hola :D Detalle")
+	obse = "(-) K Factura No. " + str(request.GET['numeroFactura'])
+	print("Save kardex1")
+	saldo = float(str(proAux.cantidadProducto)) - float(str(detFac.cantidadDetalleFactura))
+	print("Save kardex2")
+	kar = Kardex(
+			fechaKardex=fecha,
+			cantidadKardex=request.GET['cantidad'],
+			precioUnitarioKardex=request.GET['totalPro'],
+			saldoKardex=saldo,
+			razonKardex= "MENOS",
+			observacionesKardex=obse,
+			personaKardex=perAux,
+			productoKardex=proAux, 
+			)
+	kar.save();
+	print("Save kardex")
+	proAux.cantidadProducto = saldo
+	proAux.save()
+	print("Save producto")
+
 #-------------------------------------
 
 

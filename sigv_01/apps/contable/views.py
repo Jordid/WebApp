@@ -77,7 +77,7 @@ def guardar_cuenta_por_cobrar(request):
 		cuenAux.save()
 		print("Guarde cuenta!")
 	print("Hola :D 2")
-	cuentaA = CuentaCobrar.objects.filter(numeroCuentaCobrar = request.GET['numeroCuenta']).exclude(estadoCuentaCobrar="Anulado")
+	cuentaA = CuentaCobrar.objects.filter(numeroCuentaCobrar=request.GET['numeroCuenta']).exclude(estadoCuentaCobrar="Anulado")
 	print("Cantidad de mi cuenta ="+ str(len(cuenAux.count())))
 	productoA = Producto.objects.get(id = request.GET['productoId'])
 	detCuenta = DetalleCuentaCobrar(
@@ -92,13 +92,17 @@ def guardar_cuenta_por_cobrar(request):
 
 def guardar_detalle_cuenta_por_cobrar(request):
 	pass
+
 def insertar_abono_cuenta_por_cobrar(request):
+	print("OK")
 	cuentaNumero = request.GET['numeroCuenta'] 
+	print("OK2")
+	fecha=datetime.strptime(request.GET['fecha'], "%d/%m/%Y").date()
 	cuentaAux = CuentaCobrar.objects.get(numeroCuentaCobrar=cuentaNumero)
 	aboAux = AbonoCuentaCobrar()
 	aboAux.cuentaCobrarAbonoCuentaCobrar = cuentaAux
 	aboAux.numeroReciboAbonoCuentaCobrar = request.GET['numeroRecibo']
-	aboAux.fechaAbonoCuentaCobrar = request.GET['fecha']
+	aboAux.fechaAbonoCuentaCobrar = fecha
 	aboAux.montoAbonoCuentaCobrar = request.GET['monto']
 	aboAux.saldoAbonoCuentaCobrar = request.GET['saldo']
 	aboAux.save()

@@ -175,36 +175,54 @@ $(document).ready(function(){
         var descripcion = combo.options[index].text;
         var table = document.getElementById("mitabla");
         index = table.rows.length;
-        if (index <=11)
+        var canIngreOOO = (document.getElementById("cantidad").value +"").replace(",", ".");
+        var canActuaOOO = (BuscarCantidadProducto(id)+"").replace(",",".");
+        var pasa=parseFloat(canIngreOOO);
+        var pasa2=parseFloat(canActuaOOO);
+        /*
+        var canIngresada = parseFloat(document.getElementById("cantidad").value +"").replace(",", ".");
+        var miCantidad = parseFloat(BuscarCantidadProducto(id).replace(",", "."));
+        */
+        miCantidad =pasa2;
+        canIngresada=pasa;
+        if(miCantidad >= canIngresada)
         {
-        if (EstaEnTabla(id)==false)
-        {
-            var row = table.insertRow(index);
-            row.value = id;
-            var cantidadCell = row.insertCell(0);     var descripcionCell = row.insertCell(1);
-            var valorUnCell = row.insertCell(2);      var valorTotalCell = row.insertCell(3);
-            var quitarCell = row.insertCell(4);
+            if (index <=11)
+            {
+            if (EstaEnTabla(id)==false)
+            {
+                var row = table.insertRow(index);
+                row.value = id;
+                var cantidadCell = row.insertCell(0);     var descripcionCell = row.insertCell(1);
+                var valorUnCell = row.insertCell(2);      var valorTotalCell = row.insertCell(3);
+                var quitarCell = row.insertCell(4);
 
-            var cantidadAux = (document.getElementById("cantidad").value +"").replace(",", ".");
-            var valorUnAux = (BuscarPrecioProducto(id)+"").replace(",",".");
-            var valorToAux = parseFloat(cantidadAux) * parseFloat(valorUnAux);
-            var idPp = id + "";
-            cantidadCell.innerHTML = cantidadAux;
-            descripcionCell.innerHTML = descripcion;
-            valorUnCell.innerHTML = valorUnAux+"";
-            valorTotalCell.innerHTML = valorToAux+"";
-            
-            var strQuitar = "<button class='btn' type='button' onclick='EliminarFilas(this);'><span class='glyphicon glyphicon-remove'></button>";
-            quitarCell.innerHTML = strQuitar;
-            Sumartotales();
+                var cantidadAux = (document.getElementById("cantidad").value +"").replace(",", ".");
+                var valorUnAux = (BuscarPrecioProducto(id)+"").replace(",",".");
+                var valorToAux = parseFloat(cantidadAux) * parseFloat(valorUnAux);
+                var idPp = id + "";
+                cantidadCell.innerHTML = cantidadAux;
+                descripcionCell.innerHTML = descripcion;
+                valorUnCell.innerHTML = valorUnAux+"";
+                valorTotalCell.innerHTML = valorToAux+"";
+                
+                var strQuitar = "<button class='btn' type='button' onclick='EliminarFilas(this);'><span class='glyphicon glyphicon-remove'></button>";
+                quitarCell.innerHTML = strQuitar;
+                Sumartotales();
+                document.getElementById("cantidad").value="";
+            }
+            else
+            {
+                alert("Ya existe el producto en la tabla!");
+            }
+            }else
+            {
+                alert("Solo admite 11 productos!");
+            }
         }
         else
         {
-            alert("Ya existe el producto en la tabla!");
-        }
-        }else
-        {
-            alert("Solo admite 11 productos!");
+            alert("Stock Insuficiente \n Stock Act.:" + miCantidad+"")
         }
    }
 
@@ -231,6 +249,17 @@ $(document).ready(function(){
             }
         {% endfor %}
     }       
+
+    function BuscarCantidadProducto(idProducto)
+    {
+        {% for pro in lstProducto %}
+            var idPro = "{{pro.id}}";
+            if (idProducto == idPro)
+            {
+                return "{{pro.cantidadProducto}}";
+            }
+        {% endfor %}
+    }  
 
     function EliminarFilas(t)
     {
@@ -305,14 +334,6 @@ $(document).ready(function(){
 </script>
 
 <script>
-/*
-    for(var er=1; er< 4; er++)
-    {
-        sleep(5000);
-        alert("Ok");
-    }
-  */  
-    
     function sleep(miliseconds) {
            var currentTime = new Date().getTime();
 
@@ -343,6 +364,7 @@ $(document).ready(function(){
                             productoId:document.getElementById("mitabla").rows[i].value,
                             cantidad:document.getElementById("mitabla").rows[i].cells[0].innerHTML,
                             precio:document.getElementById('mitabla').rows[i].cells[2].innerHTML,
+                            totalPro:document.getElementById('mitabla').rows[i].cells[3].innerHTML,
                             cliente:document.getElementById("txtBuscarCliente").value,
                             numeroFactura:document.getElementById("txtnfactura").value,
                             contador:i,
@@ -355,11 +377,11 @@ $(document).ready(function(){
                             fecha:fechaA,
                             esCuenta:'NO',
                         });
-                        sleep(5000);
+                        alert("Guardando...");//                        sleep(5000);
                     }
                     alert("Datos Guardados Correctamente... ");
                 }
-                setTimeout("location.href='{% url 'facturas'%}'",1000);      
+                setTimeout("location.href='{% url 'facturas'%}'",2000);      
             }
         }
     )
@@ -377,6 +399,59 @@ $(document).ready(function(){
           $('input.typeahead').typeahead({
                   local: nombre
               });
+</script>
+
+<script>
+/*$(document).ready(function(){
+      $("#btnGuardar").click(
+        function(){
+            if (existeNumero())
+            {
+                alert("El numero de factura ya ha sido registrado!")
+            }
+            else
+            {
+                esCuentaAux = "NO";
+                if (document.getElementById("estadoBox").checked)
+                {
+                    esCuentaAux ="SI";
+                }  
+                var fechaA = document.getElementById("txtFecha").value;
+                var tabla = document.getElementById('mitabla');
+                if (tabla.rows.length >1){ 
+                    document.getElementById('btnGuardar').disabled = true;
+                    document.getElementById('lblEstado').innerHTML = "Guardando datos. Espere...";
+
+                    for (var i = 1; tabla.rows[i];i++){
+                        productoId:document.getElementById("mitabla").rows[i].value;
+                        cantidad:document.getElementById("mitabla").rows[i].cells[0].innerHTML;
+                        precio:document.getElementById('mitabla').rows[i].cells[2].innerHTML;
+                        cliente:document.getElementById("txtBuscarCliente").value;
+                        numeroFactura:document.getElementById("txtnfactura").value;
+                        contador:i;
+                        subtotal:document.getElementById("txtSubtotal").value,
+                        descuento:document.getElementById("txtDescuento").value,
+                        ivaCero:document.getElementById("txtIvaCero").value,
+                        ivaDoce:document.getElementById("txtIvaDoce").value,
+                        total:document.getElementById("txtTotal").value,
+                        observaciones:document.getElementById("txtObservaciones").value,
+                        fecha:fechaA,
+                        esCuenta:'NO',
+                        var data={''}
+                        $.post("{%url 'guardar_factura'%}",{
+                            
+                        },
+                        function(productoId,precio){
+                            alert("Data: " + productoId + "\nStatus: " + precio);
+                        });
+                    }
+                    alert("Datos Guardados Correctamente... ");
+                }
+                setTimeout("location.href='{% url 'facturas'%}'",1000);      
+            }
+        }
+    );
+});*/
 </script>
 
 

@@ -11,49 +11,51 @@
                 
             <div id="minavb_2" class="collapse navbar-collapse navbar-left">
                 <ul id="miulnav" class="nav navbar-nav">
-                    <li id="ilnav"><a href='{% url 'facturas'%}'>Ver</a></li>
-                    <li id="ilnav" class="active"><a href='{% url 'nuevo_factura'%}'>Nuevo</a></li>
+                    <li id="ilnav"><a href='{% url 'kardex'%}'>Ver</a></li>
+                    {%if razon == "MAS"%}
+                        <li id="ilnav" class="active"><a href='{% url 'ingreso_kardex'%}'>Ingreso</a></li>
+                        <li id="ilnav"><a href='{% url 'salida_kardex'%}'>Salida</a></li>
+                    {%else%}
+                        <li id="ilnav"><a href='{% url 'ingreso_kardex'%}'>Ingreso</a></li>
+                        <li id="ilnav" class="active"><a href='{% url 'salida_kardex'%}'>Salida</a></li>
+                    {%endif%}
                 </ul>
             </div>    
     </nav>
-
     <div class="container">
-        <form id="miform" class="form-horizontal">                
+        <form id="miform" action="{% url "guardar_kardex" %}" class="form-horizontal" method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}                   
                 <div class="form-group">
-                    <h2><label class="control-label col-md-3" for="name">Datos de la factura</label></h2> 
+                    <h2><label class="control-label col-md-3" for="name">Datos de Ingreso Kardex</label></h2> 
                 </div>
                 <hr>
 
                  <div class="form-group">
                     <label class="control-label col-md-4" for="name">Fecha:</label>
                     <div class="col-md-2">
-                        <input id="txtFecha" name="fecha" class="form-control"  type="text" placeholder="Seleccionar fecha">
+                        <input id="txtFecha" name="fecha" class="form-control"  type="text" placeholder="Seleccionar fecha" required />
                     </div>
-                    <label class="control-label col-md-2" for="name">Razon:</label>
+                    <label class="control-label col-md-1" for="name">Razon:</label>
                     <div class="col-md-2">
-                        <input class="form-control" type="text" id="txtCliente" name="cliente" placeholder="..." readonly="true" />
+                        <input class="form-control" type="text" id="txtRazon" name="razon" placeholder="..."  value="{{razon}}" required readonly />
                     </div>
                 </div>
                 <hr>
 
                 <div class="form-group">
-                    <label class="control-label col-md-4" for="name">C.C./Ruc:</label>
-                    <div class="col-md-3">
-                        <input class="form-control typeahead col-md-1" name="cc_ruc" type="text" id="txtBuscarCliente" placeholder="Buscar razón social..." autocomplete="off" />
+                    <label class="control-label col-md-4" for="name">Cédula:</label>
+                    <div class="col-md-2">
+                        <input class="form-control typeahead" name="cc_ruc" type="text" id="txtBuscarPersona" placeholder="Buscar..." autocomplete="off" required />
                     </div>
                     <div class="col-md-1">
-                        <button class="submit" type="button" onclick="mostrarCliente();"><span id="add" class="glyphicon glyphicon-ok"></span></button>  
-                    </div>                
-                    <!--<label class="control-label col-md-3" for="name">Factura #:</label>
-                    <div class="col-md-2">
-                        <input class="form-control" type="text" id="txtnfactura" name="numerofactura" placeholder="0001234" />
-                    </div>-->
+                        <button class="submit" type="button" onclick="mostrarPersona();"><span id="add" class="glyphicon glyphicon-ok"></span></button>  
+                    </div> 
                 </div>
-
                 <div class="form-group">
                     <label class="control-label col-md-4" for="name">Razón Social:</label>
                     <div class="col-md-5">
-                        <input class="form-control" type="text" id="txtCliente" name="cliente" placeholder="..." readonly="true" />
+                        <input class="form-control" type="text" id="txtCliente" name="cliente" placeholder="..." readonly="true" required />
                     </div>
                 </div>
 
@@ -76,37 +78,32 @@
                 <div class="form-group">
                     <label class="control-label col-md-4" for="name">Descripción:</label>
                     <div class="col-md-5">
-                        <input class="form-control" type="text" id ="txtDireccion" name="direccion" placeholder="..." readonly="true" />
+                        <input class="form-control" type="text" id ="txtDescripcion" name="descripcion" placeholder="..."  readonly required />
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label class="control-label col-md-4" for="name">Cantidad:</label>
                     <div class="col-md-2">
-                        <input class="form-control" type="text" id ="txtDireccion" name="direccion" placeholder="..."  />
+                        <input class="form-control" type="text" id ="txtCantidad" name="cantidad" placeholder="..." onkeyup="ale()" onkeypress="return justNumbers(event);" required pattern="^(?:\+|-)?\d+$" />
                     </div>
-                    <label class="control-label col-md-3" for="name">Precio:</label>
+                    <label class="control-label col-md-1" for="name">Precio:</label>
                     <div class="col-md-2">
-                        <input class="form-control" type="text" name="ciudad" placeholder="Pasaje" value="{{dato.ciudadDatosEmpresa.nombreCiudad    }}" readonly />
+                        <input id="txtPrecio" class="form-control" type="text" name="precio" placeholder="0.00"required readonly/>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-md-4" for="name">Saldo:</label>
-                    <div class="col-md-5">
-                        <input class="form-control" type="text" id ="txtDireccion" name="direccion" placeholder="..." readonly="true" />
+                    <div class="col-md-2">
+                        <input class="form-control" type="text" id ="txtSaldo" name="saldo" placeholder="..."  required readonly />
                     </div>
-
-                </div>
-
-            
-
-
-                
+                    <label class="control-label col-md-1" for="name">Unidades</label>
+                </div>               
                 <hr>
                 <div class="form-group">
                     <label id="lblEstado" class="control-label col-md-5" for="name"></label>
                     <div class="col-md-4">
-                        <button id="btnGuardar" class="submit" type="button" >Guardar</button>        
+                        <button id="btnGuardar" class="submit" type="submit" onclick="calcularSaldo()">Guardar</button>        
                     </div>
                 </div>  
                 <br>  
@@ -114,74 +111,63 @@
         </form>
     </div>              
 {% endblock %}
-{% block js %} 
+
+{%block js%}
+
 <script>
-$(document).ready(function(){
-    $("#basic").select2();
-    
-    $("#multi").select2({
-        placeholder: "Seleccione un producto"
+    $(document).ready(function(){
+        $("#basic").select2();
+        
+        $("#multi").select2({
+            placeholder: "Seleccione un producto"
+        });
+        
+        $("#minimum").select2({
+            minimumInputLength: 2
+        });
     });
-    
-    $("#minimum").select2({
-        minimumInputLength: 2
-    });
-});
+
+    var nombre = [];
+        var contador  = 0;
+        {% for per in lstPersona %}
+            nombre[contador]="{{per.cedulaPersona}}";
+            console.log(nombre[contador]);
+            contador=contador+1;
+        {% endfor %}    
+
+        $('input.typeahead').typeahead({
+            local: nombre
+        });
+
 </script>
 
 <script type="text/javascript">
+    var cantAux=-1;
+    var precAux=-1;
+    function justNumbers(e)
+    {
+        var keynum = window.event ? window.event.keyCode : e.which;
+        if ((keynum == 8) || (keynum == 46))
+        return true;    
+        return /\d/.test(String.fromCharCode(keynum));
+    }
+
+    function calcularSaldo(){
+        alert(Cantidad);
+    }
+
     function AgregarFila( ){
         var combo = document.getElementById("basic");
         var index = combo.selectedIndex;
         var id = combo.options[index].value;
         var descripcion = combo.options[index].text;
-        var table = document.getElementById("mitabla");
-        index = table.rows.length;
-        if (index <=11)
-        {
-        if (EstaEnTabla(id)==false)
-        {
-            var row = table.insertRow(index);
-            row.value = id;
-            var cantidadCell = row.insertCell(0);     var descripcionCell = row.insertCell(1);
-            var valorUnCell = row.insertCell(2);      var valorTotalCell = row.insertCell(3);
-            var quitarCell = row.insertCell(4);
-
-            var cantidadAux = (document.getElementById("cantidad").value +"").replace(",", ".");
-            var valorUnAux = (BuscarPrecioProducto(id)+"").replace(",",".");
-            var valorToAux = parseFloat(cantidadAux) * parseFloat(valorUnAux);
-            var idPp = id + "";
-            cantidadCell.innerHTML = cantidadAux;
-            descripcionCell.innerHTML = descripcion;
-            valorUnCell.innerHTML = valorUnAux+"";
-            valorTotalCell.innerHTML = valorToAux+"";
-            
-            var strQuitar = "<button class='btn' type='button' onclick='EliminarFilas(this);'><span class='glyphicon glyphicon-remove'></button>";
-            quitarCell.innerHTML = strQuitar;
-            Sumartotales();
-        }
-        else
-        {
-            alert("Ya existe el producto en la tabla!");
-        }
-        }else
-        {
-            alert("Solo admite 11 productos!");
-        }
+        document.getElementById("txtDescripcion").value=descripcion;
+        document.getElementById("txtCantidad").value=1;
+        precio = BuscarPrecioProducto(id);
+        document.getElementById("txtPrecio").value=precio;
+        cantAux = BuscarCantidadProducto(id);
+        precAux = BuscarPrecioProducto(id);
    }
-
-   function mostrarCliente(){
-        var cedulaBuscar=document.getElementById("txtBuscarCliente").value;
-        {% for cli in lstCliente %}
-          if("{{ cli.personaCliente.cedulaPersona }}" == cedulaBuscar){
-                var nombre = "{{cli.personaCliente.nombresPersona}}"
-                var apellido = "{{cli.personaCliente.apellidosPersona}}"
-                var direccion = "{{cli.personaCliente.direccionPersona}}"
-                document.getElementById("txtCliente").value=apellido + " " +nombre;
-                document.getElementById("txtDireccion").value=direccion;
-            }
-        {% endfor %}
-    }
 
     function BuscarPrecioProducto(idProducto)
     {
@@ -192,155 +178,78 @@ $(document).ready(function(){
                 return "{{pro.precioContadoProducto}}";
             }
         {% endfor %}
-    }       
+    }
 
-    function EliminarFilas(t)
+    function BuscarCantidadProducto(idProducto)
     {
-        var td = t.parentNode;
-        var tr = td.parentNode;
-        var table = tr.parentNode;
-        table.removeChild(tr)
-        Sumartotales()
-    }
-
-    function redondeo(numero){
-        var flotante = parseFloat(numero);
-        var resultado = Math.round(flotante*100)/100;
-        return resultado;
-    }
-
-    function Sumartotales(){
-        var tabla = document.getElementById('mitabla');
-        var total=0;
-        for(var i = 1;tabla.rows[i];i++){
-            total+= Number(tabla.rows[i].cells[3].innerHTML);
-        }
-            console.log(total);
-            LlenarCamposTotales(total);
-    }
-
-    function LlenarCamposTotales(subtotal){
-        var subAux = subtotal + "";
-        sub = Number(subAux);
-        var porDescuentoAux = document.getElementById("txtPorcentaje").value;
-        descuentoAux = parseFloat("0.00");
-        if (porDescuentoAux != "")
-        {
-            dessss = parseFloat(porDescuentoAux);
-            descuentoAux = (dessss/100)* sub;
-        }
-        else
-        {
-            document.getElementById("txtPorcentaje").value = 0;
-        }   
-
-        ivaDoceAux = sub * 0.12;
-        totalAux = sub + ivaDoceAux - descuentoAux;
-        document.getElementById("txtSubtotal").value = redondeo(sub);
-        document.getElementById("txtDescuento").value = redondeo(descuentoAux);
-        document.getElementById("txtIvaCero").value = 0;
-        document.getElementById("txtIvaDoce").value = redondeo(ivaDoceAux);
-        document.getElementById("txtTotal").value = redondeo(totalAux);
-    }
-
-    function EstaEnTabla(idProAux){
-        var tabla = document.getElementById('mitabla');
-        for(var i = 1;tabla.rows[i];i++){
-            var idRow = tabla.rows[i].value;
-            if (idRow == idProAux)
+        {% for pro in lstProducto %}
+            var idPro = "{{pro.id}}";
+            if (idProducto == idPro)
             {
-                return true;
+                return "{{pro.cantidadProducto}}";
             }
-        }
-        return false;
+        {% endfor %}
+    }            
+
+   function mostrarPersona(){
+        var cedulaBuscar=document.getElementById("txtBuscarPersona").value;
+        {% for cli in lstPersona %}
+          if("{{ cli.cedulaPersona }}" == cedulaBuscar){
+                var nombre = "{{cli.nombresPersona}}";
+                var apellido = "{{cli.apellidosPersona}}";
+                document.getElementById("txtCliente").value=apellido + " " +nombre;
+            }
+        {% endfor %}
     }
 
-    function existeNumero()
+    function ale()
     {
-        var numero = document.getElementById("txtnfactura").value;
-        {% for num in lstFacturaNum %}
-            if(numero == "{{num}}")
-                {return true;}
-        {%endfor%}
-        return false;
-    }
-</script>
-
-<script>
-/*
-    for(var er=1; er< 4; er++)
-    {
-        sleep(5000);
-        alert("Ok");
-    }
-  */  
-    
-    function sleep(miliseconds) {
-           var currentTime = new Date().getTime();
-
-           while (currentTime + miliseconds >= new Date().getTime()) {
-           }
-    }
-
-    $("#btnGuardar").click(
-        function(){
-            if (existeNumero())
+        var razA = document.getElementById("txtRazon").value;
+        var can = document.getElementById("txtCantidad").value;
+        var preEx = precAux;
+        var canEx = cantAux;
+        if(razA=="MAS")
+        {
+            if(cantAux!=-1 && can !="" && precAux!=-1)
             {
-                alert("El numero de factura ya ha sido registrado!")
+                cantActualAux = Number(can.replace(",", "."));
+                precioAux=Number(preEx.replace(",", "."));
+                cantidadAux = Number(canEx.replace(",","."));
+                saldoActualTem = cantActualAux + cantidadAux;
+                precioTem = cantActualAux * precioAux;
+                document.getElementById("txtSaldo").value=saldoActualTem;
+                document.getElementById("txtPrecio").value=precioTem;
             }
             else
             {
-                esCuentaAux = "NO";
-                if (document.getElementById("estadoBox").checked)
-                {
-                    esCuentaAux ="SI";
-                }  
-                var fechaA = document.getElementById("txtFecha").value;
-                var tabla = document.getElementById('mitabla');
-                if (tabla.rows.length >1){ 
-                    document.getElementById('btnGuardar').disabled = true;
-                    document.getElementById('lblEstado').innerHTML = "Guardando datos. Espere...";
-                    for (var i = 1; tabla.rows[i];i++){
-                        $.get("{%url 'guardar_factura'%}",{
-                            productoId:document.getElementById("mitabla").rows[i].value,
-                            cantidad:document.getElementById("mitabla").rows[i].cells[0].innerHTML,
-                            precio:document.getElementById('mitabla').rows[i].cells[2].innerHTML,
-                            cliente:document.getElementById("txtBuscarCliente").value,
-                            numeroFactura:document.getElementById("txtnfactura").value,
-                            contador:i,
-                            subtotal:document.getElementById("txtSubtotal").value,
-                            descuento:document.getElementById("txtDescuento").value,
-                            ivaCero:document.getElementById("txtIvaCero").value,
-                            ivaDoce:document.getElementById("txtIvaDoce").value,
-                            total:document.getElementById("txtTotal").value,
-                            observaciones:document.getElementById("txtObservaciones").value,
-                            fecha:fechaA,
-                            esCuenta:'NO',
-                        });
-                        sleep(5000);
-                    }
-                    alert("Datos Guardados Correctamente... ");
-                }
-                setTimeout("location.href='{% url 'facturas'%}'",1000);      
+                document.getElementById("txtCantidad").value=0;
+                document.getElementById("txtSaldo").value="";
             }
         }
-    )
+        else
+        {
+            cantActualAux = Number(can.replace(",", "."));
+            cantidadAux = Number(canEx.replace(",","."));
+            verificar = cantidadAux - cantActualAux;
+            if(cantAux!=-1 && can !="" && precAux!=-1 && verificar>=0)
+            {
+                precioAux=Number(preEx.replace(",", "."));
+                saldoActualTem = cantidadAux - cantActualAux;
+                precioTem = cantActualAux * precioAux;
+                document.getElementById("txtSaldo").value=saldoActualTem;
+                document.getElementById("txtPrecio").value=precioTem;
+            }
+            else
+            {
+                document.getElementById("txtCantidad").value=0;
+                document.getElementById("txtSaldo").value="";
+            }
+        }
+    }
 </script>
-
-<script >
-        var nombre = []
-        var contador  = 0;
-        {% for cli in lstCliente %}
-            nombre[contador]="{{cli.personaCliente.cedulaPersona}}";
-            console.log(nombre[contador]);
-            contador=contador+1;
-        {% endfor %}
-
-          $('input.typeahead').typeahead({
-                  local: nombre
-              });
+<script type="text/javascript">
+    
 </script>
-
 
 <script type="text/javascript">
             // When the document is ready
